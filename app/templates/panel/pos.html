@@ -1,0 +1,446 @@
+{% extends "base.html" %}
+
+{% block title %}POS — DG Limpieza{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/pos.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="pos-wrapper">
+
+  <!-- ── COLUMNA IZQUIERDA: buscador + resultados ── -->
+  <section class="pos-buscar">
+
+    <div class="pos-header">
+      <h1>Punto de Venta</h1>
+      <span class="pos-vendedor">{{ current_user.nombre }}</span>
+    </div>
+
+    <div class="pos-search-box">
+      <span class="search-icon">🔍</span>
+      <input
+        type="text"
+        id="buscador"
+        placeholder="Buscar producto por nombre..."
+        autocomplete="off"
+      >
+    </div>
+
+    <!-- Resultados de búsqueda — se llenan con JS -->
+    <div id="resultados" class="pos-resultados">
+      <p class="pos-hint">Escribí al menos 2 letras para buscar.</p>
+    </div>
+
+  </section>
+
+  <!-- ── COLUMNA DERECHA: carrito + cobro ── -->
+  <section class="pos-carrito">
+
+    <div class="carrito-header">
+      <h2>Carrito</h2>
+      <span id="items-count" class="badge-count">
+        {{ carrito|length }} item{{ 's' if carrito|length != 1 else '' }}
+      </span>
+    </div>
+
+    <!-- Tabla del carrito -->
+    <div class="carrito-tabla-wrapper">
+      {% if carrito %}
+      <table class="carrito-tabla" id="carrito-tabla">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Cant.</th>
+            <th>P. Unit.</th>
+            <th>Subtotal</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="carrito-body">
+          {% for clave, item in carrito.items() %}
+          <tr data-clave="{{ clave }}">
+            <td>
+              <span class="item-nombre">{{ item.nombre }}</span>
+              <span class="item-tipo-precio badge-precio-{{ item.tipo_precio }}">
+                {{ item.tipo_precio }}
+              </span>
+            </td>
+            <td>{{ item.cantidad }}</td>
+            <td>${{ "%.2f"|format(item.precio_unitario) }}</td>
+            <td class="item-subtotal">${{ "%.2f"|format(item.subtotal) }}</td>
+            <td>
+              <button class="btn-quitar" onclick="quitarItem('{{ clave }}')">✕</button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <div id="carrito-vacio" class="carrito-vacio">
+        <span class="carrito-vacio-icon">🛒</span>
+        <p>El carrito está vacío</p>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- Total -->
+    <div class="carrito-total">
+      <span>Total</span>
+      <strong id="total-display">${{ "%.2f"|format(total) }}</strong>
+    </div>
+
+    <!-- Método de pago -->
+    <div class="metodos-pago">
+      <p class="metodos-label">Método de pago</p>
+      <div class="metodos-grid">
+        {% for metodo in ['Efectivo', 'Transferencia', 'Débito', 'Crédito', 'Billetera virtual'] %}
+        <label class="metodo-btn">
+          <input type="radio" name="metodo_pago" value="{{ metodo }}">
+          <span>{{ metodo }}</span>
+        </label>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Datos del cliente (opcionales) -->
+    <div class="cliente-datos">
+      <p class="metodos-label">Cliente (opcional)</p>
+      <input type="text" id="nombre-cliente" placeholder="Nombre del cliente">
+      <input type="text" id="telefono-cliente" placeholder="Teléfono">
+    </div>
+
+    <!-- Botón confirmar -->
+    <button id="btn-confirmar" class="btn-confirmar" onclick="confirmarVenta()">
+      Confirmar venta
+    </button>
+
+  </section>
+</div>
+
+<!-- ── Modal de comprobante ── -->
+<div id="modal-comprobante" class="modal-overlay" style="display:none">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>✅ Venta registrada</h3>
+    </div>
+    <div class="modal-body">
+      <p id="comprobante-resumen"></p>
+      <div id="comprobante-items"></div>
+      <p class="comprobante-total" id="comprobante-total"></p>
+      <p class="comprobante-metodo" id="comprobante-metodo"></p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-wsp" id="btn-wsp" onclick="abrirWhatsApp()">
+        📲 Enviar por WhatsApp
+      </button>
+      <button class="btn-nueva-venta" onclick="nuevaVenta()">
+        + Nueva venta
+      </button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// ── Estado local del comprobante (para armar el mensaje WhatsApp) ────────────
+let datosComprobante = null;
+
+// ── Buscador con debounce ────────────────────────────────────────────────────
+// "Debounce" significa que esperamos 300ms después de que el usuario deja de
+// tipear antes de hacer el fetch. Sin esto, haríamos una llamada al servidor
+// por cada tecla presionada, lo cual es innecesario y lento.
+let timer;
+document.getElementById('buscador').addEventListener('input', function() {
+  clearTimeout(timer);
+  timer = setTimeout(() => buscarProductos(this.value), 300);
+});
+
+async function buscarProductos(q) {
+  const resultados = document.getElementById('resultados');
+
+  if (q.length < 2) {
+    resultados.innerHTML = '<p class="pos-hint">Escribí al menos 2 letras para buscar.</p>';
+    return;
+  }
+
+  resultados.innerHTML = '<p class="pos-hint">Buscando...</p>';
+
+  try {
+    const res  = await fetch(`/panel/pos/buscar?q=${encodeURIComponent(q)}`);
+    const data = await res.json();
+
+    if (data.length === 0) {
+      resultados.innerHTML = '<p class="pos-hint">Sin resultados.</p>';
+      return;
+    }
+
+    resultados.innerHTML = data.map(p => renderProductoCard(p)).join('');
+
+  } catch (err) {
+    resultados.innerHTML = '<p class="pos-hint error">Error al buscar.</p>';
+  }
+}
+
+// Genera el HTML de una card de resultado de búsqueda
+function renderProductoCard(p) {
+  const tieneVariantes = p.tiene_variantes && p.variantes.length > 0;
+
+  let variantesHtml = '';
+  if (tieneVariantes) {
+    variantesHtml = `
+      <select class="select-variante" id="variante-${p.id}">
+        <option value="">— Elegir variante —</option>
+        ${p.variantes.map(v =>
+          `<option value="${v.id}">${v.valor} (stock: ${v.stock})</option>`
+        ).join('')}
+      </select>`;
+  }
+
+  // Mostramos los precios disponibles
+  let preciosHtml = `<span class="precio-tag">Unidad: $${p.precio_unidad.toFixed(2)}</span>`;
+  if (p.precio_mayor) {
+    preciosHtml += `<span class="precio-tag precio-mayor">Mayor x${p.cantidad_mayor}: $${p.precio_mayor.toFixed(2)}</span>`;
+  }
+  if (p.precio_caja) {
+    preciosHtml += `<span class="precio-tag precio-caja">Caja x${p.unidades_por_caja}: $${p.precio_caja.toFixed(2)}</span>`;
+  }
+
+  return `
+    <div class="resultado-card">
+      <div class="resultado-info">
+        <span class="resultado-nombre">${p.nombre}</span>
+        <span class="resultado-stock">Stock: ${p.stock}</span>
+      </div>
+      <div class="resultado-precios">${preciosHtml}</div>
+      ${variantesHtml}
+      <div class="resultado-agregar">
+        <input type="number" class="input-cantidad" id="cant-${p.id}"
+              value="1" min="1" max="${p.stock}">
+        <button class="btn-agregar"
+                onclick="agregarAlCarrito(${p.id}, ${p.tiene_variantes}, this)">
+          Agregar
+        </button>
+      </div>
+    </div>`;
+}
+
+// ── Agregar producto al carrito ───────────────────────────────────────────────
+async function agregarAlCarrito(productoId, tieneVariantes, btn) {
+  const cantidad   = parseInt(document.getElementById(`cant-${productoId}`).value) || 1;
+  const varianteEl = document.getElementById(`variante-${productoId}`);
+  const varianteId = varianteEl ? (varianteEl.value || null) : null;
+
+  if (tieneVariantes && !varianteId) {
+    alert('Seleccioná una variante antes de agregar.');
+    return;
+  }
+
+  try {
+    const res = await fetch('/panel/pos/agregar', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ producto_id: productoId, variante_id: varianteId, cantidad })
+    });
+
+    const data = await res.json();
+
+    if (data.ok) {
+      actualizarTablaCarrito(data.carrito, data.total);
+      // Efecto visual de confirmación
+      btn.textContent = '✓ Agregado';
+      btn.style.background = 'var(--color-sky)';
+      setTimeout(() => {
+        btn.textContent = 'Agregar';
+        btn.style.background = '';
+      }, 1200);
+    }
+
+  } catch (err) {
+    alert('Error al agregar el producto.');
+  }
+}
+
+// ── Quitar item del carrito ───────────────────────────────────────────────────
+async function quitarItem(clave) {
+  const res  = await fetch('/panel/pos/quitar', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ clave })
+  });
+  const data = await res.json();
+
+  if (data.ok) {
+    actualizarTablaCarrito(null, data.total, clave);
+  }
+}
+
+// ── Actualizar la tabla del carrito con los datos devueltos por el servidor ──
+function actualizarTablaCarrito(carrito, total, claveQuitada = null) {
+  const body  = document.getElementById('carrito-body');
+  const vacio = document.getElementById('carrito-vacio');
+  const count = document.getElementById('items-count');
+
+  if (claveQuitada && body) {
+    // Quitamos solo la fila del item eliminado
+    const fila = body.querySelector(`tr[data-clave="${claveQuitada}"]`);
+    if (fila) fila.remove();
+  } else if (carrito) {
+    // Reconstruimos la tabla completa
+    const claves = Object.keys(carrito);
+
+    if (claves.length === 0) {
+      // Si quedó vacío, mostramos el mensaje vacío
+      if (body) body.closest('table')?.remove();
+      const wrapper = document.querySelector('.carrito-tabla-wrapper');
+      if (wrapper && !document.getElementById('carrito-vacio')) {
+        wrapper.innerHTML = `
+          <div id="carrito-vacio" class="carrito-vacio">
+            <span class="carrito-vacio-icon">🛒</span>
+            <p>El carrito está vacío</p>
+          </div>`;
+      }
+    } else {
+      // Si ya hay tabla, la actualizamos; si no, la creamos
+      let tabla = document.getElementById('carrito-tabla');
+      if (!tabla) {
+        const wrapper = document.querySelector('.carrito-tabla-wrapper');
+        wrapper.innerHTML = `
+          <table class="carrito-tabla" id="carrito-tabla">
+            <thead>
+              <tr>
+                <th>Producto</th><th>Cant.</th>
+                <th>P. Unit.</th><th>Subtotal</th><th></th>
+              </tr>
+            </thead>
+            <tbody id="carrito-body"></tbody>
+          </table>`;
+      }
+
+      document.getElementById('carrito-body').innerHTML = claves.map(clave => {
+        const item = carrito[clave];
+        return `
+          <tr data-clave="${clave}">
+            <td>
+              <span class="item-nombre">${item.nombre}</span>
+              <span class="item-tipo-precio badge-precio-${item.tipo_precio}">${item.tipo_precio}</span>
+            </td>
+            <td>${item.cantidad}</td>
+            <td>$${item.precio_unitario.toFixed(2)}</td>
+            <td class="item-subtotal">$${item.subtotal.toFixed(2)}</td>
+            <td><button class="btn-quitar" onclick="quitarItem('${clave}')">✕</button></td>
+          </tr>`;
+      }).join('');
+    }
+  }
+
+  // Actualizar total y contador
+  document.getElementById('total-display').textContent = `$${total.toFixed(2)}`;
+  const itemsActuales = document.querySelectorAll('#carrito-body tr').length;
+  if (count) count.textContent = `${itemsActuales} item${itemsActuales !== 1 ? 's' : ''}`;
+}
+
+// ── Confirmar venta ───────────────────────────────────────────────────────────
+async function confirmarVenta() {
+  const metodoEl = document.querySelector('input[name="metodo_pago"]:checked');
+
+  if (!metodoEl) {
+    alert('Seleccioná un método de pago.');
+    return;
+  }
+
+  const carrito = document.querySelectorAll('#carrito-body tr');
+  if (carrito.length === 0) {
+    alert('El carrito está vacío.');
+    return;
+  }
+
+  const btn = document.getElementById('btn-confirmar');
+  btn.disabled = true;
+  btn.textContent = 'Procesando...';
+
+  try {
+    const res = await fetch('/panel/pos/confirmar', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        metodo_pago: metodoEl.value,
+        nombre_cliente: document.getElementById('nombre-cliente').value,
+        telefono_cliente: document.getElementById('telefono-cliente').value
+      })
+    });
+
+    const data = await res.json();
+
+    if (data.ok) {
+      datosComprobante = data;
+      mostrarComprobante(data);
+    } else {
+      alert('Error: ' + data.error);
+      btn.disabled = false;
+      btn.textContent = 'Confirmar venta';
+    }
+
+  } catch (err) {
+    alert('Error al procesar la venta.');
+    btn.disabled = false;
+    btn.textContent = 'Confirmar venta';
+  }
+}
+
+// ── Mostrar modal de comprobante ──────────────────────────────────────────────
+function mostrarComprobante(data) {
+  document.getElementById('comprobante-resumen').textContent =
+    data.nombre_cliente ? `Cliente: ${data.nombre_cliente}` : 'Venta sin nombre de cliente';
+
+  document.getElementById('comprobante-items').innerHTML =
+    data.items.map(i =>
+      `<div class="comprobante-item">
+        <span>${i.nombre} x${i.cantidad}</span>
+        <span>$${i.subtotal.toFixed(2)}</span>
+      </div>`
+    ).join('');
+
+  document.getElementById('comprobante-total').textContent  = `Total: $${data.total.toFixed(2)}`;
+  document.getElementById('comprobante-metodo').textContent = `Pago: ${data.metodo_pago}`;
+
+  document.getElementById('modal-comprobante').style.display = 'flex';
+}
+
+// ── Armar y abrir mensaje de WhatsApp ────────────────────────────────────────
+function abrirWhatsApp() {
+  if (!datosComprobante) return;
+
+  const d = datosComprobante;
+
+  let msg = `🧾 *Comprobante de venta — DG Limpieza*\n`;
+  msg += `📋 *Venta #${d.venta_id}*\n\n`;
+
+  if (d.nombre_cliente) msg += `👤 Cliente: ${d.nombre_cliente}\n`;
+  if (d.telefono_cliente) msg += `📞 Teléfono: ${d.telefono_cliente}\n`;
+  if (d.nombre_cliente || d.telefono_cliente) msg += `\n`;
+
+  msg += `📦 *Productos*\n`;
+  d.items.forEach(i => {
+    msg += `• ${i.nombre} x${i.cantidad} = $${i.subtotal.toFixed(2)}\n`;
+  });
+
+  msg += `\n💰 *Total: $${d.total.toFixed(2)}*\n`;
+  msg += `💳 Forma de pago: ${d.metodo_pago}\n`;
+  msg += `\n_Gracias por su compra — DG Limpieza_`;
+
+  // Obtenemos el número de WhatsApp de la config de la tienda
+  // Por ahora usamos un placeholder — en el Sprint 4 lo conectamos a StoreConfig
+  const numero = '5493511234567';
+  const url = `https://wa.me/${numero}?text=${encodeURIComponent(msg)}`;
+  window.open(url, '_blank');
+}
+
+// ── Nueva venta ───────────────────────────────────────────────────────────────
+function nuevaVenta() {
+  // Recargamos la página para limpiar todo y empezar una venta nueva
+  window.location.reload();
+}
+</script>
+{% endblock %}

@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+
+{% block title %}Productos — Admin DG Limpieza{% endblock %}
+
+{% block content %}
+<div class="admin-page">
+
+  <!-- ── Header ──────────────────────────────────────────────────────── -->
+  <div class="admin-header">
+    <div class="admin-header-left">
+      <h1>Productos</h1>
+      <p class="admin-subtitle">Administrá el catálogo completo</p>
+    </div>
+    <a href="{{ url_for('admin.producto_nuevo') }}" class="btn btn-primary">
+      + Nuevo producto
+    </a>
+  </div>
+
+  <!-- ── Badges de estado ────────────────────────────────────────────── -->
+  <div class="admin-stats-row">
+    <div class="admin-stat">
+      <span class="admin-stat-num">{{ total_activos }}</span>
+      <span class="admin-stat-label">activos</span>
+    </div>
+    <div class="admin-stat admin-stat--warn">
+      <span class="admin-stat-num">{{ stock_bajo }}</span>
+      <span class="admin-stat-label">stock bajo</span>
+    </div>
+    <div class="admin-stat admin-stat--danger">
+      <span class="admin-stat-num">{{ sin_stock }}</span>
+      <span class="admin-stat-label">sin stock</span>
+    </div>
+    <div class="admin-stat admin-stat--muted">
+      <span class="admin-stat-num">{{ total_inactivos }}</span>
+      <span class="admin-stat-label">inactivos</span>
+    </div>
+  </div>
+
+  <!-- ── Filtros ─────────────────────────────────────────────────────── -->
+  <form method="GET" class="admin-filters">
+    <input
+      type="text"
+      name="q"
+      value="{{ busqueda }}"
+      placeholder="Buscar por nombre…"
+      class="admin-input"
+    >
+    <select name="categoria" class="admin-select">
+      <option value="">Todas las categorías</option>
+      {% for cat in categorias %}
+        <option value="{{ cat.slug }}" {% if cat.slug == categoria_sel %}selected{% endif %}>
+          {{ cat.nombre }}
+        </option>
+      {% endfor %}
+    </select>
+    <select name="mostrar" class="admin-select">
+      <option value="activos"   {% if mostrar == 'activos'   %}selected{% endif %}>Solo activos</option>
+      <option value="inactivos" {% if mostrar == 'inactivos' %}selected{% endif %}>Solo inactivos</option>
+      <option value="stock_bajo" {% if mostrar == 'stock_bajo' %}selected{% endif %}>Stock bajo ⚠️</option>
+      <option value="sin_stock"  {% if mostrar == 'sin_stock'  %}selected{% endif %}>Sin stock 🚫</option>
+      <option value="todos"     {% if mostrar == 'todos'     %}selected{% endif %}>Todos</option>
+    </select>
+    <button type="submit" class="btn btn-secondary">Filtrar</button>
+    {% if busqueda or categoria_sel or mostrar != 'activos' %}
+      <a href="{{ url_for('admin.productos') }}" class="btn btn-ghost">Limpiar</a>
+    {% endif %}
+  </form>
+
+  <!-- ── Tabla ───────────────────────────────────────────────────────── -->
+  {% if productos %}
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Categorías</th>
+          <th class="text-right">Precio unidad</th>
+          <th class="text-center">Stock</th>
+          <th class="text-center">Estado</th>
+          <th class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in productos %}
+        <tr class="{% if not p.activo %}row-inactivo{% elif p.sin_stock %}row-sin-stock{% elif p.stock_bajo %}row-stock-bajo{% endif %}">
+
+          <!-- Nombre + imagen -->
+          <td>
+            <div class="prod-info">
+              {% if p.imagen_url %}
+                <img src="{{ p.imagen_url }}" alt="{{ p.nombre }}" class="prod-thumb">
+              {% else %}
+                <div class="prod-thumb prod-thumb--empty">📦</div>
+              {% endif %}
+              <div>
+                <strong>{{ p.nombre }}</strong>
+                {% if p.tiene_variantes %}
+                  <span class="badge badge-outline">{{ p.variantes|length }} variantes</span>
+                {% endif %}
+              </div>
+            </div>
+          </td>
+
+          <!-- Categorías -->
+          <td>
+            {% for cat in p.categorias %}
+              <span class="badge badge-cat">{{ cat.nombre }}</span>
+            {% else %}
+              <span class="text-muted">—</span>
+            {% endfor %}
+          </td>
+
+          <!-- Precio -->
+          <td class="text-right">
+            ${{ "%.0f"|format(p.precio_unidad) }}
+            {% if p.precio_mayor %}
+              <br><small class="text-muted">Mayor: ${{ "%.0f"|format(p.precio_mayor) }}</small>
+            {% endif %}
+          </td>
+
+          <!-- Stock -->
+          <td class="text-center">
+            {% if p.sin_stock %}
+              <span class="badge badge-danger">Sin stock</span>
+            {% elif p.stock_bajo %}
+              <span class="badge badge-warn">{{ p.stock }} ⚠️</span>
+            {% else %}
+              <span class="badge badge-ok">{{ p.stock }}</span>
+            {% endif %}
+          </td>
+
+          <!-- Estado -->
+          <td class="text-center">
+            {% if p.activo %}
+              <span class="badge badge-ok">Activo</span>
+            {% else %}
+              <span class="badge badge-muted">Inactivo</span>
+            {% endif %}
+          </td>
+
+          <!-- Acciones -->
+          <td class="text-center">
+            <div class="action-btns">
+              <a href="{{ url_for('admin.producto_editar', id=p.id) }}"
+                class="btn btn-sm btn-secondary" title="Editar">✏️</a>
+
+              <form method="POST"
+                    action="{{ url_for('admin.producto_toggle', id=p.id) }}"
+                    style="display:inline"
+                    onsubmit="return confirm('¿Confirmás {{ 'desactivar' if p.activo else 'activar' }} este producto?')">
+                <button type="submit"
+                        class="btn btn-sm {{ 'btn-danger' if p.activo else 'btn-ghost' }}"
+                        title="{{ 'Desactivar' if p.activo else 'Activar' }}">
+                  {{ '🚫' if p.activo else '✅' }}
+                </button>
+              </form>
+            </div>
+          </td>
+
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% else %}
+  <div class="admin-empty">
+    <p>No se encontraron productos con esos filtros.</p>
+    <a href="{{ url_for('admin.producto_nuevo') }}" class="btn btn-primary">
+      + Crear el primero
+    </a>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}
+
+
+{% block styles %}
+<style>
+/* Ancho mínimo del input de búsqueda en el filtro */
+.admin-filters .admin-input { min-width: 220px; }
+
+/* Estados especiales de filas de la tabla */
+.row-sin-stock td:nth-child(4) { background: #fff1f1; }
+.row-stock-bajo td:nth-child(4) { background: #fffbeb; }
+</style>
+{% endblock %}

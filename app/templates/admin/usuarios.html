@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}Usuarios{% endblock %}
+
+{% block content %}
+<div class="admin-header">
+  <h1>Usuarios</h1>
+  <a href="{{ url_for('admin.usuario_nuevo') }}" class="admin-btn">+ Nuevo usuario</a>
+</div>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% for category, message in messages %}
+    <div class="flash flash-{{ category }}">{{ message }}</div>
+  {% endfor %}
+{% endwith %}
+
+<div class="admin-card">
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Rol</th>
+        <th>Estado</th>
+        <th>Creado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for u in usuarios %}
+      <tr class="{{ 'row-inactivo' if not u.activo }}">
+        <td>{{ u.nombre }}</td>
+        <td>{{ u.email }}</td>
+        <td>
+          <span class="badge-rol badge-{{ u.rol }}">{{ u.rol }}</span>
+        </td>
+        <td>
+          {% if u.activo %}
+            <span class="badge-stock-ok">Activo</span>
+          {% else %}
+            <span class="badge-sin-stock">Inactivo</span>
+          {% endif %}
+        </td>
+        <td>{{ u.creado_en.strftime('%d/%m/%Y') }}</td>
+        <td class="acciones">
+          <a href="{{ url_for('admin.usuario_editar', id=u.id) }}" class="admin-btn admin-btn-sm">Editar</a>
+
+          {% if u.id != current_user.id %}
+          <form method="POST" action="{{ url_for('admin.usuario_toggle', id=u.id) }}" style="display:inline">
+            <button type="submit" class="admin-btn admin-btn-sm {{ 'btn-danger' if u.activo else 'btn-ok' }}"
+              onclick="return confirm('¿Seguro?')">
+              {{ 'Desactivar' if u.activo else 'Activar' }}
+            </button>
+          </form>
+          {% else %}
+            <span class="admin-label-muted">Sos vos</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="6" class="text-center">No hay usuarios.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

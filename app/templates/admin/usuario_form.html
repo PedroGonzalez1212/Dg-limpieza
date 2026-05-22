@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}{{ 'Editar usuario' if usuario else 'Nuevo usuario' }}{% endblock %}
+
+{% block content %}
+<div class="admin-header">
+  <h1>{{ 'Editar usuario' if usuario else 'Nuevo usuario' }}</h1>
+  <a href="{{ url_for('admin.usuarios') }}" class="admin-btn admin-btn-secondary">← Volver</a>
+</div>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% for category, message in messages %}
+    <div class="flash flash-{{ category }}">{{ message }}</div>
+  {% endfor %}
+{% endwith %}
+
+<div class="admin-card" style="max-width: 500px;">
+  <form method="POST">
+
+    <div class="form-group">
+      <label class="admin-label">Nombre completo</label>
+      <input type="text" name="nombre" class="admin-input"
+        value="{{ usuario.nombre if usuario else '' }}" required>
+    </div>
+
+    <div class="form-group">
+      <label class="admin-label">Email</label>
+      <input type="email" name="email" class="admin-input"
+        value="{{ usuario.email if usuario else '' }}" required>
+    </div>
+
+    <div class="form-group">
+      <label class="admin-label">
+        Contraseña {% if usuario %}<span class="admin-label-muted">(dejá vacío para no cambiarla)</span>{% endif %}
+      </label>
+      <input type="password" name="password" class="admin-input"
+        {{ 'required' if not usuario }}>
+    </div>
+
+    <div class="form-group">
+      <label class="admin-label">Rol</label>
+      <select name="rol" class="admin-select">
+        <option value="vendedor" {{ 'selected' if usuario and usuario.rol == 'vendedor' }}>Vendedor</option>
+        <option value="admin"    {{ 'selected' if usuario and usuario.rol == 'admin' }}>Admin</option>
+      </select>
+    </div>
+
+    <div style="display:flex; gap: 1rem; margin-top: 1.5rem;">
+      <button type="submit" class="admin-btn">
+        {{ 'Guardar cambios' if usuario else 'Crear usuario' }}
+      </button>
+      <a href="{{ url_for('admin.usuarios') }}" class="admin-btn admin-btn-secondary">Cancelar</a>
+    </div>
+
+  </form>
+</div>
+{% endblock %}

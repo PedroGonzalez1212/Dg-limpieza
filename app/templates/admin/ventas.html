@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block title %}Ventas — Admin DG Limpieza{% endblock %}
+
+{% block content %}
+<div class="admin-page">
+
+  <!-- ── Header ──────────────────────────────────────────────────────── -->
+  <div class="admin-header">
+    <div class="admin-header-left">
+      <h1>Historial de ventas</h1>
+      <p class="admin-subtitle">
+        {% if total_ventas == 0 %}
+          Sin ventas en el período seleccionado
+        {% else %}
+          {{ total_ventas }} venta{{ 's' if total_ventas != 1 }} · Total: <strong>${{ "%.2f"|format(monto_total) }}</strong>
+        {% endif %}
+      </p>
+    </div>
+  </div>
+
+  <!-- ── Filtros ──────────────────────────────────────────────────────── -->
+  <form method="GET" class="admin-filters">
+    <input
+      type="text"
+      name="q"
+      value="{{ busqueda }}"
+      placeholder="Buscar cliente…"
+      class="admin-input"
+    >
+    <input
+      type="date"
+      name="desde"
+      value="{{ desde }}"
+      class="admin-input"
+      title="Desde"
+    >
+    <input
+      type="date"
+      name="hasta"
+      value="{{ hasta }}"
+      class="admin-input"
+      title="Hasta"
+    >
+    <select name="tipo" class="admin-select">
+      <option value="">Todos los tipos</option>
+      <option value="pos"      {% if tipo == 'pos'      %}selected{% endif %}>🖥️ POS</option>
+      <option value="whatsapp" {% if tipo == 'whatsapp' %}selected{% endif %}>📱 WhatsApp</option>
+    </select>
+    <select name="metodo_pago" class="admin-select">
+      <option value="">Todos los métodos</option>
+      {% for m in metodos_disponibles %}
+        <option value="{{ m }}" {% if metodo_pago == m %}selected{% endif %}>{{ m | capitalize }}</option>
+      {% endfor %}
+    </select>
+    <button type="submit" class="btn btn-secondary">Filtrar</button>
+    <a href="{{ url_for('admin.ventas') }}" class="btn btn-ghost">Limpiar</a>
+  </form>
+
+  <!-- ── Tabla ────────────────────────────────────────────────────────── -->
+  {% if ventas %}
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Fecha</th>
+          <th>Cliente</th>
+          <th>Tipo</th>
+          <th>Método de pago</th>
+          <th class="text-right">Total</th>
+          <th>Vendedor</th>
+          <th class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for venta in ventas %}
+        <tr>
+          <td><span class="text-muted">#{{ venta.id }}</span></td>
+          <td>
+            {{ venta.creado_en.strftime('%d/%m/%Y') }}<br>
+            <small class="text-muted">{{ venta.creado_en.strftime('%H:%M') }}</small>
+          </td>
+          <td>
+            {% if venta.nombre_cliente %}
+              <strong>{{ venta.nombre_cliente }}</strong>
+              {% if venta.telefono_cliente %}
+                <br><small class="text-muted">{{ venta.telefono_cliente }}</small>
+              {% endif %}
+            {% else %}
+              <span class="text-muted">—</span>
+            {% endif %}
+          </td>
+          <td>
+            {% if venta.tipo == 'pos' %}
+              <span class="badge badge-outline">🖥️ POS</span>
+            {% else %}
+              <span class="badge badge-ok">📱 WhatsApp</span>
+            {% endif %}
+          </td>
+          <td>{{ venta.metodo_pago | capitalize if venta.metodo_pago else '—' }}</td>
+          <td class="text-right"><strong>${{ "%.2f"|format(venta.total | float) }}</strong></td>
+          <td><small class="text-muted">{{ venta.usuario.nombre }}</small></td>
+          <td class="text-center">
+            <a href="{{ url_for('admin.venta_detalle', id=venta.id) }}" class="btn btn-sm btn-secondary">
+              Ver →
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% else %}
+  <div class="admin-empty">
+    <p>No se encontraron ventas con esos filtros.</p>
+    <a href="{{ url_for('admin.ventas') }}" class="btn btn-ghost">Limpiar filtros</a>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}
+
+
+{% block styles %}
+<style>
+.admin-filters .admin-input { min-width: 180px; }
+</style>
+{% endblock %}

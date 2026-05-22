@@ -1,0 +1,416 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ 'Editar' if accion == 'editar' else 'Nuevo' }} producto — Admin
+{% endblock %}
+
+{% block content %}
+<div class="admin-page">
+
+  <!-- ── Header ──────────────────────────────────────────────────────── -->
+  <div class="admin-header">
+    <div class="admin-header-left">
+      <a href="{{ url_for('admin.productos') }}" class="back-link">← Volver a productos</a>
+      <h1>{{ 'Editar producto' if accion == 'editar' else 'Nuevo producto' }}</h1>
+    </div>
+  </div>
+
+  <!-- ── Mensajes flash ──────────────────────────────────────────────── -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for cat, msg in messages %}
+      <div class="flash flash-{{ cat }}">{{ msg }}</div>
+    {% endfor %}
+  {% endwith %}
+
+  <!-- ── Formulario ──────────────────────────────────────────────────── -->
+  <form
+    method="POST"
+    action="{{ url_for('admin.producto_editar', id=producto.id) if accion == 'editar' else url_for('admin.producto_nuevo') }}"
+    class="admin-form"
+    id="productoForm"
+  >
+
+    <!-- ─── Sección: datos básicos ─────────────────────────────────── -->
+    <div class="form-section">
+      <h2 class="form-section-title">Datos básicos</h2>
+
+      <div class="form-row">
+        <div class="form-group form-group--wide">
+          <label for="nombre">Nombre del producto <span class="req">*</span></label>
+          <input type="text" id="nombre" name="nombre"
+                value="{{ producto.nombre if producto else '' }}"
+                required class="form-input" placeholder="Ej: Lavandina 5 litros">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group form-group--wide">
+          <label for="descripcion">Descripción</label>
+          <textarea id="descripcion" name="descripcion" rows="3"
+                    class="form-input"
+                    placeholder="Descripción del producto, características, usos…">{{ producto.descripcion if producto else '' }}</textarea>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group form-group--wide">
+          <label for="imagen_url">URL de imagen</label>
+          <input type="url" id="imagen_url" name="imagen_url"
+                value="{{ producto.imagen_url if producto else '' }}"
+                class="form-input" placeholder="https://…">
+          <!-- Preview de imagen -->
+          <div id="imgPreview" class="img-preview" style="display:none">
+            <img id="imgPreviewEl" src="" alt="Preview">
+          </div>
+        </div>
+      </div>
+
+      <!-- Categorías -->
+      <div class="form-group">
+        <label>Categorías</label>
+        <div class="checkbox-grid">
+          {% for cat in categorias %}
+          <label class="checkbox-item">
+            <input type="checkbox" name="categorias" value="{{ cat.id }}"
+              {% if producto and cat in producto.categorias %}checked{% endif %}>
+            {{ cat.nombre }}
+          </label>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Sección: precios ────────────────────────────────────────── -->
+    <div class="form-section">
+      <h2 class="form-section-title">Precios</h2>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="precio_unidad">Precio por unidad <span class="req">*</span></label>
+          <div class="input-prefix">
+            <span>$</span>
+            <input type="number" id="precio_unidad" name="precio_unidad"
+                  value="{{ producto.precio_unidad if producto else '' }}"
+                  step="0.01" min="0" required class="form-input">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="precio_mayor">
+            Precio por mayor
+            <span class="label-hint">(opcional)</span>
+          </label>
+          <div class="input-prefix">
+            <span>$</span>
+            <input type="number" id="precio_mayor" name="precio_mayor"
+                  value="{{ producto.precio_mayor if producto and producto.precio_mayor else '' }}"
+                  step="0.01" min="0" class="form-input">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="cantidad_mayor">
+            Cant. mínima para mayor
+          </label>
+          <input type="number" id="cantidad_mayor" name="cantidad_mayor"
+                value="{{ producto.cantidad_mayor if producto and producto.cantidad_mayor else '' }}"
+                min="1" class="form-input" placeholder="Ej: 6">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="precio_caja">
+            Precio por caja
+            <span class="label-hint">(precio/unidad en caja cerrada)</span>
+          </label>
+          <div class="input-prefix">
+            <span>$</span>
+            <input type="number" id="precio_caja" name="precio_caja"
+                  value="{{ producto.precio_caja if producto and producto.precio_caja else '' }}"
+                  step="0.01" min="0" class="form-input">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="unidades_por_caja">Unidades por caja</label>
+          <input type="number" id="unidades_por_caja" name="unidades_por_caja"
+                value="{{ producto.unidades_por_caja if producto and producto.unidades_por_caja else '' }}"
+                min="1" class="form-input" placeholder="Ej: 12">
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Sección: stock ──────────────────────────────────────────── -->
+    <div class="form-section">
+      <h2 class="form-section-title">Stock</h2>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="stock">Stock actual</label>
+          <input type="number" id="stock" name="stock"
+                value="{{ producto.stock if producto else 0 }}"
+                min="0" class="form-input">
+          {% if accion == 'editar' %}
+            <p class="form-hint">⚠️ Cambiar este número registra un movimiento de stock automáticamente.</p>
+          {% endif %}
+        </div>
+
+        <div class="form-group">
+          <label for="stock_minimo">Stock mínimo (alerta)</label>
+          <input type="number" id="stock_minimo" name="stock_minimo"
+                value="{{ producto.stock_minimo if producto else 5 }}"
+                min="0" class="form-input">
+          <p class="form-hint">Se muestra badge de advertencia cuando el stock baja de este número.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Sección: variantes ──────────────────────────────────────── -->
+    <div class="form-section">
+      <h2 class="form-section-title">Variantes</h2>
+
+      <label class="toggle-label">
+        <input type="checkbox" id="tieneVariantes" name="tiene_variantes"
+              {% if producto and producto.tiene_variantes %}checked{% endif %}>
+        <span class="toggle-text">Este producto tiene variantes (fragancias, tamaños, etc.)</span>
+      </label>
+
+      <div id="variantesSection"
+          style="{{ '' if (producto and producto.tiene_variantes) else 'display:none' }}">
+        <div class="variantes-header">
+          <span>Tipo</span>
+          <span>Valor</span>
+          <span>Stock</span>
+          <span>Precio extra</span>
+          <span></span>
+        </div>
+        <div id="variantesList">
+          {% if producto and producto.variantes %}
+            {% for v in producto.variantes %}
+            <div class="variante-row">
+              <input type="text" name="variante_nombre" value="{{ v.nombre }}"
+                    placeholder="Ej: Fragancia" class="form-input">
+              <input type="text" name="variante_valor" value="{{ v.valor }}"
+                    placeholder="Ej: Lavanda" class="form-input">
+              <input type="number" name="variante_stock" value="{{ v.stock }}"
+                    min="0" class="form-input">
+              <div class="input-prefix">
+                <span>$</span>
+                <input type="number" name="variante_precio_extra"
+                      value="{{ v.precio_extra }}"
+                      step="0.01" min="0" class="form-input">
+              </div>
+              <button type="button" class="btn btn-sm btn-danger remove-variante">✕</button>
+            </div>
+            {% endfor %}
+          {% endif %}
+        </div>
+        <button type="button" id="addVariante" class="btn btn-ghost btn-sm" style="margin-top:0.5rem">
+          + Agregar variante
+        </button>
+      </div>
+    </div>
+
+    <!-- ─── Acciones ────────────────────────────────────────────────── -->
+    <div class="form-actions">
+      <a href="{{ url_for('admin.productos') }}" class="btn btn-ghost">Cancelar</a>
+      <button type="submit" class="btn btn-primary">
+        {{ 'Guardar cambios' if accion == 'editar' else 'Crear producto' }}
+      </button>
+    </div>
+
+  </form>
+</div>
+{% endblock %}
+
+
+{% block styles %}
+<style>
+.admin-page { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem; }
+.admin-header { margin-bottom: 1.5rem; }
+.back-link { color: var(--color-sky); text-decoration: none; font-size: 0.875rem; display: block; margin-bottom: 0.4rem; }
+.back-link:hover { text-decoration: underline; }
+.admin-header h1 { font-size: 1.75rem; color: var(--color-navy); margin: 0; }
+
+/* ── Secciones del formulario ─────────────────────────────────── */
+.form-section {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+.form-section-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-navy);
+  margin: 0 0 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--color-sky);
+}
+
+/* ── Filas y grupos ───────────────────────────────────────────── */
+.form-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.35rem; flex: 1; min-width: 180px; }
+.form-group--wide { flex: 100%; }
+
+label { font-size: 0.875rem; font-weight: 600; color: #374151; }
+.label-hint { font-weight: 400; color: #9ca3af; font-size: 0.8rem; }
+.req { color: #ef4444; }
+
+.form-input {
+  padding: 0.55rem 0.85rem;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: var(--color-navy);
+  transition: border-color 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+.form-input:focus { outline: none; border-color: var(--color-sky); }
+textarea.form-input { resize: vertical; }
+
+.input-prefix { display: flex; align-items: center; }
+.input-prefix span {
+  background: #f3f4f6;
+  border: 1.5px solid #d1d5db;
+  border-right: none;
+  padding: 0.55rem 0.7rem;
+  border-radius: 8px 0 0 8px;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+.input-prefix .form-input { border-radius: 0 8px 8px 0; }
+
+.form-hint { font-size: 0.78rem; color: #9ca3af; margin: 0.25rem 0 0; }
+
+/* ── Checkboxes de categorías ─────────────────────────────────── */
+.checkbox-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.25rem; }
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #f9fafb;
+  border: 1.5px solid #e5e7eb;
+  padding: 0.4rem 0.85rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.checkbox-item:has(input:checked) { border-color: var(--color-sky); background: #f0fdfb; }
+
+/* ── Toggle variantes ─────────────────────────────────────────── */
+.toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+.toggle-label input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--color-sky); }
+.toggle-text { font-weight: 500; color: #374151; }
+
+/* ── Filas de variantes ───────────────────────────────────────── */
+.variantes-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 90px 120px 40px;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.variante-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 90px 120px 40px;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+/* ── Acciones finales ─────────────────────────────────────────── */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding-top: 0.5rem;
+}
+
+/* ── Preview de imagen ────────────────────────────────────────── */
+.img-preview { margin-top: 0.75rem; }
+.img-preview img { max-width: 140px; max-height: 140px; border-radius: 8px; border: 1px solid #e5e7eb; object-fit: cover; }
+
+@media (max-width: 640px) {
+  .variantes-header, .variante-row { grid-template-columns: 1fr 1fr; }
+  .variantes-header span:nth-child(3),
+  .variantes-header span:nth-child(4),
+  .variantes-header span:nth-child(5),
+  .variante-row input:nth-child(3),
+  .variante-row div:nth-child(4),
+  .variante-row button { display: none; }
+}
+</style>
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+// ── Preview de imagen ─────────────────────────────────────────────────────
+const imgInput   = document.getElementById('imagen_url');
+const imgPreview = document.getElementById('imgPreview');
+const imgEl      = document.getElementById('imgPreviewEl');
+
+function actualizarPreview() {
+  const url = imgInput.value.trim();
+  if (url) {
+    imgEl.src = url;
+    imgPreview.style.display = 'block';
+  } else {
+    imgPreview.style.display = 'none';
+  }
+}
+imgInput.addEventListener('input', actualizarPreview);
+actualizarPreview(); // corre al cargar si ya tiene valor (modo editar)
+
+// ── Toggle sección variantes ──────────────────────────────────────────────
+const chkVariantes     = document.getElementById('tieneVariantes');
+const variantesSection = document.getElementById('variantesSection');
+
+chkVariantes.addEventListener('change', function() {
+  variantesSection.style.display = this.checked ? 'block' : 'none';
+});
+
+// ── Agregar fila de variante ──────────────────────────────────────────────
+document.getElementById('addVariante').addEventListener('click', function() {
+  const lista = document.getElementById('variantesList');
+  const fila  = document.createElement('div');
+  fila.className = 'variante-row';
+  fila.innerHTML = `
+    <input type="text" name="variante_nombre" placeholder="Ej: Fragancia" class="form-input">
+    <input type="text" name="variante_valor"  placeholder="Ej: Lavanda"   class="form-input">
+    <input type="number" name="variante_stock" value="0" min="0"           class="form-input">
+    <div class="input-prefix">
+      <span>$</span>
+      <input type="number" name="variante_precio_extra" value="0" step="0.01" min="0" class="form-input">
+    </div>
+    <button type="button" class="btn btn-sm btn-danger remove-variante">✕</button>
+  `;
+  lista.appendChild(fila);
+});
+
+// ── Eliminar fila de variante (delegación de eventos) ────────────────────
+// Usamos delegación porque las filas se agregan dinámicamente.
+// En vez de poner un listener en cada botón, escuchamos el clic en el
+// contenedor padre y filtramos si el target tiene la clase correcta.
+document.getElementById('variantesList').addEventListener('click', function(e) {
+  if (e.target.classList.contains('remove-variante')) {
+    e.target.closest('.variante-row').remove();
+  }
+});
+</script>
+{% endblock %}

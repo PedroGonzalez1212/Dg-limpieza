@@ -1,0 +1,397 @@
+{% extends 'base.html' %}
+
+{% block title %}Catálogo{% endblock %}
+
+{% block styles %}
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* ── Variables compartidas ── */
+  :root {
+    --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    --font-display: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+    --navy: #0C0C62;
+    --navy-deep: #07073d;
+    --navy-soft: #1a1a8a;
+    --teal: #39EBE1;
+    --teal-deep: #1fc8be;
+    --bg: #F0F4F8;
+    --ink: #1a1a2e;
+    --muted: #6b7280;
+    --line: #e5e7ef;
+    --danger: #ef4444;
+    --warn: #f59e0b;
+    --shadow-card: 0 1px 2px rgba(12,12,98,.04), 0 4px 14px rgba(12,12,98,.05);
+    --shadow-card-hover: 0 10px 30px rgba(12,12,98,.14), 0 4px 8px rgba(12,12,98,.06);
+  }
+
+  /* ── Fondo de la página ── */
+  main { background: var(--bg); }
+
+  /* ── Encabezado ── */
+  .catalogo-head {
+    background: var(--navy);
+    padding: 48px 0 40px;
+    color: #fff;
+  }
+  .catalogo-head h1 {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 700;
+    margin: 0 0 6px;
+    letter-spacing: -.02em;
+    color: #fff;
+  }
+  .catalogo-head p { color: rgba(255,255,255,.65); margin: 0; font-size: 15px; }
+
+  /* ── Barra de filtros ── */
+  .catalogo-filtros {
+    background: #fff;
+    border-bottom: 1px solid var(--line);
+    padding: 16px 0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .filtros-inner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .buscador-form {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex: 1;
+    min-width: 200px;
+    max-width: 340px;
+    margin: 0;
+    background: var(--bg);
+    border: 1.5px solid var(--line);
+    border-radius: 999px;
+    overflow: hidden;
+    transition: border-color .2s;
+  }
+  .buscador-form:focus-within { border-color: var(--teal); }
+  .buscador-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 10px 16px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    color: var(--ink);
+    outline: none;
+  }
+  .btn-buscar {
+    background: var(--navy);
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .2s;
+  }
+  .btn-buscar:hover { background: var(--navy-soft); }
+
+  .filtros-categorias {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .filtro-btn {
+    padding: 10px 16px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    border: 1.5px solid var(--line);
+    background: #fff;
+    color: var(--muted);
+    text-decoration: none;
+    transition: border-color .2s, background .2s, color .2s;
+    white-space: nowrap;
+  }
+  .filtro-btn:hover { border-color: var(--teal); color: var(--navy); }
+  .filtro-btn.activo {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: #fff;
+  }
+
+  /* ── Resultados ── */
+  .catalogo-body { padding: 32px 0 80px; }
+
+  .resultados-count {
+    font-size: 14px;
+    color: var(--muted);
+    margin: 0 0 24px;
+  }
+  .resultados-count strong { color: var(--ink); }
+
+  /* ── Grid de productos ── */
+  .productos-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 1100px) { .productos-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 820px)  { .productos-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px)  { .productos-grid { grid-template-columns: 1fr; } }
+
+  /* ── Product card ── */
+  .producto-card {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: var(--shadow-card);
+    border: 1px solid var(--line);
+    overflow: hidden;
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+  }
+  .producto-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: rgba(57,235,225,.5);
+  }
+
+  .producto-card__media {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    background: #f5f7fa;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    padding: 14px;
+  }
+  .producto-card__media img {
+    max-width: 100%; max-height: 100%;
+    width: auto; height: auto;
+    object-fit: contain;
+    transition: transform .35s ease;
+  }
+  .producto-card:hover .producto-card__media img { transform: scale(1.04); }
+
+  .producto-card__badge {
+    position: absolute; top: 12px; left: 12px;
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11.5px; font-weight: 700; letter-spacing: .02em;
+    padding: 5px 10px; border-radius: 999px; z-index: 2;
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  }
+  .producto-card__badge--low { background: rgba(245,158,11,.95); color: #422006; }
+  .producto-card__badge--out { background: rgba(239,68,68,.95); color: #fff; }
+  .producto-card__badge svg { width: 12px; height: 12px; }
+
+  .producto-card--sin-stock .producto-card__media img {
+    opacity: .35; filter: grayscale(.6);
+  }
+
+  .producto-card__body {
+    padding: 14px 16px 16px;
+    display: flex; flex-direction: column; gap: 12px;
+    flex: 1;
+  }
+  .producto-card__name {
+    font-size: 14.5px; font-weight: 600; color: var(--ink);
+    margin: 0; line-height: 1.35;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    min-height: 2.7em;
+  }
+
+  .producto-card__prices {
+    display: flex; flex-direction: column; gap: 3px;
+    padding: 10px 12px;
+    background: #fafbfd;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+  }
+  .producto-card__price-row {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 8px;
+    font-size: 13px; line-height: 1.3;
+  }
+  .producto-card__price-label { color: var(--muted); font-weight: 500; font-size: 12px; }
+  .producto-card__price-value {
+    font-family: var(--font-display); font-weight: 600; color: var(--muted);
+    font-variant-numeric: tabular-nums; font-size: 13px;
+  }
+  .producto-card__price-row--unidad {
+    padding-bottom: 6px; margin-bottom: 4px;
+    border-bottom: 1px dashed var(--line);
+  }
+  .producto-card__price-row--unidad .producto-card__price-label {
+    color: var(--navy); font-weight: 700; font-size: 13px;
+  }
+  .producto-card__price-row--unidad .producto-card__price-value {
+    color: var(--teal-deep); font-size: 18px; font-weight: 700; letter-spacing: -.01em;
+  }
+  .producto-card__price-qty { font-size: 11px; color: var(--muted); font-weight: 500; margin-left: 4px; }
+
+  .producto-card__btn {
+    margin-top: auto;
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%; padding: 12px 16px; border-radius: 10px;
+    background: var(--navy); color: #fff;
+    font-family: var(--font-sans); font-size: 14px; font-weight: 700;
+    border: none; cursor: pointer; text-decoration: none;
+    transition: background .2s, transform .15s, box-shadow .2s;
+  }
+  .producto-card__btn svg { width: 15px; height: 15px; transition: transform .2s; }
+  .producto-card:hover .producto-card__btn {
+    background: var(--teal); color: var(--navy);
+    box-shadow: 0 6px 18px rgba(57,235,225,.4);
+  }
+  .producto-card:hover .producto-card__btn svg { transform: translateX(3px); }
+
+  .producto-card--sin-stock .producto-card__btn {
+    background: #e5e7ef; color: var(--muted);
+    cursor: not-allowed; pointer-events: none;
+  }
+
+  /* ── Estado vacío ── */
+  .catalogo-vacio {
+    text-align: center;
+    padding: 80px 0;
+    color: var(--muted);
+  }
+  .catalogo-vacio p { font-size: 16px; margin: 0 0 20px; }
+  .btn-secundario {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 24px; border-radius: 999px;
+    background: var(--navy); color: #fff;
+    font-family: var(--font-sans); font-size: 14px; font-weight: 700;
+    text-decoration: none;
+    transition: background .2s;
+  }
+  .btn-secundario:hover { background: var(--navy-soft); }
+</style>
+{% endblock %}
+
+{% block content %}
+
+{# ── Encabezado ── #}
+<section class="catalogo-head">
+  <div class="container">
+    <h1>Catálogo de productos</h1>
+    <p>{{ productos|length }} producto{% if productos|length != 1 %}s{% endif %}{% if categoria_activa %} en esta categoría{% endif %}{% if busqueda %} para "{{ busqueda }}"{% endif %}</p>
+  </div>
+</section>
+
+{# ── Filtros ── #}
+<div class="catalogo-filtros">
+  <div class="container filtros-inner">
+
+    <form class="buscador-form" method="GET" action="{{ url_for('public.catalogo') }}">
+      {% if categoria_activa %}
+        <input type="hidden" name="categoria" value="{{ categoria_activa }}">
+      {% endif %}
+      <input
+        type="text"
+        name="q"
+        placeholder="Buscar productos..."
+        value="{{ busqueda }}"
+        class="buscador-input"
+        autocomplete="off"
+      >
+      <button type="submit" class="btn-buscar">Buscar</button>
+    </form>
+
+    <div class="filtros-categorias">
+      <a href="{{ url_for('public.catalogo') }}{% if busqueda %}?q={{ busqueda }}{% endif %}"
+        class="filtro-btn {% if not categoria_activa %}activo{% endif %}">
+        Todos
+      </a>
+      {% for cat in categorias %}
+        <a href="{{ url_for('public.catalogo', categoria=cat.slug) }}{% if busqueda %}&q={{ busqueda }}{% endif %}"
+          class="filtro-btn {% if categoria_activa == cat.slug %}activo{% endif %}">
+          {{ cat.nombre }}
+        </a>
+      {% endfor %}
+    </div>
+
+  </div>
+</div>
+
+{# ── Resultados ── #}
+<div class="catalogo-body">
+  <div class="container">
+
+    {% if productos %}
+      <div class="productos-grid">
+        {% for producto in productos %}
+          <a href="{{ url_for('public.detalle_producto', producto_id=producto.id) }}"
+            class="producto-card {% if producto.sin_stock %}producto-card--sin-stock{% endif %}">
+
+            <div class="producto-card__media">
+              {% if producto.sin_stock %}
+                <span class="producto-card__badge producto-card__badge--out">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg>
+                  Sin stock
+                </span>
+              {% elif producto.stock_bajo %}
+                <span class="producto-card__badge producto-card__badge--low">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="m10.3 3.86-8.4 14.42a2 2 0 0 0 1.7 3.02h16.8a2 2 0 0 0 1.7-3.02L13.7 3.86a2 2 0 0 0-3.4 0z"/></svg>
+                  Últimas unidades
+                </span>
+              {% endif %}
+              <img
+                src="{{ producto.imagen_url or url_for('static', filename='img/placeholder.png') }}"
+                alt="{{ producto.nombre }}"
+                loading="lazy"
+              >
+            </div>
+
+            <div class="producto-card__body">
+              <h3 class="producto-card__name">{{ producto.nombre }}</h3>
+
+              <div class="producto-card__prices">
+                <div class="producto-card__price-row producto-card__price-row--unidad">
+                  <span class="producto-card__price-label">Unidad</span>
+                  <span class="producto-card__price-value">${{ producto.precio_unidad }}</span>
+                </div>
+                {% if producto.precio_mayor %}
+                  <div class="producto-card__price-row">
+                    <span class="producto-card__price-label">Mayor <span class="producto-card__price-qty">x{{ producto.cantidad_mayor }}</span></span>
+                    <span class="producto-card__price-value">${{ producto.precio_mayor }}</span>
+                  </div>
+                {% endif %}
+                {% if producto.precio_caja %}
+                  <div class="producto-card__price-row">
+                    <span class="producto-card__price-label">Caja <span class="producto-card__price-qty">x{{ producto.unidades_por_caja }}</span></span>
+                    <span class="producto-card__price-value">${{ producto.precio_caja }}</span>
+                  </div>
+                {% endif %}
+              </div>
+
+              <span class="producto-card__btn">
+                {% if producto.sin_stock %}
+                  Sin stock
+                {% else %}
+                  Ver producto
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                {% endif %}
+              </span>
+            </div>
+
+          </a>
+        {% endfor %}
+      </div>
+
+    {% else %}
+      <div class="catalogo-vacio">
+        <p>No encontramos productos{% if busqueda %} para "<strong>{{ busqueda }}</strong>"{% endif %}.</p>
+        <a href="{{ url_for('public.catalogo') }}" class="btn-secundario">Ver todos los productos</a>
+      </div>
+    {% endif %}
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}{% endblock %}

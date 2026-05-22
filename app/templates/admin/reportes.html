@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% block title %}Reportes — DG Limpieza{% endblock %}
+
+{% block content %}
+<div class="admin-section">
+
+  <div class="admin-section-header">
+    <h2>Reportes de ventas</h2>
+  </div>
+
+  <!-- Filtros -->
+  <form method="GET" class="admin-filters">
+    <div class="filter-group">
+      <label>Desde</label>
+      <input type="date" name="desde" value="{{ desde }}" class="admin-input">
+    </div>
+    <div class="filter-group">
+      <label>Hasta</label>
+      <input type="date" name="hasta" value="{{ hasta }}" class="admin-input">
+    </div>
+    <div class="filter-group">
+      <label>Método de pago</label>
+      <select name="metodo_pago" class="admin-select">
+        <option value="">Todos</option>
+        {% for m in metodos_disponibles %}
+          <option value="{{ m }}" {% if metodo_pago == m %}selected{% endif %}>{{ m }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <button type="submit" class="admin-btn">Filtrar</button>
+
+    <!-- Botones de exportar — pasan los mismos filtros -->
+    <a href="{{ url_for('admin.exportar_excel', desde=desde, hasta=hasta, metodo_pago=metodo_pago) }}"
+      class="admin-btn admin-btn-secondary">⬇ Excel</a>
+    <a href="{{ url_for('admin.exportar_pdf', desde=desde, hasta=hasta, metodo_pago=metodo_pago) }}"
+      class="admin-btn admin-btn-secondary">⬇ PDF</a>
+  </form>
+
+  <!-- Métricas resumen -->
+  <div class="reportes-metricas">
+    <div class="metrica-card">
+      <span class="metrica-valor">{{ total_ventas }}</span>
+      <span class="metrica-label">Ventas</span>
+    </div>
+    <div class="metrica-card">
+      <span class="metrica-valor">${{ "%.2f"|format(monto_total) }}</span>
+      <span class="metrica-label">Total facturado</span>
+    </div>
+    <div class="metrica-card">
+      <span class="metrica-valor">${{ "%.2f"|format(ticket_promedio) }}</span>
+      <span class="metrica-label">Ticket promedio</span>
+    </div>
+  </div>
+
+  <!-- Gráfico por método de pago -->
+  {% if por_metodo %}
+  <div class="reporte-grafico-wrap">
+    <h3>Facturación por método de pago</h3>
+    <canvas id="graficoMetodos" height="100"></canvas>
+  </div>
+  {% endif %}
+
+  <!-- Tabla de ventas -->
+  {% if ventas %}
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Fecha</th>
+        <th>Cliente</th>
+        <th>Canal</th>
+        <th>Método</th>
+        <th>Total</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for v in ventas %}
+      <tr>
+        <td>{{ v.id }}</td>
+        <td>{{ v.creado_en.strftime('%d/%m/%Y %H:%M') }}</td>
+        <td>{{ v.nombre_cliente or '—' }}</td>
+        <td><span class="badge-canal badge-{{ v.tipo }}">{{ v.tipo.upper() }}</span></td>
+        <td>{{ v.metodo_pago or '—' }}</td>
+        <td>${{ "%.2f"|format(v.total) }}</td>
+        <td>
+          <a href="{{ url_for('admin.venta_detalle', id=v.id) }}" class="admin-link">Ver</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="5" style="text-align:right; font-weight:600;">Total</td>
+        <td style="font-weight:700; color:var(--color-navy)">
+          ${{ "%.2f"|format(monto_total) }}
+        </td>
+        <td></td>
+      </tr>
+    </tfoot>
+  </table>
+  {% else %}
+    <p class="admin-empty">No hay ventas para el período seleccionado.</p>
+  {% endif %}
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+{% if por_metodo %}
+const ctx = document.getElementById('graficoMetodos').getContext('2d');
+new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: {{ por_metodo.keys()|list|tojson }},
+    datasets: [{
+      label: 'Total ($)',
+      data: {{ por_metodo.values()|list|tojson }},
+      backgroundColor: ['#39EBE1','#0C0C62','#27ae60','#f39c12','#8e44ad'],
+      borderRadius: 6,
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: { y: { beginAtZero: true } }
+  }
+});
+{% endif %}
+</script>
+{% endblock %}
+{% block styles %}
+<style>
+.reportes-metricas {
+  display: flex;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  flex-wrap: wrap;
+}
+.metrica-card {
+  flex: 1;
+  min-width: 140px;
+  background: #EAF6FF;
+  border-left: 4px solid var(--color-sky);
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+}
+.metrica-valor {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--color-navy);
+}
+.metrica-label {
+  font-size: .8rem;
+  color: #666;
+  margin-top: 2px;
+}
+.reporte-grafico-wrap {
+  margin: 1.5rem 0;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 1.25rem;
+}
+.reporte-grafico-wrap h3 {
+  font-size: .95rem;
+  color: var(--color-navy);
+  margin-bottom: 1rem;
+}
+</style>
+{% endblock %}

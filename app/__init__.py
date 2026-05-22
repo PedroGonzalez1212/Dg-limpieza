@@ -30,7 +30,7 @@ def create_app(config_name='default'):
 
     app.register_blueprint(public_bp)
     app.register_blueprint(auth_bp, url_prefix='/auth')
-    app.register_blueprint(vendedor_bp, url_prefix='/vendedor')
+    app.register_blueprint(vendedor_bp, url_prefix='/panel', name='panel')
     app.register_blueprint(admin_bp, url_prefix='/admin')
 
     from app.models import User

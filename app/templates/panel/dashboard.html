@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+
+{% block title %}Panel — DG Limpieza{% endblock %}
+
+{% block content %}
+<section class="panel-section">
+
+  <div class="panel-header">
+    <div>
+      <h1>Bienvenido, {{ current_user.nombre.split()[0] }} 👋</h1>
+      <p class="panel-subtitle">
+        {% if current_user.es_admin() %}
+          Estás como <strong>Administrador</strong>
+        {% else %}
+          Estás como <strong>Vendedor</strong>
+        {% endif %}
+      </p>
+    </div>
+    <a href="{{ url_for('auth.logout') }}" class="btn-logout">Cerrar sesión</a>
+  </div>
+
+  {# Accesos rápidos según el rol #}
+  <div class="panel-grid">
+
+    <a href="{{ url_for('panel.pos') }}" class="panel-card">
+      <div class="panel-card-icon">🛒</div>
+      <div class="panel-card-info">
+        <h3>Nueva venta (POS)</h3>
+        <p>Registrá una venta presencial</p>
+      </div>
+    </a>
+
+    {% if current_user.es_admin() %}
+
+    <a href="{{ url_for('admin.productos') }}" class="panel-card">
+      <div class="panel-card-icon">📦</div>
+      <div class="panel-card-info">
+        <h3>Productos</h3>
+        <p>ABM de productos y stock</p>
+      </div>
+    </a>
+
+    <a href="{{ url_for('admin.stock') }}" class="panel-card">
+      <div class="panel-card-icon">📊</div>
+      <div class="panel-card-info">
+        <h3>Stock</h3>
+        <p>Ajustes e historial de movimientos</p>
+      </div>
+    </a>
+    
+    <a href="{{ url_for('admin.ventas') }}" class="panel-card">
+      <div class="panel-card-icon">🧾</div>
+      <div class="panel-card-info">
+        <h3>Ventas</h3>
+        <p>Historial de pedidos y comprobantes</p>
+      </div>
+    </a>
+    
+    <a href="{{ url_for('admin.reportes') }}" class="panel-card">
+      <div class="panel-card-icon">📊</div>
+      <div class="panel-card-info">
+        <h3>Reportes</h3>
+        <p>Ventas, Excel y PDF</p>
+      </div>
+    </a>
+    
+    <a href="{{ url_for('admin.usuarios') }}" class="panel-card">
+      <div class="panel-card-icon">👥</div>
+      <div class="panel-card-info">
+        <h3>Usuarios</h3>
+        <p>Gestión de vendedores y admins</p>
+      </div>
+    </a>
+    
+    {% endif %}
+
+  </div>
+
+</section>
+
+<style>
+  .panel-section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem;
+  }
+
+  .panel-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .panel-header h1 {
+    font-size: 1.8rem;
+    color: var(--color-navy);
+    margin: 0 0 0.25rem;
+  }
+
+  .panel-subtitle {
+    color: #666;
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+  .btn-logout {
+    background: transparent;
+    border: 2px solid #e5e7eb;
+    color: #666;
+    padding: 0.5rem 1.1rem;
+    border-radius: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .btn-logout:hover {
+    border-color: #ef4444;
+    color: #ef4444;
+  }
+
+  .panel-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .panel-card {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 1.25rem;
+    padding: 1.5rem;
+    text-decoration: none;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .panel-card:hover {
+    border-color: var(--color-sky);
+    box-shadow: 0 4px 20px rgba(57,235,225,0.15);
+    transform: translateY(-2px);
+  }
+
+  .panel-card-icon {
+    font-size: 2rem;
+  }
+
+  .panel-card-info h3 {
+    font-size: 1rem;
+    color: var(--color-navy);
+    margin: 0 0 0.2rem;
+  }
+
+  .panel-card-info p {
+    font-size: 0.825rem;
+    color: #888;
+    margin: 0;
+  }
+</style>
+{% endblock %}

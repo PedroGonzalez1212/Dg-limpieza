@@ -44,11 +44,11 @@ class Product(db.Model):
 
     # Relación muchos a muchos con categories (usa la tabla intermedia)
     categorias = db.relationship('Category', secondary=product_categories,
-                                 backref=db.backref('products', lazy='dynamic'))
+                                backref=db.backref('products', lazy='dynamic'))
 
     # Relación uno a muchos con variantes
     variantes  = db.relationship('ProductVariant', backref='producto', lazy=True,
-                                 cascade='all, delete-orphan')
+                                cascade='all, delete-orphan')
 
     def __repr__(self):
         return f'<Product {self.nombre}>'

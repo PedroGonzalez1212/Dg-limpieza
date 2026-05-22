@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block title %}Venta #{{ venta.id }} — Admin DG Limpieza{% endblock %}
+
+{% block content %}
+<div class="admin-page">
+
+  <!-- ── Breadcrumb ───────────────────────────────────────────────────── -->
+  <a href="{{ url_for('admin.ventas') }}" class="btn btn-ghost" style="margin-bottom:1rem;display:inline-block;">
+    ← Volver al historial
+  </a>
+
+  <!-- ── Header ──────────────────────────────────────────────────────── -->
+  <div class="admin-header">
+    <div class="admin-header-left">
+      <h1>Venta #{{ venta.id }}</h1>
+      <p class="admin-subtitle">
+        {{ venta.creado_en.strftime('%d/%m/%Y a las %H:%M') }} ·
+        {% if venta.tipo == 'pos' %}
+          <span class="badge badge-outline">🖥️ POS</span>
+        {% else %}
+          <span class="badge badge-ok">📱 WhatsApp</span>
+        {% endif %}
+      </p>
+    </div>
+    <div style="text-align:right">
+      <small class="text-muted" style="display:block;text-transform:uppercase;font-size:.7rem;letter-spacing:.05em;">Total</small>
+      <strong style="font-size:2rem;color:var(--color-navy, #0C0C62)">${{ "%.2f"|format(venta.total | float) }}</strong>
+    </div>
+  </div>
+
+  <!-- ── Cards de info ────────────────────────────────────────────────── -->
+  <div class="admin-stats-row" style="margin-bottom:1.5rem;">
+
+    <div class="admin-stat">
+      <span class="admin-stat-label">👤 Cliente</span>
+      <span class="admin-stat-num" style="font-size:1rem;">
+        {{ venta.nombre_cliente or '—' }}
+      </span>
+      {% if venta.telefono_cliente %}
+        <span class="admin-stat-label">{{ venta.telefono_cliente }}</span>
+      {% endif %}
+    </div>
+
+    <div class="admin-stat">
+      <span class="admin-stat-label">💳 Método de pago</span>
+      <span class="admin-stat-num" style="font-size:1rem;">
+        {{ venta.metodo_pago | capitalize if venta.metodo_pago else '—' }}
+      </span>
+    </div>
+
+    <div class="admin-stat">
+      <span class="admin-stat-label">👨‍💼 Vendedor</span>
+      <span class="admin-stat-num" style="font-size:1rem;">{{ venta.usuario.nombre }}</span>
+      <span class="admin-stat-label">{{ venta.usuario.email }}</span>
+    </div>
+
+    <div class="admin-stat">
+      <span class="admin-stat-label">📋 Estado</span>
+      <span class="admin-stat-num" style="font-size:1rem;">{{ venta.estado | capitalize }}</span>
+      {% if venta.notas %}
+        <span class="admin-stat-label">{{ venta.notas }}</span>
+      {% endif %}
+    </div>
+
+  </div>
+
+  <!-- ── Tabla de items ───────────────────────────────────────────────── -->
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th class="text-center">Cantidad</th>
+          <th class="text-right">Precio unit.</th>
+          <th class="text-right">Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in venta.items %}
+        <tr>
+          <td>
+            <strong>{{ item.nombre_producto }}</strong>
+            {% if item.tipo_precio and item.tipo_precio != 'unidad' %}
+              <span class="badge badge-outline" style="font-size:.7rem;">{{ item.tipo_precio }}</span>
+            {% endif %}
+          </td>
+          <td class="text-center">{{ item.cantidad }}</td>
+          <td class="text-right">${{ "%.2f"|format(item.precio_unitario | float) }}</td>
+          <td class="text-right"><strong>${{ "%.2f"|format(item.subtotal | float) }}</strong></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3" class="text-right"><strong>Total</strong></td>
+          <td class="text-right">
+            <strong style="font-size:1.1rem;">${{ "%.2f"|format(venta.total | float) }}</strong>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <!-- ── Botón WhatsApp ───────────────────────────────────────────────── -->
+  {% if venta.telefono_cliente %}
+  <div style="margin-top:1.5rem;">
+    {% set tel = venta.telefono_cliente | replace(' ', '') | replace('-', '') | replace('+', '') %}
+    {% set msg = "Hola " ~ (venta.nombre_cliente or '') ~ ", te enviamos el detalle de tu pedido #" ~ venta.id ~ " por $" ~ "%.2f"|format(venta.total|float) ~ ". ¡Gracias por tu compra en DG Limpieza!" %}
+    <a
+      href="https://wa.me/54{{ tel }}?text={{ msg | urlencode }}"
+      target="_blank"
+      class="btn btn-primary"
+    >
+      📱 Enviar comprobante por WhatsApp
+    </a>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}
+
+
+{% block styles %}{% endblock %}

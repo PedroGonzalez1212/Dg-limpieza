@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; font-size: 12px; color: #1a1a2e; padding: 30px; }
+
+    .header { display: flex; justify-content: space-between; align-items: flex-start;
+              border-bottom: 3px solid #0C0C62; padding-bottom: 12px; margin-bottom: 20px; }
+    .header h1 { color: #0C0C62; font-size: 20px; }
+    .header p  { font-size: 11px; color: #555; margin-top: 4px; }
+
+    .metricas { display: flex; gap: 20px; margin-bottom: 24px; }
+    .metrica  { background: #EAF6FF; border-left: 4px solid #39EBE1;
+                padding: 10px 16px; border-radius: 4px; flex: 1; }
+    .metrica strong { display: block; font-size: 18px; color: #0C0C62; }
+    .metrica span   { font-size: 10px; color: #555; }
+
+    table { width: 100%; border-collapse: collapse; }
+    thead tr { background: #0C0C62; color: #fff; }
+    th { padding: 8px 10px; text-align: left; font-size: 11px; }
+    td { padding: 7px 10px; border-bottom: 1px solid #e0e0e0; font-size: 11px; }
+    tr:nth-child(even) td { background: #EAF6FF; }
+
+    tfoot td { font-weight: 700; border-top: 2px solid #0C0C62;
+              font-size: 12px; color: #0C0C62; }
+
+    .footer { margin-top: 24px; font-size: 10px; color: #888; text-align: center; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div>
+      <h1>DG Limpieza</h1>
+      <p>Reporte de ventas</p>
+      <p>Período: {{ desde.strftime('%d/%m/%Y') }} — {{ hasta.strftime('%d/%m/%Y') }}</p>
+      {% if metodo_pago %}<p>Método de pago: {{ metodo_pago }}</p>{% endif %}
+    </div>
+    <div style="text-align:right">
+      <p>Generado: {{ generado_en }}</p>
+    </div>
+  </div>
+
+  <div class="metricas">
+    <div class="metrica">
+      <strong>{{ ventas|length }}</strong>
+      <span>Ventas</span>
+    </div>
+    <div class="metrica">
+      <strong>${{ "%.2f"|format(monto_total) }}</strong>
+      <span>Total facturado</span>
+    </div>
+    <div class="metrica">
+      <strong>${{ "%.2f"|format(monto_total / ventas|length if ventas else 0) }}</strong>
+      <span>Ticket promedio</span>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Fecha</th>
+        <th>Cliente</th>
+        <th>Canal</th>
+        <th>Método de pago</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for v in ventas %}
+      <tr>
+        <td>{{ v.id }}</td>
+        <td>{{ v.creado_en.strftime('%d/%m/%Y %H:%M') }}</td>
+        <td>{{ v.nombre_cliente or '—' }}</td>
+        <td>{{ v.tipo.upper() }}</td>
+        <td>{{ v.metodo_pago or '—' }}</td>
+        <td>${{ "%.2f"|format(v.total) }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="5" style="text-align:right">Total</td>
+        <td>${{ "%.2f"|format(monto_total) }}</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <div class="footer">DG Limpieza — Reporte generado automáticamente</div>
+
+</body>
+</html>

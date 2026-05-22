@@ -1,0 +1,344 @@
+{% extends "base.html" %}
+
+{% block title %}{{ producto.nombre }} — DG Limpieza{% endblock %}
+
+{% block content %}
+
+{# ── Migas de pan (breadcrumb) ─────────────────────────────────────────── #}
+<nav class="breadcrumb-nav" aria-label="Navegación">
+  <div class="container">
+    <ol class="breadcrumb">
+      <li><a href="{{ url_for('public.home') }}">Inicio</a></li>
+      <li><span>/</span></li>
+      <li><a href="{{ url_for('public.catalogo') }}">Catálogo</a></li>
+      {% if producto.categorias %}
+      <li><span>/</span></li>
+      <li>
+        <a href="{{ url_for('public.catalogo', categoria=producto.categorias[0].slug) }}">
+          {{ producto.categorias[0].nombre }}
+        </a>
+      </li>
+      {% endif %}
+      <li><span>/</span></li>
+      <li class="breadcrumb-actual">{{ producto.nombre }}</li>
+    </ol>
+  </div>
+</nav>
+
+{# ── Sección principal del producto ───────────────────────────────────── #}
+<section class="detalle-section">
+  <div class="container">
+    <div class="detalle-grid">
+
+      {# ── Columna izquierda: imagen ─────────────────────────────────── #}
+      <div class="detalle-imagen-wrap">
+        <div class="detalle-imagen-container {% if producto.sin_stock %}sin-stock{% endif %}">
+          {% if producto.sin_stock %}
+            <div class="detalle-sin-stock-overlay">Sin stock</div>
+          {% endif %}
+          <img
+            src="{{ producto.imagen_url or url_for('static', filename='img/placeholder.png') }}"
+            alt="{{ producto.nombre }}"
+            class="detalle-imagen"
+            id="imagenPrincipal"
+          >
+        </div>
+
+        {# Badges de categorías debajo de la imagen #}
+        {% if producto.categorias %}
+        <div class="detalle-categorias">
+          {% for cat in producto.categorias %}
+            <a href="{{ url_for('public.catalogo', categoria=cat.slug) }}"
+              class="badge-categoria">
+              {{ cat.nombre }}
+            </a>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+
+      {# ── Columna derecha: info y compra ───────────────────────────── #}
+      <div class="detalle-info">
+
+        <h1 class="detalle-nombre">{{ producto.nombre }}</h1>
+
+        {# ── Bloque de precios ─────────────────────────────────────── #}
+        <div class="detalle-precios">
+          {#
+            precio_unidad: precio base, siempre visible
+            precio_mayor:  se muestra si existe + indica cantidad mínima
+            precio_caja:   se muestra si existe + indica unidades por caja
+          #}
+          <div class="precio-principal">
+            <span class="precio-label">Precio unitario</span>
+            <span class="precio-valor">${{ "%.2f"|format(producto.precio_unidad) }}</span>
+          </div>
+
+          {% if producto.precio_mayor and producto.cantidad_mayor %}
+          <div class="precio-secundario">
+            <span class="precio-label">
+              Por mayor
+              <small>(mín. {{ producto.cantidad_mayor }} unidades)</small>
+            </span>
+            <span class="precio-valor precio-mayor">
+              ${{ "%.2f"|format(producto.precio_mayor) }}
+            </span>
+          </div>
+          {% endif %}
+
+          {% if producto.precio_caja and producto.unidades_por_caja %}
+          <div class="precio-secundario">
+            <span class="precio-label">
+              Caja cerrada
+              <small>({{ producto.unidades_por_caja }} unidades)</small>
+            </span>
+            <span class="precio-valor precio-caja">
+              ${{ "%.2f"|format(producto.precio_caja) }}
+            </span>
+          </div>
+          {% endif %}
+        </div>
+
+        {# ── Estado de stock ───────────────────────────────────────── #}
+        <div class="detalle-stock">
+          {% if producto.sin_stock %}
+            <span class="stock-badge stock-agotado">Sin stock</span>
+          {% elif producto.stock_bajo %}
+            <span class="stock-badge stock-bajo">
+              Últimas {{ producto.stock }} unidades
+            </span>
+          {% else %}
+            <span class="stock-badge stock-ok">En stock</span>
+          {% endif %}
+        </div>
+
+        {# ── Formulario de compra ──────────────────────────────────── #}
+        {#
+          Usamos un <form> con action vacío porque en el Sprint 2
+          vamos a conectarlo con la lógica del carrito.
+          Por ahora recopila los datos y muestra feedback visual.
+        #}
+        <form id="formAgregar" class="detalle-form">
+
+          {# ── Selector de variante (solo si tiene_variantes) ──────── #}
+          {% if producto.tiene_variantes and variantes_agrupadas %}
+          <div class="detalle-variantes">
+            {% for nombre_atributo, opciones in variantes_agrupadas.items() %}
+            <div class="variante-grupo">
+              <label class="variante-label">{{ nombre_atributo }}</label>
+              <div class="variante-opciones">
+                {% for variante in opciones %}
+                <button
+                  type="button"
+                  class="variante-btn {% if variante.stock <= 0 %}variante-agotada{% endif %}"
+                  data-variante-id="{{ variante.id }}"
+                  data-variante-stock="{{ variante.stock }}"
+                  data-precio-extra="{{ variante.precio_extra or 0 }}"
+                  {% if variante.stock <= 0 %}disabled title="Sin stock"{% endif %}
+                  onclick="seleccionarVariante(this, '{{ nombre_atributo }}')"
+                >
+                  {{ variante.valor }}
+                </button>
+                {% endfor %}
+              </div>
+            </div>
+            {% endfor %}
+            {# Input oculto que guarda la variante seleccionada #}
+            <input type="hidden" name="variante_id" id="varianteSeleccionada" value="">
+          </div>
+          {% endif %}
+
+          {# ── Selector de cantidad ──────────────────────────────────── #}
+          <div class="cantidad-wrap">
+            <label class="variante-label">Cantidad</label>
+            <div class="cantidad-control">
+              <button type="button" class="cantidad-btn" onclick="cambiarCantidad(-1)">−</button>
+              <input
+                type="number"
+                id="cantidad"
+                name="cantidad"
+                value="1"
+                min="1"
+                max="{{ producto.stock }}"
+                class="cantidad-input"
+                {% if producto.sin_stock %}disabled{% endif %}
+              >
+              <button type="button" class="cantidad-btn" onclick="cambiarCantidad(1)">+</button>
+            </div>
+          </div>
+
+          {# ── Precio dinámico (actualiza según variante y cantidad) ─── #}
+          <div class="precio-dinamico" id="precioTotal">
+            <span class="precio-dinamico-label">Total estimado</span>
+            <span class="precio-dinamico-valor" id="valorTotal">
+              ${{ "%.2f"|format(producto.precio_unidad) }}
+            </span>
+          </div>
+
+          {# ── Botón agregar al carrito ─────────────────────────────── #}
+          {% if producto.sin_stock %}
+          <button type="button" class="btn-carrito btn-deshabilitado" disabled>
+            Sin stock disponible
+          </button>
+          {% else %}
+          <button
+            type="button"
+            class="btn-carrito"
+            id="btnAgregar"
+            onclick="agregarAlCarrito()"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+              <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+            </svg>
+            Agregar al carrito
+          </button>
+          {% endif %}
+
+        </form>
+
+        {# ── Descripción ───────────────────────────────────────────── #}
+        {% if producto.descripcion %}
+        <div class="detalle-descripcion">
+          <h2 class="descripcion-titulo">Descripción</h2>
+          <p class="descripcion-texto">{{ producto.descripcion }}</p>
+        </div>
+        {% endif %}
+
+      </div>{# fin detalle-info #}
+    </div>{# fin detalle-grid #}
+  </div>
+</section>
+
+{# ── Productos relacionados ──────────────────────────────────────────────── #}
+{% if relacionados %}
+<section class="relacionados-section">
+  <div class="container">
+    <h2 class="relacionados-titulo">También te puede interesar</h2>
+    <div class="relacionados-grid">
+      {% for rel in relacionados %}
+      <a href="{{ url_for('public.detalle_producto', producto_id=rel.id) }}"
+        class="rel-card {% if rel.sin_stock %}sin-stock{% endif %}">
+        <div class="rel-imagen-wrap">
+          <img
+            src="{{ rel.imagen_url or url_for('static', filename='img/placeholder.png') }}"
+            alt="{{ rel.nombre }}"
+            class="rel-imagen"
+          >
+          {% if rel.sin_stock %}
+            <span class="rel-badge-stock">Sin stock</span>
+          {% endif %}
+        </div>
+        <div class="rel-info">
+          <span class="rel-nombre">{{ rel.nombre }}</span>
+          <span class="rel-precio">${{ "%.2f"|format(rel.precio_unidad) }}</span>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% endblock %}
+
+
+{% block extra_js %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+
+    const PRECIO_BASE     = {{ producto.precio_unidad | float }};
+    const PRECIO_MAYOR    = {{ producto.precio_mayor  | float if producto.precio_mayor  else 0 }};
+    const PRECIO_CAJA     = {{ producto.precio_caja   | float if producto.precio_caja   else 0 }};
+    const CANT_MAYOR      = {{ producto.cantidad_mayor    or 0 }};
+    const UNIDADES_CAJA   = {{ producto.unidades_por_caja or 0 }};
+    const TIENE_VARIANTES = {{ 'true' if producto.tiene_variantes else 'false' }};
+
+    let precioExtra = 0;
+    let varianteOk  = !TIENE_VARIANTES;
+
+    function actualizarPrecio() {
+      const cantidad = parseInt(document.getElementById('cantidad')?.value) || 1;
+      let precioBase = PRECIO_BASE;
+      if (UNIDADES_CAJA > 0 && cantidad >= UNIDADES_CAJA && PRECIO_CAJA > 0) {
+        precioBase = PRECIO_CAJA;
+      } else if (CANT_MAYOR > 0 && cantidad >= CANT_MAYOR && PRECIO_MAYOR > 0) {
+        precioBase = PRECIO_MAYOR;
+      }
+      const total = (precioBase + precioExtra) * cantidad;
+      document.getElementById('valorTotal').textContent =
+        '$' + total.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function mostrarMensaje(texto, tipo) {
+      const toast = document.createElement('div');
+      toast.className = `toast toast-${tipo}`;
+      toast.textContent = texto;
+      document.body.appendChild(toast);
+      toast.offsetHeight;
+      toast.classList.add('toast-visible');
+      setTimeout(() => {
+        toast.classList.remove('toast-visible');
+        setTimeout(() => toast.remove(), 300);
+      }, 2500);
+    }
+
+    // Exponemos en window para que los onclick del HTML las encuentren
+    window.cambiarCantidad = function(delta) {
+      const input = document.getElementById('cantidad');
+      const max   = parseInt(input.max) || 9999;
+      const nueva = Math.min(Math.max(1, parseInt(input.value || 1) + delta), max);
+      input.value = nueva;
+      actualizarPrecio();
+    }
+
+    window.seleccionarVariante = function(btn, grupo) {
+      btn.closest('.variante-opciones')
+        .querySelectorAll('.variante-btn')
+        .forEach(b => b.classList.remove('seleccionada'));
+      btn.classList.add('seleccionada');
+      document.getElementById('varianteSeleccionada').value = btn.dataset.varianteId;
+      precioExtra = parseFloat(btn.dataset.precioExtra) || 0;
+      varianteOk  = true;
+      actualizarPrecio();
+    }
+
+    window.agregarAlCarrito = async function() {
+      if (TIENE_VARIANTES && !varianteOk) {
+        mostrarMensaje('Seleccioná una variante antes de continuar', 'error');
+        return;
+      }
+      const cantidad   = parseInt(document.getElementById('cantidad').value) || 1;
+      const varianteId = document.getElementById('varianteSeleccionada')?.value || null;
+    
+      const res = await fetch('/carrito/agregar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          producto_id: {{ producto.id }},
+          variante_id: varianteId,
+          cantidad: cantidad
+        })
+      });
+    
+      const data = await res.json();
+    
+      if (data.ok) {
+        mostrarMensaje(data.mensaje, 'ok');
+        const badge = document.getElementById('carrito-badge');
+        if (badge) {
+          badge.textContent = data.total_items;
+          badge.style.display = 'inline';
+        }
+      } else {
+        mostrarMensaje(data.error || 'Error al agregar', 'error');
+      }
+    }
+
+    document.getElementById('cantidad')?.addEventListener('input', actualizarPrecio);
+    actualizarPrecio();
+
+  });
+</script>
+{% endblock extra_js %}

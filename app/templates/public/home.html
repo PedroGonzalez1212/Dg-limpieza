@@ -1,0 +1,685 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block styles %}
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* ── Fuentes y variables del diseño ── */
+  :root {
+    --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    --font-display: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+    --navy: #0C0C62;
+    --navy-deep: #07073d;
+    --navy-soft: #1a1a8a;
+    --teal: #39EBE1;
+    --teal-deep: #1fc8be;
+    --bg: #F0F4F8;
+    --ink: #1a1a2e;
+    --muted: #6b7280;
+    --line: #e5e7ef;
+    --whats: #25D366;
+    --whats-deep: #1ebe57;
+    --r-lg: 22px;
+    --shadow-sm: 0 1px 2px rgba(12,12,98,.06), 0 2px 6px rgba(12,12,98,.04);
+    --shadow-md: 0 4px 14px rgba(12,12,98,.08), 0 10px 30px rgba(12,12,98,.06);
+    --shadow-lg: 0 20px 60px rgba(12,12,98,.18);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    background: var(--navy);
+    color: #fff;
+    overflow: hidden;
+    padding: 80px 0 96px;
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(57,235,225,.12) 1px, transparent 1.4px);
+    background-size: 28px 28px;
+    mask-image: linear-gradient(to right, transparent, #000 30%, #000 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 30%, #000 100%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(57,235,225,.18), transparent 60%);
+    pointer-events: none;
+  }
+  .hero__inner {
+    position: relative; z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(280px, 1fr) 1.4fr;
+    gap: 64px;
+    align-items: center;
+  }
+  @media (max-width: 900px) {
+    .hero__inner { grid-template-columns: 1fr; text-align: center; gap: 40px; }
+  }
+
+  .hero__logo {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero__logo-glow {
+    position: absolute; inset: -20px;
+    background: radial-gradient(circle at center, rgba(57,235,225,.35), transparent 60%);
+    filter: blur(20px);
+    z-index: 0;
+  }
+  .hero__logo img {
+    position: relative; z-index: 1;
+    width: 100%; max-width: 360px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+    box-shadow: 0 20px 60px rgba(0,0,0,.35), 0 0 0 1px rgba(57,235,225,.2);
+  }
+  @media (max-width: 900px) { .hero__logo img { max-width: 220px; } }
+
+  .hero__eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(57,235,225,.12);
+    border: 1px solid rgba(57,235,225,.3);
+    color: var(--teal);
+    font-size: 12px; font-weight: 600;
+    padding: 6px 14px; border-radius: 999px;
+    letter-spacing: .08em; text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .hero__eyebrow::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--teal);
+    box-shadow: 0 0 0 4px rgba(57,235,225,.2);
+  }
+  .hero__title {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 60px);
+    line-height: 1.04; font-weight: 700;
+    letter-spacing: -.025em; margin: 0 0 20px;
+    color: #fff;
+  }
+  .hero__title span {
+    background: linear-gradient(90deg, var(--teal), #b0fff8);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero__subtitle {
+    font-size: clamp(15px, 1.4vw, 18px);
+    color: rgba(255,255,255,.78);
+    margin: 0 0 36px; max-width: 540px;
+  }
+  @media (max-width: 900px) { .hero__subtitle { margin-inline: auto; } }
+
+  .hero__cta { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 40px; }
+  @media (max-width: 900px) { .hero__cta { justify-content: center; } }
+
+  .hero__trust {
+    display: flex; flex-wrap: wrap; gap: 28px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(255,255,255,.1);
+  }
+  @media (max-width: 900px) { .hero__trust { justify-content: center; } }
+  .hero__trust-item {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13.5px; color: rgba(255,255,255,.7);
+  }
+  .hero__trust-item strong { color: #fff; font-weight: 700; }
+  .hero__trust-item svg { width: 18px; height: 18px; color: var(--teal); flex-shrink: 0; }
+
+  /* ── Botones del hero ── */
+  .btn--teal {
+    background: var(--teal); color: var(--navy);
+    padding: 14px 24px; border-radius: 999px;
+    font-family: var(--font-sans); font-size: 15px; font-weight: 700;
+    display: inline-flex; align-items: center; gap: 10px;
+    border: 1.5px solid transparent; text-decoration: none;
+    transition: transform .2s, box-shadow .2s, background .2s;
+    box-shadow: 0 8px 24px rgba(57,235,225,.35), inset 0 -2px 0 rgba(0,0,0,.06);
+  }
+  .btn--teal:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(57,235,225,.45); background: #5cf0e7; }
+  .btn--teal svg { width: 18px; height: 18px; }
+
+  .btn--outline-white {
+    background: transparent; color: #fff;
+    padding: 14px 24px; border-radius: 999px;
+    font-family: var(--font-sans); font-size: 15px; font-weight: 700;
+    display: inline-flex; align-items: center; gap: 10px;
+    border: 1.5px solid rgba(255,255,255,.35); text-decoration: none;
+    transition: transform .2s, background .2s, border-color .2s;
+  }
+  .btn--outline-white:hover { background: rgba(255,255,255,.08); border-color: #fff; transform: translateY(-2px); }
+  .btn--outline-white svg { width: 18px; height: 18px; }
+
+  /* ── Secciones ── */
+  .home-section { padding: 96px 0; }
+  .home-section--bg { background: var(--bg); }
+  .home-section--light { background: linear-gradient(180deg, var(--bg) 0%, #e6edf5 100%); }
+
+  .section__head {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 32px; margin-bottom: 48px; flex-wrap: wrap;
+  }
+  .section__eyebrow {
+    display: inline-block; font-size: 12px; font-weight: 700;
+    color: var(--teal-deep); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 14px;
+  }
+  .section__title {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 3vw, 40px); font-weight: 700;
+    letter-spacing: -.02em; margin: 0; color: var(--navy); line-height: 1.1;
+  }
+  .section__sub { color: var(--muted); font-size: 16px; max-width: 440px; margin: 0; }
+
+  /* ── CATEGORÍAS ── */
+  .cats {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 1000px) { .cats { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 620px)  { .cats { grid-template-columns: repeat(2, 1fr); } }
+
+  .cat {
+    position: relative; background: #fff;
+    border: 1.5px solid var(--line); border-radius: var(--r-lg);
+    padding: 28px 22px;
+    transition: border-color .25s, transform .25s, box-shadow .25s;
+    display: flex; flex-direction: column; gap: 14px;
+    overflow: hidden; text-decoration: none;
+  }
+  .cat::after {
+    content: "";
+    position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
+    background: var(--teal);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .3s ease;
+  }
+  .cat:hover { border-color: var(--teal); transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .cat:hover::after { transform: scaleX(1); }
+  .cat:hover .cat__arrow { transform: translateX(4px); color: var(--navy); }
+
+  .cat__icon {
+    width: 52px; height: 52px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(57,235,225,.14); color: var(--navy); border-radius: 14px;
+  }
+  .cat__icon svg { width: 28px; height: 28px; }
+  .cat__name { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--navy); margin: 0; letter-spacing: -.01em; }
+  .cat__desc { font-size: 13.5px; color: var(--muted); margin: 0; line-height: 1.45; }
+  .cat__arrow {
+    margin-top: auto; display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 600; color: var(--teal-deep);
+    transition: transform .2s, color .2s;
+  }
+  .cat__arrow svg { width: 14px; height: 14px; }
+
+  /* ── COMBOS ── */
+  .combos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  @media (max-width: 900px) { .combos { grid-template-columns: 1fr; } }
+
+  .combo {
+    background: #fff; border-radius: var(--r-lg); overflow: hidden;
+    box-shadow: var(--shadow-sm); border: 1px solid var(--line);
+    transition: transform .25s, box-shadow .25s;
+    display: flex; flex-direction: column;
+  }
+  .combo:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+  .combo__media {
+    position: relative; aspect-ratio: 16/10;
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-soft) 100%);
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+  }
+  .combo__media::before {
+    content: ""; position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(57,235,225,.25) 1px, transparent 1.6px);
+    background-size: 22px 22px; opacity: .35;
+  }
+  .combo__media svg.combo__art {
+    width: 56%; height: auto; opacity: .95; color: var(--teal);
+    position: relative; z-index: 1;
+    filter: drop-shadow(0 8px 20px rgba(0,0,0,.25));
+  }
+  .combo__badge {
+    position: absolute; top: 16px; left: 16px;
+    background: var(--teal); color: var(--navy);
+    font-weight: 800; font-size: 13px; letter-spacing: .02em;
+    padding: 7px 12px; border-radius: 999px; z-index: 2;
+    box-shadow: 0 4px 12px rgba(57,235,225,.4);
+  }
+  .combo__body { padding: 22px 22px 24px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
+  .combo__tag { font-size: 11px; font-weight: 700; color: var(--teal-deep); letter-spacing: .12em; text-transform: uppercase; }
+  .combo__name { font-family: var(--font-display); font-size: 20px; font-weight: 700; color: var(--navy); margin: 0; letter-spacing: -.01em; line-height: 1.2; }
+  .combo__desc { font-size: 14px; color: var(--muted); margin: 0; line-height: 1.5; }
+  .combo__prices { display: flex; align-items: baseline; gap: 12px; margin-top: 4px; }
+  .combo__old { font-size: 15px; color: var(--muted); text-decoration: line-through; }
+  .combo__now { font-family: var(--font-display); font-size: 28px; font-weight: 700; color: var(--navy); letter-spacing: -.02em; }
+  .combo__cta {
+    margin-top: auto;
+    display: inline-flex; align-items: center; justify-content: space-between; gap: 8px;
+    background: var(--bg); color: var(--navy);
+    border: 1px solid var(--line); padding: 13px 18px; border-radius: 12px;
+    font-weight: 700; font-size: 14px; text-decoration: none;
+    transition: background .2s, color .2s, border-color .2s;
+  }
+  .combo__cta:hover { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .combo__cta:hover svg { transform: translateX(3px); }
+  .combo__cta svg { width: 16px; height: 16px; transition: transform .2s; }
+
+  /* ── WHATSAPP BANNER ── */
+  .whats-banner {
+    background: var(--navy-deep); color: #fff;
+    padding: 64px 0; position: relative; overflow: hidden;
+  }
+  .whats-banner::before {
+    content: "";
+    position: absolute; left: -100px; bottom: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(37,211,102,.18), transparent 65%);
+    pointer-events: none;
+  }
+  .whats-banner__inner {
+    position: relative;
+    display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center;
+  }
+  @media (max-width: 760px) { .whats-banner__inner { grid-template-columns: 1fr; text-align: center; } }
+  .whats-banner__title {
+    font-family: var(--font-display);
+    font-size: clamp(24px, 2.8vw, 34px); font-weight: 700;
+    margin: 0 0 8px; letter-spacing: -.02em; line-height: 1.15;
+  }
+  .whats-banner__sub { color: rgba(255,255,255,.7); margin: 0; font-size: 16px; }
+
+  .btn--whats {
+    background: var(--whats); color: #fff;
+    padding: 16px 26px; border-radius: 999px;
+    font-family: var(--font-sans); font-size: 16px; font-weight: 700;
+    display: inline-flex; align-items: center; gap: 10px; text-decoration: none;
+    box-shadow: 0 10px 30px rgba(37,211,102,.35); border: none;
+    transition: background .2s, transform .2s, box-shadow .2s;
+  }
+  .btn--whats:hover { background: var(--whats-deep); transform: translateY(-2px); box-shadow: 0 14px 36px rgba(37,211,102,.5); }
+  .btn--whats svg { width: 20px; height: 20px; }
+
+  /* ── SECCIÓN CONTACTO ── */
+  .contact-section {
+    background: var(--navy);
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-section::before {
+    content: "";
+    position: absolute;
+    top: -160px; right: -160px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(57,235,225,.1), transparent 65%);
+    pointer-events: none;
+  }
+  .contact-section::after {
+    content: "";
+    position: absolute;
+    bottom: -120px; left: -120px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(37,211,102,.1), transparent 65%);
+    pointer-events: none;
+  }
+  .contact__inner {
+    position: relative; z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 64px;
+    align-items: center;
+  }
+  @media (max-width: 860px) {
+    .contact__inner { grid-template-columns: 1fr; gap: 40px; }
+  }
+  .contact__left { color: #fff; }
+  .contact__eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(57,235,225,.12);
+    border: 1px solid rgba(57,235,225,.3);
+    color: var(--teal);
+    font-size: 12px; font-weight: 600;
+    padding: 6px 14px; border-radius: 999px;
+    letter-spacing: .08em; text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .contact__eyebrow::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--teal);
+    box-shadow: 0 0 0 4px rgba(57,235,225,.2);
+  }
+  .contact__title {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 700; letter-spacing: -.02em;
+    margin: 0 0 12px; line-height: 1.1; color: #fff;
+  }
+  .contact__sub {
+    color: rgba(255,255,255,.65);
+    font-size: 16px; margin: 0 0 36px; line-height: 1.55;
+  }
+  .contact__buttons {
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .btn--contact-whats {
+    background: var(--whats); color: #fff;
+    padding: 15px 24px; border-radius: 14px;
+    font-family: var(--font-sans); font-size: 15px; font-weight: 700;
+    display: inline-flex; align-items: center; gap: 12px; text-decoration: none;
+    box-shadow: 0 8px 24px rgba(37,211,102,.3); border: none;
+    transition: background .2s, transform .2s, box-shadow .2s;
+  }
+  .btn--contact-whats:hover { background: var(--whats-deep); transform: translateY(-2px); box-shadow: 0 12px 30px rgba(37,211,102,.45); }
+  .btn--contact-whats svg { width: 22px; height: 22px; flex-shrink: 0; }
+  .btn--contact-whats span { display: flex; flex-direction: column; line-height: 1.2; }
+  .btn--contact-whats span small { font-size: 12px; font-weight: 500; opacity: .85; }
+
+  .btn--contact-ig {
+    background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%);
+    color: #fff;
+    padding: 15px 24px; border-radius: 14px;
+    font-family: var(--font-sans); font-size: 15px; font-weight: 700;
+    display: inline-flex; align-items: center; gap: 12px; text-decoration: none;
+    box-shadow: 0 8px 24px rgba(131,58,180,.3); border: none;
+    transition: opacity .2s, transform .2s, box-shadow .2s;
+  }
+  .btn--contact-ig:hover { opacity: .9; transform: translateY(-2px); box-shadow: 0 12px 30px rgba(131,58,180,.45); }
+  .btn--contact-ig svg { width: 22px; height: 22px; flex-shrink: 0; }
+  .btn--contact-ig span { display: flex; flex-direction: column; line-height: 1.2; }
+  .btn--contact-ig span small { font-size: 12px; font-weight: 500; opacity: .85; }
+
+  .contact__map {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(0,0,0,.35), 0 0 0 1px rgba(57,235,225,.15);
+    position: relative;
+  }
+  .contact__map iframe {
+    display: block;
+    width: 100%; height: 400px;
+    border: 0;
+  }
+  @media (max-width: 860px) {
+    .contact__map iframe { height: 300px; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+{# ── HERO ── #}
+<section class="hero">
+  <div class="container hero__inner">
+
+    <div class="hero__logo">
+      <div class="hero__logo-glow"></div>
+      <img src="{{ url_for('static', filename='img/DG LOGO (8) (1).webp') }}" alt="DG Limpieza" />
+    </div>
+
+    <div class="hero__content">
+      <span class="hero__eyebrow">Distribuidora mayorista</span>
+      <h1 class="hero__title">
+        Todo para limpieza, <span>directo del distribuidor</span>
+      </h1>
+      <p class="hero__subtitle">
+        Limpieza, descartables, perfumería, piscinas y bolsas. Pedí online y retirá en el local.
+      </p>
+
+      <div class="hero__cta">
+        <a href="{{ url_for('public.catalogo') }}" class="btn--teal">
+          Ver catálogo
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <a href="https://wa.me/5493513000000" class="btn--outline-white" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4s-1 1-1 2.4 1 2.8 1.2 3c.1.2 2.1 3.1 5 4.4.7.3 1.2.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.7.5 3.4 1.3 4.9L2 22l5.3-1.3C8.7 21.5 10.3 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.5 0-3-.4-4.3-1.1l-.3-.2-3.1.8.8-3-.2-.3C4.3 14.9 4 13.5 4 12c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8-8 8z"/></svg>
+          Escribir al WhatsApp
+        </a>
+      </div>
+
+      <div class="hero__trust">
+        <div class="hero__trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3 8-8"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <span><strong>+1.000</strong> productos en stock</span>
+        </div>
+        <div class="hero__trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h18"/><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M8 3v4"/><path d="M16 3v4"/></svg>
+          <span>Pedí online, <strong>retirá hoy</strong></span>
+        </div>
+        <div class="hero__trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <span>Atención <strong>lun a sáb</strong></span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{# ── CATEGORÍAS ── #}
+<section class="home-section home-section--bg">
+  <div class="container">
+
+    <div class="section__head">
+      <div>
+        <span class="section__eyebrow">Nuestras categorías</span>
+        <h2 class="section__title">Todo lo que necesita tu negocio o tu hogar.</h2>
+      </div>
+      <p class="section__sub">5 rubros completos. Marcas reconocidas. Precios de distribuidor.</p>
+    </div>
+
+    <div class="cats">
+      <a href="{{ url_for('public.catalogo', categoria='limpieza') }}" class="cat">
+        <div class="cat__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2 9.5 6.5"/><path d="m18.5 6.5-3-3"/>
+            <path d="M10.5 5.5 5 11l8 8 5.5-5.5z"/>
+            <path d="M5 11c-2 2-2 5 0 7s5 2 7 0"/>
+            <circle cx="18" cy="6" r="1" fill="currentColor"/>
+          </svg>
+        </div>
+        <h3 class="cat__name">Limpieza</h3>
+        <p class="cat__desc">Detergentes, lavandinas, desinfectantes y trapos.</p>
+        <span class="cat__arrow">Ver productos <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+      </a>
+
+      <a href="{{ url_for('public.catalogo', categoria='descartables') }}" class="cat">
+        <div class="cat__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2h12l-1.5 18a2 2 0 0 1-2 2h-5a2 2 0 0 1-2-2L6 2z"/>
+            <path d="M6 7h12"/><path d="M9 11v6"/><path d="M15 11v6"/>
+          </svg>
+        </div>
+        <h3 class="cat__name">Descartables</h3>
+        <p class="cat__desc">Vasos, platos, bandejas, servilletas y film.</p>
+        <span class="cat__arrow">Ver productos <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+      </a>
+
+      <a href="{{ url_for('public.catalogo', categoria='perfumeria') }}" class="cat">
+        <div class="cat__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 3h6v3H9z"/><path d="M8 6h8l1 4v9a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-9z"/>
+            <path d="M10 11h4"/><path d="M10 15h4"/>
+          </svg>
+        </div>
+        <h3 class="cat__name">Perfumería</h3>
+        <p class="cat__desc">Shampoo, jabones, cremas y cuidado personal.</p>
+        <span class="cat__arrow">Ver productos <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+      </a>
+
+      <a href="{{ url_for('public.catalogo', categoria='piscinas') }}" class="cat">
+        <div class="cat__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 20c1.5-1 3-1 4.5 0s3 1 4.5 0 3-1 4.5 0 3 1 4.5 0"/>
+            <path d="M2 16c1.5-1 3-1 4.5 0s3 1 4.5 0 3-1 4.5 0 3 1 4.5 0"/>
+            <path d="M8 12V5a2 2 0 0 1 4 0v0"/><path d="M16 12V5a2 2 0 0 0-4 0v7"/>
+          </svg>
+        </div>
+        <h3 class="cat__name">Piscinas</h3>
+        <p class="cat__desc">Cloro, alguicidas, clarificadores y accesorios.</p>
+        <span class="cat__arrow">Ver productos <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+      </a>
+
+      <a href="{{ url_for('public.catalogo', categoria='bolsas') }}" class="cat">
+        <div class="cat__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 7h14l-1.5 13a2 2 0 0 1-2 1.8H8.5a2 2 0 0 1-2-1.8L5 7z"/>
+            <path d="M9 7V4.5C9 3.7 9.7 3 10.5 3h3c.8 0 1.5.7 1.5 1.5V7"/>
+          </svg>
+        </div>
+        <h3 class="cat__name">Bolsas</h3>
+        <p class="cat__desc">Residuos, consorcio, camiseta y bobinas.</p>
+        <span class="cat__arrow">Ver productos <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+{# ── COMBOS ── #}
+<section class="home-section home-section--light">
+  <div class="container">
+
+    <div class="section__head">
+      <div>
+        <span class="section__eyebrow">Combos y descuentos</span>
+        <h2 class="section__title">Ahorrá más comprando por mayor.</h2>
+      </div>
+      <p class="section__sub">Promos rotativas que cambiamos cada semana. Stock limitado.</p>
+    </div>
+
+    <div class="combos">
+
+      <article class="combo">
+        <div class="combo__media">
+          <span class="combo__badge">−25% OFF</span>
+          <svg class="combo__art" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="22" y="18" width="14" height="46" rx="2"/><path d="M22 26h14"/>
+            <rect x="42" y="28" width="14" height="36" rx="2"/><path d="M42 36h14"/>
+            <path d="M29 12v6"/><path d="M49 22v6"/>
+            <path d="M62 14c2 0 3 1 3 3M68 18c0 2-1 3-3 3M14 60c-2 0-3 1-3 3"/>
+          </svg>
+        </div>
+        <div class="combo__body">
+          <span class="combo__tag">Más vendido</span>
+          <h3 class="combo__name">Combo Limpieza Hogar</h3>
+          <p class="combo__desc">5 productos esenciales: detergente, lavandina, desengrasante, multiuso y trapo.</p>
+          <div class="combo__prices">
+            <span class="combo__old">$ 18.400</span>
+            <span class="combo__now">$ 13.800</span>
+          </div>
+          <a href="#" class="combo__cta">
+            Ver más
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="combo">
+        <div class="combo__media">
+          <span class="combo__badge">Caja x12</span>
+          <svg class="combo__art" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 26 40 14l26 12v28L40 66 14 54z"/>
+            <path d="M14 26 40 38l26-12"/><path d="M40 38v28"/><path d="m27 20 26 12"/>
+          </svg>
+        </div>
+        <div class="combo__body">
+          <span class="combo__tag">Para comerciantes</span>
+          <h3 class="combo__name">Descuento por caja cerrada</h3>
+          <p class="combo__desc">Llevate cajas completas de cualquier producto y pagá precio de fábrica.</p>
+          <div class="combo__prices">
+            <span class="combo__old">−15%</span>
+            <span class="combo__now">Hasta −22%</span>
+          </div>
+          <a href="#" class="combo__cta">
+            Ver más
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="combo">
+        <div class="combo__media">
+          <span class="combo__badge">Promo x mayor</span>
+          <svg class="combo__art" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M30 18h20l3 8H27z"/>
+            <path d="M28 26h24l-2 38a4 4 0 0 1-4 3.6H34a4 4 0 0 1-4-3.6z"/>
+            <path d="M36 38v18"/><path d="M44 38v18"/>
+          </svg>
+        </div>
+        <div class="combo__body">
+          <span class="combo__tag">Stock limitado</span>
+          <h3 class="combo__name">Perfumería x mayor</h3>
+          <p class="combo__desc">Shampoo, acondicionador y jabón líquido en bidón. Ideal para revendedores.</p>
+          <div class="combo__prices">
+            <span class="combo__old">$ 24.900</span>
+            <span class="combo__now">$ 19.500</span>
+          </div>
+          <a href="#" class="combo__cta">
+            Ver más
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+{# ── CONTACTO ── #}
+<section class="contact-section" id="contacto">
+  <div class="container contact__inner">
+
+    <div class="contact__left">
+      <span class="contact__eyebrow">Contacto</span>
+      <h2 class="contact__title">Hablemos cuando quieras</h2>
+      <p class="contact__sub">
+        Escribinos por WhatsApp o seguinos en Instagram para ver novedades, promos y productos disponibles.
+      </p>
+
+      <div class="contact__buttons">
+        <a href="https://wa.me/5493513000000" target="_blank" rel="noopener" class="btn--contact-whats">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4s-1 1-1 2.4 1 2.8 1.2 3c.1.2 2.1 3.1 5 4.4.7.3 1.2.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/>
+            <path d="M12 2C6.5 2 2 6.5 2 12c0 1.7.5 3.4 1.3 4.9L2 22l5.3-1.3C8.7 21.5 10.3 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.5 0-3-.4-4.3-1.1l-.3-.2-3.1.8.8-3-.2-.3C4.3 14.9 4 13.5 4 12c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8-8 8z"/>
+          </svg>
+          <span>
+            WhatsApp
+            <small>Respondemos al instante</small>
+          </span>
+        </a>
+
+        <a href="https://www.instagram.com/dglimpiezacordoba/" target="_blank" rel="noopener" class="btn--contact-ig">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+          <span>
+            @dglimpiezacordoba
+            <small>Seguinos en Instagram</small>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <div class="contact__map">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3406.9867447198862!2d-64.251779!3d-31.359344999999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94329eb71bec46bb%3A0xfd00254a4797b9d6!2sDistribuidora%20Gauss!5e0!3m2!1ses-419!2sar!4v1779462169235!5m2!1ses-419!2sar"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Ubicación DG Limpieza">
+      </iframe>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}
+
+{% block scripts %}{% endblock %}
