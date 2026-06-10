@@ -369,7 +369,7 @@
   "@type": "Product",
   "name": "{{ producto.nombre }}",
   {% if producto.descripcion %}
-  "description": "{{ producto.descripcion | replace('"', '\\"') | replace('\n', ' ') }}",
+  "description": {{ producto.descripcion | tojson }},
   {% endif %}
   "image": "{{ producto.imagen_url or '' }}",
   "brand": {
