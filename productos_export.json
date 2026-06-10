@@ -1,0 +1,5815 @@
+{
+  "categorias": [
+    {
+      "id": 1,
+      "nombre": "Limpieza",
+      "slug": "limpieza",
+      "icono": "spray-can"
+    },
+    {
+      "id": 2,
+      "nombre": "Descartables",
+      "slug": "descartables",
+      "icono": "cup-straw"
+    },
+    {
+      "id": 3,
+      "nombre": "Perfumería",
+      "slug": "perfumeria",
+      "icono": "bottle"
+    },
+    {
+      "id": 4,
+      "nombre": "Piscinas",
+      "slug": "piscinas",
+      "icono": "pool"
+    },
+    {
+      "id": 5,
+      "nombre": "Bolsas",
+      "slug": "bolsas",
+      "icono": "bag"
+    }
+  ],
+  "productos": [
+    {
+      "id": 1,
+      "nombre": "Vasos de 300ml (25uni)",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030387/dg_limpieza/productos/vasos_de_300ml__25uni_.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        2
+      ]
+    },
+    {
+      "id": 2,
+      "nombre": "Perfume para ropa o telas 500ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030389/dg_limpieza/productos/perfume_para_ropa_o_telas_500ml.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 3,
+      "nombre": "Jabón líquido para manos o cuerpo 1litro",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030392/dg_limpieza/productos/jab_n_l_quido_para_manos_o_cuerpo_1litro.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 4,
+      "nombre": "Jabón líquido para manos o cuerpo 500ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030394/dg_limpieza/productos/jab_n_l_quido_para_manos_o_cuerpo_500ml.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 5,
+      "nombre": "Limpiador desengrasante de paredes Mak",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030397/dg_limpieza/productos/limpiador_desengrasante_de_paredes_mak.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        4
+      ]
+    },
+    {
+      "id": 6,
+      "nombre": "Coagulante,clarificante,floculante para agua de piscinas Mak",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030399/dg_limpieza/productos/coagulante_clarificante_floculante_para_agua_de_pi.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        4
+      ]
+    },
+    {
+      "id": 7,
+      "nombre": "Repelente de insectos para agua de piscinas Mak",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030402/dg_limpieza/productos/repelente_de_insectos_para_agua_de_piscinas_mak.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        4
+      ]
+    },
+    {
+      "id": 8,
+      "nombre": "Regulador de ph Mak 1litro",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030404/dg_limpieza/productos/regulador_de_ph_mak_1litro.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        2
+      ]
+    },
+    {
+      "id": 9,
+      "nombre": "Sorbetes (50uni)",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030407/dg_limpieza/productos/sorbetes__50uni_.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        2
+      ]
+    },
+    {
+      "id": 10,
+      "nombre": "Pinchos descartables (100uni)",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030410/dg_limpieza/productos/pinchos_descartables__100uni_.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        2
+      ]
+    },
+    {
+      "id": 11,
+      "nombre": "Platos descartables (50uni)",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030413/dg_limpieza/productos/platos_descartables__50uni_.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        2
+      ]
+    },
+    {
+      "id": 12,
+      "nombre": "Pinches de plástico (100uni)",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030416/dg_limpieza/productos/pinches_de_pl_stico__100uni_.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        2
+      ]
+    },
+    {
+      "id": 13,
+      "nombre": "Cucharas descartables",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030418/dg_limpieza/productos/cucharas_descartables.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        2
+      ]
+    },
+    {
+      "id": 14,
+      "nombre": "Vasos descartables de 220ml (25uni)",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030421/dg_limpieza/productos/vasos_descartables_de_220ml__25uni_.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        2
+      ]
+    },
+    {
+      "id": 15,
+      "nombre": "Vasos descartables de 100ml (25uni)",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030423/dg_limpieza/productos/vasos_descartables_de_100ml__25uni_.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        2
+      ]
+    },
+    {
+      "id": 16,
+      "nombre": "Vasos de plástico (se vende por unidad)",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030426/dg_limpieza/productos/vasos_de_pl_stico__se_vende_por_unidad_.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        2
+      ]
+    },
+    {
+      "id": 17,
+      "nombre": "Vasos descartables de 500ml (50uni)",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030432/dg_limpieza/productos/vasos_descartables_de_500ml__50uni_.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        2
+      ]
+    },
+    {
+      "id": 18,
+      "nombre": "Vasos descartable de 300ml (50uni)",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030435/dg_limpieza/productos/vasos_descartable_de_300ml__50uni_.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        2
+      ]
+    },
+    {
+      "id": 19,
+      "nombre": "Vasos termicos de 180ml (25 vasos)",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030437/dg_limpieza/productos/vasos_termicos_de_180ml__25_vasos_.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        2
+      ]
+    },
+    {
+      "id": 20,
+      "nombre": "Vasos térmicos (fríos o calientes)",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030441/dg_limpieza/productos/vasos_t_rmicos__fr_os_o_calientes_.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        2
+      ]
+    },
+    {
+      "id": 21,
+      "nombre": "Esponja de acero inoxidable La guachita",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030444/dg_limpieza/productos/esponja_de_acero_inoxidable_la_guachita.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 22,
+      "nombre": "Esponja con virulana dorada Make",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030447/dg_limpieza/productos/esponja_con_virulana_dorada_make.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 23,
+      "nombre": "Rollos de virulana Make (10)",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030450/dg_limpieza/productos/rollos_de_virulana_make__10_.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 24,
+      "nombre": "Film adherente para comidas",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030452/dg_limpieza/productos/film_adherente_para_comidas.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 25,
+      "nombre": "Suavizante para ropa Distribuidora Gauss 1 litro",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030455/dg_limpieza/productos/suavizante_para_ropa_distribuidora_gauss_1_litro.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 26,
+      "nombre": "Anti grasa Distribuidora Gauss 1litro",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030457/dg_limpieza/productos/anti_grasa_distribuidora_gauss_1litro.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 27,
+      "nombre": "Detergente ultra",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030460/dg_limpieza/productos/detergente_ultra.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 28,
+      "nombre": "Cera negra",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030462/dg_limpieza/productos/cera_negra.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 29,
+      "nombre": "Cera roja Distribuidora Gauss 1 litro",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030465/dg_limpieza/productos/cera_roja_distribuidora_gauss_1_litro.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 30,
+      "nombre": "Revividor negro Distribuidora Gauss 1 litro",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030468/dg_limpieza/productos/revividor_negro_distribuidora_gauss_1_litro.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 31,
+      "nombre": "Shampoo para auto distribuidora Gauss",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030471/dg_limpieza/productos/shampoo_para_auto_distribuidora_gauss.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 32,
+      "nombre": "Limpia vidrio Distribuidora Gauss 1litro",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030474/dg_limpieza/productos/limpia_vidrio_distribuidora_gauss_1litro.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 33,
+      "nombre": "Detergente Distribuidora Gauss 1 litro",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030477/dg_limpieza/productos/detergente_distribuidora_gauss_1_litro.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 34,
+      "nombre": "Limpia vidrios Salzano",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030479/dg_limpieza/productos/limpia_vidrios_salzano.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 35,
+      "nombre": "Limpia vidrios Salzano",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030479/dg_limpieza/productos/limpia_vidrios_salzano.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 36,
+      "nombre": "Secador de pisos La guachita",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030484/dg_limpieza/productos/secador_de_pisos_la_guachita.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 37,
+      "nombre": "Secador de pisos Fiorentina",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030486/dg_limpieza/productos/secador_de_pisos_fiorentina.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 38,
+      "nombre": "Secador de pisos Salzano",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030489/dg_limpieza/productos/secador_de_pisos_salzano.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 39,
+      "nombre": "Secador Salzano",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030491/dg_limpieza/productos/secador_salzano.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 40,
+      "nombre": "Algodón hidrofilo Doncella",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030494/dg_limpieza/productos/algod_n_hidrofilo_doncella.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 41,
+      "nombre": "Aromatizante para ambientes automatico",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030496/dg_limpieza/productos/aromatizante_para_ambientes_automatico.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 42,
+      "nombre": "Trapeador con micrdofibra",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030499/dg_limpieza/productos/trapeador_con_micrdofibra.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 43,
+      "nombre": "Trapeador para todas las superficies",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030507/dg_limpieza/productos/trapeador_para_todas_las_superficies.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 44,
+      "nombre": "Cepillo para fregar",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030511/dg_limpieza/productos/cepillo_para_fregar.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 45,
+      "nombre": "Saca hojas cuadrado para pileta (mas resistente)",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030514/dg_limpieza/productos/saca_hojas_cuadrado_para_pileta__mas_resistente_.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        4
+      ]
+    },
+    {
+      "id": 46,
+      "nombre": "Saca hojas para pileta",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030516/dg_limpieza/productos/saca_hojas_para_pileta.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        4
+      ]
+    },
+    {
+      "id": 47,
+      "nombre": "Trapeador grande",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030519/dg_limpieza/productos/trapeador_grande.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 48,
+      "nombre": "Escobilla para baño",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030521/dg_limpieza/productos/escobilla_para_ba_o.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 49,
+      "nombre": "Espuma de afeitar Gillette 179ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030524/dg_limpieza/productos/espuma_de_afeitar_gillette_179ml.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 50,
+      "nombre": "Dentífrico Colgate encías sanas",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030526/dg_limpieza/productos/dent_frico_colgate_enc_as_sanas.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 51,
+      "nombre": "Dentífrico Odol doble acción",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030529/dg_limpieza/productos/dent_frico_odol_doble_acci_n.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 52,
+      "nombre": "Dentífrico Colgate Herbal blanqueadora",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030532/dg_limpieza/productos/dent_frico_colgate_herbal_blanqueadora.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 53,
+      "nombre": "Dentífrico Colgate sensitive blanqueador",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030534/dg_limpieza/productos/dent_frico_colgate_sensitive_blanqueador.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 54,
+      "nombre": "Algodón hidrofilo Estrella clasico 75g",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030537/dg_limpieza/productos/algod_n_hidrofilo_estrella_clasico_75g.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 55,
+      "nombre": "Esponja vegetal doble acción para spa",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030539/dg_limpieza/productos/esponja_vegetal_doble_acci_n_para_spa.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 56,
+      "nombre": "Súper esponja natural + vegetal para spa",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030542/dg_limpieza/productos/s_per_esponja_natural___vegetal_para_spa.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 57,
+      "nombre": "Hisopos Doncella 100uni",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030544/dg_limpieza/productos/hisopos_doncella_100uni.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 58,
+      "nombre": "Dentífrico Sensodyne multi protección",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030547/dg_limpieza/productos/dent_frico_sensodyne_multi_protecci_n.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 59,
+      "nombre": "Dentífrico Colgate triple acción",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030549/dg_limpieza/productos/dent_frico_colgate_triple_acci_n.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 60,
+      "nombre": "Protectores diarios Kotex (20)",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030552/dg_limpieza/productos/protectores_diarios_kotex__20_.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 61,
+      "nombre": "Protectores para mujeres Carefreee",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030554/dg_limpieza/productos/protectores_para_mujeres_carefreee.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 62,
+      "nombre": "Jabón nivea",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030557/dg_limpieza/productos/jab_n_nivea.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 63,
+      "nombre": "Shampoo Tresemme 250ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030559/dg_limpieza/productos/shampoo_tresemme_250ml.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 64,
+      "nombre": "Élite pañuelos 6packs de 10",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030562/dg_limpieza/productos/_lite_pa_uelos_6packs_de_10.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 65,
+      "nombre": "Pañuelos Elite (90)",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030566/dg_limpieza/productos/pa_uelos_elite__90_.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 66,
+      "nombre": "Dove en crema 48hs",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030569/dg_limpieza/productos/dove_en_crema_48hs.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 67,
+      "nombre": "Rexona clínica en crema 96horas",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030571/dg_limpieza/productos/rexona_cl_nica_en_crema_96horas.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 68,
+      "nombre": "Crema antitraspirante 72hs",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030574/dg_limpieza/productos/crema_antitraspirante_72hs.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 69,
+      "nombre": "Talco rexona",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030576/dg_limpieza/productos/talco_rexona.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 70,
+      "nombre": "Desodorante Nívea 48hs",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030579/dg_limpieza/productos/desodorante_n_vea_48hs.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 71,
+      "nombre": "Desodorante rexona 48hs",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030581/dg_limpieza/productos/desodorante_rexona_48hs.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 72,
+      "nombre": "Desodorante rexona 72hs",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030584/dg_limpieza/productos/desodorante_rexona_72hs.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 73,
+      "nombre": "Desesperante chester",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030586/dg_limpieza/productos/desesperante_chester.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 74,
+      "nombre": "Desodorante Ciel",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030590/dg_limpieza/productos/desodorante_ciel.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 75,
+      "nombre": "Rexona clínica (96hs)",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030592/dg_limpieza/productos/rexona_cl_nica__96hs_.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 76,
+      "nombre": "Desodorante dove",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030596/dg_limpieza/productos/desodorante_dove.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 77,
+      "nombre": "Desodorante musk",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030598/dg_limpieza/productos/desodorante_musk.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 78,
+      "nombre": "Desodorante axe",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030601/dg_limpieza/productos/desodorante_axe.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 79,
+      "nombre": "Desodorante kevinn",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030603/dg_limpieza/productos/desodorante_kevinn.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 80,
+      "nombre": "Desodorante rexona",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030605/dg_limpieza/productos/desodorante_rexona.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 81,
+      "nombre": "Acondicionador sedal (bomba de nutrición)",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030608/dg_limpieza/productos/acondicionador_sedal__bomba_de_nutrici_n_.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 82,
+      "nombre": "Acondicionador baby (suavidad/ph balanceado)",
+      "descripcion": "None",
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031530/dg-limpieza/productos/etciyp3qodruvda7so4t.jpg",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 83,
+      "nombre": "Shampoo napucid (anti liendres) 200ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030612/dg_limpieza/productos/shampoo_napucid__anti_liendres__200ml.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 84,
+      "nombre": "Shampoo kids (hipoalergenico) 350ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030615/dg_limpieza/productos/shampoo_kids__hipoalergenico__350ml.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 85,
+      "nombre": "Acondicionador Dove",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030618/dg_limpieza/productos/acondicionador_dove.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 20,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 86,
+      "nombre": "Shampoo Dove",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030621/dg_limpieza/productos/shampoo_dove.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 87,
+      "nombre": "Shampoo Sedal",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030623/dg_limpieza/productos/shampoo_sedal.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 88,
+      "nombre": "Acondicionador Head&Shoulders (crece fuerte)",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030626/dg_limpieza/productos/acondicionador_head_shoulders__crece_fuerte_.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 89,
+      "nombre": "Shampoo Head&Shoulders control caspa",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030628/dg_limpieza/productos/shampoo_head_shoulders_control_caspa.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 90,
+      "nombre": "Acondicionador anti daño (aloe de Vera)",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030631/dg_limpieza/productos/acondicionador_anti_da_o__aloe_de_vera_.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 91,
+      "nombre": "Acondicionador Tío Nacho jalea real",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030633/dg_limpieza/productos/acondicionador_t_o_nacho_jalea_real.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 92,
+      "nombre": "Shampoo Tío Nacho aclarante",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030636/dg_limpieza/productos/shampoo_t_o_nacho_aclarante.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 93,
+      "nombre": "Acondicionador suave",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030638/dg_limpieza/productos/acondicionador_suave.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 94,
+      "nombre": "Shampoo suave",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030641/dg_limpieza/productos/shampoo_suave.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 95,
+      "nombre": "Jabón dove original",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030644/dg_limpieza/productos/jab_n_dove_original.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 96,
+      "nombre": "Jabón Veritas sin perfume",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030646/dg_limpieza/productos/jab_n_veritas_sin_perfume.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 97,
+      "nombre": "Jabón kenia",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030649/dg_limpieza/productos/jab_n_kenia.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 98,
+      "nombre": "Jabón plusbelle",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030652/dg_limpieza/productos/jab_n_plusbelle.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 99,
+      "nombre": "Jabón rexona",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030655/dg_limpieza/productos/jab_n_rexona.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 100,
+      "nombre": "Jabón Q sens",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030657/dg_limpieza/productos/jab_n_q_sens.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 101,
+      "nombre": "Rastrillo",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030660/dg_limpieza/productos/rastrillo.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 102,
+      "nombre": "Limpia tapizados 500ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030663/dg_limpieza/productos/limpia_tapizados_500ml.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 103,
+      "nombre": "Líquido quita insectos 500ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030665/dg_limpieza/productos/l_quido_quita_insectos_500ml.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 104,
+      "nombre": "Cera polish para autos",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030668/dg_limpieza/productos/cera_polish_para_autos.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 105,
+      "nombre": "Alcohol etílico puro desinfectante para multiduperficies 222grs",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030670/dg_limpieza/productos/alcohol_et_lico_puro_desinfectante_para_multiduper.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 106,
+      "nombre": "Renovador multiproposito (fórmula de espuma) 400ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030673/dg_limpieza/productos/renovador_multiproposito__f_rmula_de_espuma__400ml.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 107,
+      "nombre": "Revividor de negro en gel para ruedas y paragolpes",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030676/dg_limpieza/productos/revividor_de_negro_en_gel_para_ruedas_y_paragolpes.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 108,
+      "nombre": "Silicona para interiores perfumada",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030679/dg_limpieza/productos/silicona_para_interiores_perfumada.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 109,
+      "nombre": "Aplicador de poliespuma",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030683/dg_limpieza/productos/aplicador_de_poliespuma.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 110,
+      "nombre": "Repuesto sport aromatizante",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030685/dg_limpieza/productos/repuesto_sport_aromatizante.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 111,
+      "nombre": "Sport líquido aromatizante",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030689/dg_limpieza/productos/sport_l_quido_aromatizante.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 112,
+      "nombre": "Microfibra con suavidad extrema",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030692/dg_limpieza/productos/microfibra_con_suavidad_extrema.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 113,
+      "nombre": "Repuesto one millón para electronic kit completo",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030695/dg_limpieza/productos/repuesto_one_mill_n_para_electronic_kit_completo.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 114,
+      "nombre": "Sport repuesto de fragancia",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030698/dg_limpieza/productos/sport_repuesto_de_fragancia.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 115,
+      "nombre": "Cubo fragancia Aqua",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030701/dg_limpieza/productos/cubo_fragancia_aqua.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 116,
+      "nombre": "Minicubo fragancia cítrico",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030704/dg_limpieza/productos/minicubo_fragancia_c_trico.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 117,
+      "nombre": "Microfibra de secado rápido",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030708/dg_limpieza/productos/microfibra_de_secado_r_pido.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 118,
+      "nombre": "Manguera",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030711/dg_limpieza/productos/manguera.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 119,
+      "nombre": "Rastrillo para jardines",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030713/dg_limpieza/productos/rastrillo_para_jardines.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 120,
+      "nombre": "Cepillo para lavar autos",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030716/dg_limpieza/productos/cepillo_para_lavar_autos.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 121,
+      "nombre": "Desengrasante para motores 500ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030719/dg_limpieza/productos/desengrasante_para_motores_500ml.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 122,
+      "nombre": "Brillo final para exterior 500ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030722/dg_limpieza/productos/brillo_final_para_exterior_500ml.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 123,
+      "nombre": "Acondicionador de brillo natural 600ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030724/dg_limpieza/productos/acondicionador_de_brillo_natural_600ml.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 124,
+      "nombre": "Siliconas perfumadas para autos 400ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030727/dg_limpieza/productos/siliconas_perfumadas_para_autos_400ml.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 125,
+      "nombre": "Lavaparabrisas",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030730/dg_limpieza/productos/lavaparabrisas.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 126,
+      "nombre": "Espuma activa para hidrolavadoras",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030733/dg_limpieza/productos/espuma_activa_para_hidrolavadoras.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 127,
+      "nombre": "Revividor negro líquido neumáticos y paragolpes",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030736/dg_limpieza/productos/revividor_negro_l_quido_neum_ticos_y_paragolpes.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 128,
+      "nombre": "Silicona en emulsión para interior y exterior",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030738/dg_limpieza/productos/silicona_en_emulsi_n_para_interior_y_exterior.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 129,
+      "nombre": "Esponja para autos",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030741/dg_limpieza/productos/esponja_para_autos.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 130,
+      "nombre": "Pad de microfibra",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030744/dg_limpieza/productos/pad_de_microfibra.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 131,
+      "nombre": "Cera líquida para exterior",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030746/dg_limpieza/productos/cera_l_quida_para_exterior.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 132,
+      "nombre": "Aromatizador para el auto",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030749/dg_limpieza/productos/aromatizador_para_el_auto.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 133,
+      "nombre": "Pala salzano",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030752/dg_limpieza/productos/pala_salzano.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 134,
+      "nombre": "Pala de color gris",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030755/dg_limpieza/productos/pala_de_color_gris.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 135,
+      "nombre": "Pala para la basura con palo",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030757/dg_limpieza/productos/pala_para_la_basura_con_palo.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 136,
+      "nombre": "Alcohol etílico desnaturalizado uso domestico 1litro",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030760/dg_limpieza/productos/alcohol_et_lico_desnaturalizado_uso_domestico_1lit.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 137,
+      "nombre": "Alcohol etílico porta de 1litro",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030762/dg_limpieza/productos/alcohol_et_lico_porta_de_1litro.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 138,
+      "nombre": "Destapacañerias 1 litro",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030765/dg_limpieza/productos/destapaca_erias_1_litro.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 139,
+      "nombre": "Cif citrico en aerosol 360cc",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030768/dg_limpieza/productos/cif_citrico_en_aerosol_360cc.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 140,
+      "nombre": "Limpiador en aerosol lisofon 3000ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030771/dg_limpieza/productos/limpiador_en_aerosol_lisofon_3000ml.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 141,
+      "nombre": "Escobillon salzano",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030774/dg_limpieza/productos/escobillon_salzano.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 142,
+      "nombre": "Lavandina Ayudin no salpica 1litro",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030777/dg_limpieza/productos/lavandina_ayudin_no_salpica_1litro.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 143,
+      "nombre": "Detergente finish para lavavajillas de 1kg",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030780/dg_limpieza/productos/detergente_finish_para_lavavajillas_de_1kg.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 144,
+      "nombre": "Abrillantador finish 200ml",
+      "descripcion": "abrillantador finish 200ml",
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030783/dg_limpieza/productos/abrillantador_finish_200ml.webp",
+      "precio_unidad": 10000.0,
+      "precio_mayor": 8000.0,
+      "precio_caja": 7000.0,
+      "cantidad_mayor": 5,
+      "unidades_por_caja": 10,
+      "stock": 10,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 145,
+      "nombre": "Polvo Zorro para lavavajillas de 1,2kg",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030785/dg_limpieza/productos/polvo_zorro_para_lavavajillas_de_1_2kg.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 146,
+      "nombre": "Apresto repuesto Robin de facil planchado 450ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030788/dg_limpieza/productos/apresto_repuesto_robin_de_facil_planchado_450ml.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 147,
+      "nombre": "Suavisante vivere violetas y flores blancas 900ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030801/dg_limpieza/productos/suavisante_vivere_violetas_y_flores_blancas_900ml.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 148,
+      "nombre": "Suavisante vivere de flores silvestres 900ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030804/dg_limpieza/productos/suavisante_vivere_de_flores_silvestres_900ml.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 149,
+      "nombre": "Wolite jabon liquido para ropa de todos los dias matic 450ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030807/dg_limpieza/productos/wolite_jabon_liquido_para_ropa_de_todos_los_dias_m.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 150,
+      "nombre": "Woolite jabon liquido para ropa oscura 450ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030809/dg_limpieza/productos/woolite_jabon_liquido_para_ropa_oscura_450ml.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 151,
+      "nombre": "Wollite jabon liquido para ropa de bebe 450ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030812/dg_limpieza/productos/wollite_jabon_liquido_para_ropa_de_bebe_450ml.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 152,
+      "nombre": "Woolite jabon liquido para roba extrablanca de 450ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030815/dg_limpieza/productos/woolite_jabon_liquido_para_roba_extrablanca_de_450.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 153,
+      "nombre": "Jabon liquido Ala camellito matic (para lavaropa) 450ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030817/dg_limpieza/productos/jabon_liquido_ala_camellito_matic__para_lavaropa__.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 154,
+      "nombre": "Jabon liquido camellito de 450ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030820/dg_limpieza/productos/jabon_liquido_camellito_de_450ml.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 155,
+      "nombre": "Jabon liquidod de 500ml para diluir + botella de 3l",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030823/dg_limpieza/productos/jabon_liquidod_de_500ml_para_diluir___botella_de_3.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 156,
+      "nombre": "Jabon liquido ecolavado con blanqueador 800ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030825/dg_limpieza/productos/jabon_liquido_ecolavado_con_blanqueador_800ml.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 157,
+      "nombre": "Jabon liquido A la blanqueador para ropa de 500ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030828/dg_limpieza/productos/jabon_liquido_a_la_blanqueador_para_ropa_de_500ml.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 158,
+      "nombre": "Jabon liquido Ala con bicarbonato para ropa de 500ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030830/dg_limpieza/productos/jabon_liquido_ala_con_bicarbonato_para_ropa_de_500.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 159,
+      "nombre": "Trenet quitamanchas prelavado 120ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030832/dg_limpieza/productos/trenet_quitamanchas_prelavado_120ml.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 160,
+      "nombre": "Trenet quitamanchas de 400ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030835/dg_limpieza/productos/trenet_quitamanchas_de_400ml.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 161,
+      "nombre": "Vanish oxi gel quitamanchas en gel 400ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030839/dg_limpieza/productos/vanish_oxi_gel_quitamanchas_en_gel_400ml.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 162,
+      "nombre": "Vanish quitamanchas pre lavado 400ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030841/dg_limpieza/productos/vanish_quitamanchas_pre_lavado_400ml.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 163,
+      "nombre": "Jabon en polvo Ala blanqueador 3kg",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030844/dg_limpieza/productos/jabon_en_polvo_ala_blanqueador_3kg.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 164,
+      "nombre": "Jabon liquido Zorro evolution 800ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030846/dg_limpieza/productos/jabon_liquido_zorro_evolution_800ml.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 165,
+      "nombre": "Jabon liquido Zorro plus 800ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030848/dg_limpieza/productos/jabon_liquido_zorro_plus_800ml.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 166,
+      "nombre": "Jabon liquido Skip bio-enzimas de 3kg",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030851/dg_limpieza/productos/jabon_liquido_skip_bio_enzimas_de_3kg.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 167,
+      "nombre": "Jabon liquido bio-enzimas 800ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030854/dg_limpieza/productos/jabon_liquido_bio_enzimas_800ml.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 168,
+      "nombre": "Jabon liquido Skip bioenzimas 500ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030856/dg_limpieza/productos/jabon_liquido_skip_bioenzimas_500ml.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 169,
+      "nombre": "Jabon en polvo Ala con bicarbonato 3kg",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030859/dg_limpieza/productos/jabon_en_polvo_ala_con_bicarbonato_3kg.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 170,
+      "nombre": "Jabon en polvo Ala ecolavado (mañana de sol) 3kg",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030861/dg_limpieza/productos/jabon_en_polvo_ala_ecolavado__ma_ana_de_sol__3kg.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 171,
+      "nombre": "Jabon en polvo zorro evolution 800g",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030864/dg_limpieza/productos/jabon_en_polvo_zorro_evolution_800g.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 172,
+      "nombre": "Jabon en polvo Ala ecolavado",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030867/dg_limpieza/productos/jabon_en_polvo_ala_ecolavado.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 173,
+      "nombre": "Jabon en polvo skip bioenzimas",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030869/dg_limpieza/productos/jabon_en_polvo_skip_bioenzimas.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 174,
+      "nombre": "Balde escurridor con mopa plana",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030873/dg_limpieza/productos/balde_escurridor_con_mopa_plana.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 175,
+      "nombre": "Pala para basura Fiorentina",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030875/dg_limpieza/productos/pala_para_basura_fiorentina.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 176,
+      "nombre": "Escobillon de 1metro",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030878/dg_limpieza/productos/escobillon_de_1metro.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 177,
+      "nombre": "Escobillon de 60 cm",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030881/dg_limpieza/productos/escobillon_de_60_cm.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 178,
+      "nombre": "Escobillon de 80 cm",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030883/dg_limpieza/productos/escobillon_de_80_cm.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 179,
+      "nombre": "Escobillon salzano",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030774/dg_limpieza/productos/escobillon_salzano.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 180,
+      "nombre": "Escobillon novico",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030888/dg_limpieza/productos/escobillon_novico.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 181,
+      "nombre": "Escobillon",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030891/dg_limpieza/productos/escobillon.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 182,
+      "nombre": "Escobillon salzano",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030774/dg_limpieza/productos/escobillon_salzano.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 183,
+      "nombre": "Escobillon salzano",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030774/dg_limpieza/productos/escobillon_salzano.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 184,
+      "nombre": "Escobillon salzano",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030774/dg_limpieza/productos/escobillon_salzano.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 185,
+      "nombre": "Escobillon la gauchita",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030899/dg_limpieza/productos/escobillon_la_gauchita.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 186,
+      "nombre": "Escobillon salzano",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030774/dg_limpieza/productos/escobillon_salzano.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 187,
+      "nombre": "Escobillon la gauchita",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030899/dg_limpieza/productos/escobillon_la_gauchita.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 188,
+      "nombre": "Escobillon salzano",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030774/dg_limpieza/productos/escobillon_salzano.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 189,
+      "nombre": "Escobillon negro salzano",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030907/dg_limpieza/productos/escobillon_negro_salzano.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 190,
+      "nombre": "Balde con escurridor de 6litros",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030910/dg_limpieza/productos/balde_con_escurridor_de_6litros.webp",
+      "precio_unidad": 8.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 191,
+      "nombre": "Rejilla lavacoche",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030913/dg_limpieza/productos/rejilla_lavacoche.webp",
+      "precio_unidad": 1.8,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 192,
+      "nombre": "Balde de 12litros",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030915/dg_limpieza/productos/balde_de_12litros.webp",
+      "precio_unidad": 3.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 193,
+      "nombre": "Balde con escurridor de 14 litros",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030918/dg_limpieza/productos/balde_con_escurridor_de_14_litros.webp",
+      "precio_unidad": 11.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 194,
+      "nombre": "Palagana de 16litros",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030922/dg_limpieza/productos/palagana_de_16litros.webp",
+      "precio_unidad": 9.4,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 195,
+      "nombre": "Palagana de 9litros",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030925/dg_limpieza/productos/palagana_de_9litros.webp",
+      "precio_unidad": 6.5,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 196,
+      "nombre": "Palagana de 14litros",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030930/dg_limpieza/productos/palagana_de_14litros.webp",
+      "precio_unidad": 9.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 197,
+      "nombre": "Palagana de 10litros color celeste",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030932/dg_limpieza/productos/palagana_de_10litros_color_celeste.webp",
+      "precio_unidad": 6.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 198,
+      "nombre": "Balerina para cocina",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030935/dg_limpieza/productos/balerina_para_cocina.webp",
+      "precio_unidad": 800.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 199,
+      "nombre": "Rejilla americana La union",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030938/dg_limpieza/productos/rejilla_americana_la_union.webp",
+      "precio_unidad": 700.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 200,
+      "nombre": "Rejilla Americana Nuvia",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030941/dg_limpieza/productos/rejilla_americana_nuvia.webp",
+      "precio_unidad": 700.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 201,
+      "nombre": "Rejilla extrafuerte cocina 40x40",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030943/dg_limpieza/productos/rejilla_extrafuerte_cocina_40x40.webp",
+      "precio_unidad": 900.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 202,
+      "nombre": "Microfibra make",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030946/dg_limpieza/productos/microfibra_make.webp",
+      "precio_unidad": 3.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 203,
+      "nombre": "Microfibra para cocina 40x30",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030948/dg_limpieza/productos/microfibra_para_cocina_40x30.webp",
+      "precio_unidad": 1.5,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 204,
+      "nombre": "Esponja que no raya",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030951/dg_limpieza/productos/esponja_que_no_raya.webp",
+      "precio_unidad": 700.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 205,
+      "nombre": "Esponja ideal para cocina",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030953/dg_limpieza/productos/esponja_ideal_para_cocina.webp",
+      "precio_unidad": 600.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 206,
+      "nombre": "Esponja protege uñas",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030956/dg_limpieza/productos/esponja_protege_u_as.webp",
+      "precio_unidad": 600.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 207,
+      "nombre": "Esponja fuerte GO fibra verde x2",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030958/dg_limpieza/productos/esponja_fuerte_go_fibra_verde_x2.webp",
+      "precio_unidad": 1.5,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 208,
+      "nombre": "Antigrasa Odex de 450ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030961/dg_limpieza/productos/antigrasa_odex_de_450ml.webp",
+      "precio_unidad": 1.3,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 209,
+      "nombre": "Antigrasa con gatillo Cif",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030964/dg_limpieza/productos/antigrasa_con_gatillo_cif.webp",
+      "precio_unidad": 3.8,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 210,
+      "nombre": "Antigrasa Cif repuesto",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030966/dg_limpieza/productos/antigrasa_cif_repuesto.webp",
+      "precio_unidad": 1.4,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 211,
+      "nombre": "Antigrasa alcalino por 1litro",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030969/dg_limpieza/productos/antigrasa_alcalino_por_1litro.webp",
+      "precio_unidad": 1.3,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 212,
+      "nombre": "Odex polvo limpiador",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030972/dg_limpieza/productos/odex_polvo_limpiador.webp",
+      "precio_unidad": 2.9,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 213,
+      "nombre": "Detergente Cif bioactive concentrado de 500ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030975/dg_limpieza/productos/detergente_cif_bioactive_concentrado_de_500ml.webp",
+      "precio_unidad": 2.8,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 214,
+      "nombre": "Detergenter Magistral de 500ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030977/dg_limpieza/productos/detergenter_magistral_de_500ml.webp",
+      "precio_unidad": 3.2,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 215,
+      "nombre": "Detergente Ala concentrado de 500ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030980/dg_limpieza/productos/detergente_ala_concentrado_de_500ml.webp",
+      "precio_unidad": 2.4,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 216,
+      "nombre": "Detergente Ala cremoso 750ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030983/dg_limpieza/productos/detergente_ala_cremoso_750ml.webp",
+      "precio_unidad": 2.2,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 217,
+      "nombre": "Limpiafondo",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030985/dg_limpieza/productos/limpiafondo.webp",
+      "precio_unidad": 25.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        4
+      ]
+    },
+    {
+      "id": 218,
+      "nombre": "Limpiafondo chico",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030988/dg_limpieza/productos/limpiafondo_chico.webp",
+      "precio_unidad": 16.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        4
+      ]
+    },
+    {
+      "id": 219,
+      "nombre": "Alguicida para a de piscinas",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030992/dg_limpieza/productos/alguicida_para_a_de_piscinas.webp",
+      "precio_unidad": 5.5,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        4
+      ]
+    },
+    {
+      "id": 220,
+      "nombre": "Alguicida bacterizida para aguas de picinas",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030995/dg_limpieza/productos/alguicida_bacterizida_para_aguas_de_picinas.webp",
+      "precio_unidad": 7.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        4
+      ]
+    },
+    {
+      "id": 221,
+      "nombre": "Alguicida elimina hongos negros",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030998/dg_limpieza/productos/alguicida_elimina_hongos_negros.webp",
+      "precio_unidad": 31.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        4
+      ]
+    },
+    {
+      "id": 222,
+      "nombre": "Boya grande para piletas",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031001/dg_limpieza/productos/boya_grande_para_piletas.webp",
+      "precio_unidad": 6.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        4
+      ]
+    },
+    {
+      "id": 223,
+      "nombre": "Boya chica para piletas",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031005/dg_limpieza/productos/boya_chica_para_piletas.webp",
+      "precio_unidad": 3.2,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        4
+      ]
+    },
+    {
+      "id": 224,
+      "nombre": "Cesto de basura de 2,5litros San Remo",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031008/dg_limpieza/productos/cesto_de_basura_de_2_5litros_san_remo.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 225,
+      "nombre": "Bolsas de precorte 30x40 medianas",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031011/dg_limpieza/productos/bolsas_de_precorte_30x40_medianas.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        5
+      ]
+    },
+    {
+      "id": 226,
+      "nombre": "Bolsas de precorte 40x50 mediana",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031013/dg_limpieza/productos/bolsas_de_precorte_40x50_mediana.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        5
+      ]
+    },
+    {
+      "id": 227,
+      "nombre": "Bolsas de precorte 45x60 mediana",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031016/dg_limpieza/productos/bolsas_de_precorte_45x60_mediana.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        5
+      ]
+    },
+    {
+      "id": 228,
+      "nombre": "Bolsas maxi de 50x70",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031019/dg_limpieza/productos/bolsas_maxi_de_50x70.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        5
+      ]
+    },
+    {
+      "id": 229,
+      "nombre": "Separadores (folex) 200 unidades 20x25",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031021/dg_limpieza/productos/separadores__folex__200_unidades_20x25.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        5
+      ]
+    },
+    {
+      "id": 230,
+      "nombre": "Sepradores (folex) 25x37 de 1kg",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031024/dg_limpieza/productos/sepradores__folex__25x37_de_1kg.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        5
+      ]
+    },
+    {
+      "id": 231,
+      "nombre": "Sepradores (folex) 20x25 de 1kg",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031026/dg_limpieza/productos/sepradores__folex__20x25_de_1kg.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        5
+      ]
+    },
+    {
+      "id": 232,
+      "nombre": "Bolsas de papel craft numero 4",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031029/dg_limpieza/productos/bolsas_de_papel_craft_numero_4.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        5
+      ]
+    },
+    {
+      "id": 233,
+      "nombre": "Bolsas de papel craft numero 3",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031031/dg_limpieza/productos/bolsas_de_papel_craft_numero_3.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        5
+      ]
+    },
+    {
+      "id": 234,
+      "nombre": "Bolsas de pael craf numero 2",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031034/dg_limpieza/productos/bolsas_de_pael_craf_numero_2.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        5
+      ]
+    },
+    {
+      "id": 235,
+      "nombre": "Bolsas de papel cracft numero 1",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031036/dg_limpieza/productos/bolsas_de_papel_cracft_numero_1.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        5
+      ]
+    },
+    {
+      "id": 236,
+      "nombre": "Bolsa de residuos de 45x60",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031039/dg_limpieza/productos/bolsa_de_residuos_de_45x60.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        5
+      ]
+    },
+    {
+      "id": 237,
+      "nombre": "Rollo precorte 15x20",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031042/dg_limpieza/productos/rollo_precorte_15x20.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        5
+      ]
+    },
+    {
+      "id": 238,
+      "nombre": "Rollo de 25x35",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031044/dg_limpieza/productos/rollo_de_25x35.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        5
+      ]
+    },
+    {
+      "id": 239,
+      "nombre": "Rollo maxi de 40x50",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031048/dg_limpieza/productos/rollo_maxi_de_40x50.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        5
+      ]
+    },
+    {
+      "id": 240,
+      "nombre": "Rollo precorte 20x30",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031051/dg_limpieza/productos/rollo_precorte_20x30.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        5
+      ]
+    },
+    {
+      "id": 241,
+      "nombre": "Rollo de preocrte 40x50",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031053/dg_limpieza/productos/rollo_de_preocrte_40x50.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        5
+      ]
+    },
+    {
+      "id": 242,
+      "nombre": "Cesto de basura negro de 2,5litro",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031056/dg_limpieza/productos/cesto_de_basura_negro_de_2_5litro.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 243,
+      "nombre": "Cesto de basura blanco de 2,4 litros de san remo",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031058/dg_limpieza/productos/cesto_de_basura_blanco_de_2_4_litros_de_san_remo.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 244,
+      "nombre": "Cesto de basura de 40litros San remo",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031061/dg_limpieza/productos/cesto_de_basura_de_40litros_san_remo.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 245,
+      "nombre": "Cesto de basura de 2,5 litros",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031064/dg_limpieza/productos/cesto_de_basura_de_2_5_litros.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 246,
+      "nombre": "Cesto de basura de 6litro San remo",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031066/dg_limpieza/productos/cesto_de_basura_de_6litro_san_remo.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 247,
+      "nombre": "Tacho de basura de 40litro San Remo",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031069/dg_limpieza/productos/tacho_de_basura_de_40litro_san_remo.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 248,
+      "nombre": "Cesto de basura de 6litros",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031071/dg_limpieza/productos/cesto_de_basura_de_6litros.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 249,
+      "nombre": "Cesto de basura de 3litro",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031074/dg_limpieza/productos/cesto_de_basura_de_3litro.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 250,
+      "nombre": "Cesto de basura de 7litros",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031076/dg_limpieza/productos/cesto_de_basura_de_7litros.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 251,
+      "nombre": "Cesto de basura de 8litros",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031079/dg_limpieza/productos/cesto_de_basura_de_8litros.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 252,
+      "nombre": "Cesto de basura de 70litros San remo",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031082/dg_limpieza/productos/cesto_de_basura_de_70litros_san_remo.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 253,
+      "nombre": "Cesto de basura blanco con tapa de bambu 5litros",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031084/dg_limpieza/productos/cesto_de_basura_blanco_con_tapa_de_bambu_5litros.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 254,
+      "nombre": "Cesto de acero inoxidable de 30L con dos separadores",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031087/dg_limpieza/productos/cesto_de_acero_inoxidable_de_30l_con_dos_separador.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 255,
+      "nombre": "Cesto de residuos con tapa de bambu de 3l",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031089/dg_limpieza/productos/cesto_de_residuos_con_tapa_de_bambu_de_3l.webp",
+      "precio_unidad": 0.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 256,
+      "nombre": "Servilleta x100unidades ultra suave Elite",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031092/dg_limpieza/productos/servilleta_x100unidades_ultra_suave_elite.webp",
+      "precio_unidad": 2.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 257,
+      "nombre": "Rollo extrablanco x2x200mts",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031094/dg_limpieza/productos/rollo_extrablanco_x2x200mts.webp",
+      "precio_unidad": 14.7,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        2
+      ]
+    },
+    {
+      "id": 258,
+      "nombre": "Papel higienico x8jumbo blanco",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031097/dg_limpieza/productos/papel_higienico_x8jumbo_blanco.webp",
+      "precio_unidad": 8.8,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        2
+      ]
+    },
+    {
+      "id": 259,
+      "nombre": "Servilletas Alumax x1000unidades 18x18",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031100/dg_limpieza/productos/servilletas_alumax_x1000unidades_18x18.webp",
+      "precio_unidad": 5.2,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        2
+      ]
+    },
+    {
+      "id": 260,
+      "nombre": "Papel higienico extra blanco jumbox8",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031103/dg_limpieza/productos/papel_higienico_extra_blanco_jumbox8.webp",
+      "precio_unidad": 10.5,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        2
+      ]
+    },
+    {
+      "id": 261,
+      "nombre": "Toallas intercaladas tissue x2000unidades(extra blancas)",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031107/dg_limpieza/productos/toallas_intercaladas_tissue_x2000unidades_extra_bl.webp",
+      "precio_unidad": 14.5,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        2
+      ]
+    },
+    {
+      "id": 262,
+      "nombre": "Papel igienico plusx4x30mts(Higienol)",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031110/dg_limpieza/productos/papel_igienico_plusx4x30mts_higienol_.webp",
+      "precio_unidad": 3.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        2
+      ]
+    },
+    {
+      "id": 263,
+      "nombre": "Papel higienico fresh x4x30mts(Higienol)",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031113/dg_limpieza/productos/papel_higienico_fresh_x4x30mts_higienol_.webp",
+      "precio_unidad": 1.9,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        2
+      ]
+    },
+    {
+      "id": 264,
+      "nombre": "Papl higienico hoja simple x4x80mts",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031116/dg_limpieza/productos/papl_higienico_hoja_simple_x4x80mts.webp",
+      "precio_unidad": 4.2,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        2
+      ]
+    },
+    {
+      "id": 265,
+      "nombre": "Toallas intercaladas 800 blancas",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031118/dg_limpieza/productos/toallas_intercaladas_800_blancas.webp",
+      "precio_unidad": 6.8,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        2
+      ]
+    },
+    {
+      "id": 266,
+      "nombre": "Rollo cocina extra blanco x6x200 paños",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031121/dg_limpieza/productos/rollo_cocina_extra_blanco_x6x200_pa_os.webp",
+      "precio_unidad": 9.5,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        2
+      ]
+    },
+    {
+      "id": 267,
+      "nombre": "Papel higienico hoja simple blanco x24xs100mts",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031123/dg_limpieza/productos/papel_higienico_hoja_simple_blanco_x24xs100mts.webp",
+      "precio_unidad": 16.5,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        2
+      ]
+    },
+    {
+      "id": 268,
+      "nombre": "Rollo cocina 200 paños sussex",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031126/dg_limpieza/productos/rollo_cocina_200_pa_os_sussex.webp",
+      "precio_unidad": 2.5,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        2
+      ]
+    },
+    {
+      "id": 269,
+      "nombre": "Papel higienico Olimpo extra blanco x4x30 mts",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031129/dg_limpieza/productos/papel_higienico_olimpo_extra_blanco_x4x30_mts.webp",
+      "precio_unidad": 1.5,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 270,
+      "nombre": "Papel higienio hoja doble x4 30mts",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031133/dg_limpieza/productos/papel_higienio_hoja_doble_x4_30mts.webp",
+      "precio_unidad": 4.2,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        2
+      ]
+    },
+    {
+      "id": 271,
+      "nombre": "Papel higienico hoja simple Elite",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031136/dg_limpieza/productos/papel_higienico_hoja_simple_elite.webp",
+      "precio_unidad": 4.2,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        2
+      ]
+    },
+    {
+      "id": 272,
+      "nombre": "Rollo de cocina de 150 paños sussex",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031138/dg_limpieza/productos/rollo_de_cocina_de_150_pa_os_sussex.webp",
+      "precio_unidad": 2.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        2
+      ]
+    },
+    {
+      "id": 273,
+      "nombre": "Espirales Raid x4",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031141/dg_limpieza/productos/espirales_raid_x4.webp",
+      "precio_unidad": 900.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 274,
+      "nombre": "Hormiguicida (polvo seco para hormigas",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031143/dg_limpieza/productos/hormiguicida__polvo_seco_para_hormigas.webp",
+      "precio_unidad": 3.6,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 275,
+      "nombre": "Cebo en gel para ratones",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031146/dg_limpieza/productos/cebo_en_gel_para_ratones.webp",
+      "precio_unidad": 3.2,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 276,
+      "nombre": "Tabletas insecticidas Fuyi x24",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031149/dg_limpieza/productos/tabletas_insecticidas_fuyi_x24.webp",
+      "precio_unidad": 4.6,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 277,
+      "nombre": "Espirales Raid x12",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031151/dg_limpieza/productos/espirales_raid_x12.webp",
+      "precio_unidad": 2.6,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 278,
+      "nombre": "Aerosol para mosquitos Walker",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031157/dg_limpieza/productos/aerosol_para_mosquitos_walker.webp",
+      "precio_unidad": 5.5,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 279,
+      "nombre": "Echufe con tabletas Raid",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031159/dg_limpieza/productos/echufe_con_tabletas_raid.webp",
+      "precio_unidad": 7.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 280,
+      "nombre": "Insecticida floable (mata todo tipo de insecto,alacranes,aracnidos)",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031169/dg_limpieza/productos/insecticida_floable__mata_todo_tipo_de_insecto_ala.webp",
+      "precio_unidad": 2.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 281,
+      "nombre": "Fluido desinfectante triunfo 1litro",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031172/dg_limpieza/productos/fluido_desinfectante_triunfo_1litro.webp",
+      "precio_unidad": 6.4,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 282,
+      "nombre": "Cebo en gel para cucarachas",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031174/dg_limpieza/productos/cebo_en_gel_para_cucarachas.webp",
+      "precio_unidad": 2.6,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 283,
+      "nombre": "Kaothrina 5l",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031177/dg_limpieza/productos/kaothrina_5l.webp",
+      "precio_unidad": 4.5,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 284,
+      "nombre": "Jeringa para cucaracha geltek",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031180/dg_limpieza/productos/jeringa_para_cucaracha_geltek.webp",
+      "precio_unidad": 3.2,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 285,
+      "nombre": "Jeringa para hormigas geltek",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031182/dg_limpieza/productos/jeringa_para_hormigas_geltek.webp",
+      "precio_unidad": 3.2,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 286,
+      "nombre": "Selton para casa y jardin",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031185/dg_limpieza/productos/selton_para_casa_y_jardin.webp",
+      "precio_unidad": 3.9,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 287,
+      "nombre": "Selton mata moscas y mosquitos de base acuosa",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031187/dg_limpieza/productos/selton_mata_moscas_y_mosquitos_de_base_acuosa.webp",
+      "precio_unidad": 3.2,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 288,
+      "nombre": "Selton mata mosquitos y mocas",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031190/dg_limpieza/productos/selton_mata_mosquitos_y_mocas.webp",
+      "precio_unidad": 4.2,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 289,
+      "nombre": "Raid extermina cucaracha",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031193/dg_limpieza/productos/raid_extermina_cucaracha.webp",
+      "precio_unidad": 5.5,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 290,
+      "nombre": "Raid mata cucaracha base acuosa",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031196/dg_limpieza/productos/raid_mata_cucaracha_base_acuosa.webp",
+      "precio_unidad": 6.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 291,
+      "nombre": "Raid mata hormigas",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031199/dg_limpieza/productos/raid_mata_hormigas.webp",
+      "precio_unidad": 6.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 292,
+      "nombre": "Raid mata polillas y larvas",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031202/dg_limpieza/productos/raid_mata_polillas_y_larvas.webp",
+      "precio_unidad": 5.5,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 293,
+      "nombre": "Raid para casa y jardin",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031205/dg_limpieza/productos/raid_para_casa_y_jardin.webp",
+      "precio_unidad": 6.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 294,
+      "nombre": "Raid mata moscas y mosquitos sin olor",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031207/dg_limpieza/productos/raid_mata_moscas_y_mosquitos_sin_olor.webp",
+      "precio_unidad": 6.5,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 295,
+      "nombre": "Raid mata moscas,mosquitos y zancudos",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031210/dg_limpieza/productos/raid_mata_moscas_mosquitos_y_zancudos.webp",
+      "precio_unidad": 6.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 296,
+      "nombre": "Aerosol para ambiente mister trapo economico",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031212/dg_limpieza/productos/aerosol_para_ambiente_mister_trapo_economico.webp",
+      "precio_unidad": 2.4,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 297,
+      "nombre": "Aerosol Ambar",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031215/dg_limpieza/productos/aerosol_ambar.webp",
+      "precio_unidad": 3.2,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 298,
+      "nombre": "Bombas aromatizantes caja x4",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031217/dg_limpieza/productos/bombas_aromatizantes_caja_x4.webp",
+      "precio_unidad": 800.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 299,
+      "nombre": "Perlas aromaticas sagrada madre",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031221/dg_limpieza/productos/perlas_aromaticas_sagrada_madre.webp",
+      "precio_unidad": 2.4,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 300,
+      "nombre": "Difusor Shapirus de 125ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031224/dg_limpieza/productos/difusor_shapirus_de_125ml.webp",
+      "precio_unidad": 4.2,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 301,
+      "nombre": "Desodorante para ambiente Poett",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031228/dg_limpieza/productos/desodorante_para_ambiente_poett.webp",
+      "precio_unidad": 2.4,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 302,
+      "nombre": "Shapirus textil",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031232/dg_limpieza/productos/shapirus_textil.webp",
+      "precio_unidad": 2.9,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 303,
+      "nombre": "Shapirus aerosol",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031235/dg_limpieza/productos/shapirus_aerosol.webp",
+      "precio_unidad": 4.2,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 304,
+      "nombre": "Desodorante de ambiente Glade aerosol",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031238/dg_limpieza/productos/desodorante_de_ambiente_glade_aerosol.webp",
+      "precio_unidad": 2.4,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        3
+      ]
+    },
+    {
+      "id": 305,
+      "nombre": "Vim pastillas de inodoro para mochila",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031241/dg_limpieza/productos/vim_pastillas_de_inodoro_para_mochila.webp",
+      "precio_unidad": 4.2,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 306,
+      "nombre": "Bloque adhesivo para baño (citrusx6)",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031244/dg_limpieza/productos/bloque_adhesivo_para_ba_o__citrusx6_.webp",
+      "precio_unidad": 2.2,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 307,
+      "nombre": "Glade repuesto de canasta",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031247/dg_limpieza/productos/glade_repuesto_de_canasta.webp",
+      "precio_unidad": 1.4,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 308,
+      "nombre": "Glade canasta pastillas para inodoro (brisa de mar)",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031249/dg_limpieza/productos/glade_canasta_pastillas_para_inodoro__brisa_de_mar.webp",
+      "precio_unidad": 2.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 309,
+      "nombre": "Vim canasta para inodoro x6",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031252/dg_limpieza/productos/vim_canasta_para_inodoro_x6.webp",
+      "precio_unidad": 2.2,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 310,
+      "nombre": "Escobilla para baño",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781030521/dg_limpieza/productos/escobilla_para_ba_o.webp",
+      "precio_unidad": 1.8,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 311,
+      "nombre": "Escobilla para baño con deposito",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031257/dg_limpieza/productos/escobilla_para_ba_o_con_deposito.webp",
+      "precio_unidad": 3.3,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 312,
+      "nombre": "Sopapa ventosa",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031261/dg_limpieza/productos/sopapa_ventosa.webp",
+      "precio_unidad": 2.1,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 313,
+      "nombre": "Sopapa de baño ventosa economica",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031264/dg_limpieza/productos/sopapa_de_ba_o_ventosa_economica.webp",
+      "precio_unidad": 1.8,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 314,
+      "nombre": "Sopapa de baño",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031266/dg_limpieza/productos/sopapa_de_ba_o.webp",
+      "precio_unidad": 2.7,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 315,
+      "nombre": "Ayudin antihongos removedor de 500ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031269/dg_limpieza/productos/ayudin_antihongos_removedor_de_500ml.webp",
+      "precio_unidad": 3.8,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 316,
+      "nombre": "Limpiador liquido para baño con gatilo Procenex 500ml",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031271/dg_limpieza/productos/limpiador_liquido_para_ba_o_con_gatilo_procenex_50.webp",
+      "precio_unidad": 3.5,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 317,
+      "nombre": "Canasta inodoro ayudin dura 30 dias (limpia y elimina olores)",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031274/dg_limpieza/productos/canasta_inodoro_ayudin_dura_30_dias__limpia_y_elim.webp",
+      "precio_unidad": 2.6,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 318,
+      "nombre": "Limpiador para baño Cif bioactive",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031276/dg_limpieza/productos/limpiador_para_ba_o_cif_bioactive.webp",
+      "precio_unidad": 1.4,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 319,
+      "nombre": "Pastilla aromatizante inodoro,Poett de 300 descargas",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031279/dg_limpieza/productos/pastilla_aromatizante_inodoro_poett_de_300_descarg.webp",
+      "precio_unidad": 2.0,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 320,
+      "nombre": "Polvo limpiador odex 400grs",
+      "descripcion": null,
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1781031282/dg_limpieza/productos/polvo_limpiador_odex_400grs.webp",
+      "precio_unidad": 2.8,
+      "precio_mayor": 0,
+      "precio_caja": 0,
+      "cantidad_mayor": 0,
+      "unidades_por_caja": 0,
+      "stock": 0,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    },
+    {
+      "id": 321,
+      "nombre": "Lavandina 7l",
+      "descripcion": "lavandina concentrada",
+      "imagen_url": "https://res.cloudinary.com/dr0uewhgc/image/upload/v1779968534/dg-limpieza/productos/tsnlujpl8k1lq66zvskk.jpg",
+      "precio_unidad": 5000.0,
+      "precio_mayor": 4500.0,
+      "precio_caja": 4000.0,
+      "cantidad_mayor": 5,
+      "unidades_por_caja": 10,
+      "stock": 10,
+      "stock_minimo": 5,
+      "activo": true,
+      "tiene_variantes": false,
+      "categorias_ids": [
+        1
+      ]
+    }
+  ],
+  "variantes": []
+}
