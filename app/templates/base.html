@@ -30,6 +30,7 @@
   {# ── Fuentes de Google Fonts ── #}
   {# Syne: display con personalidad geométrica (títulos)     #}
   {# DM Sans: cuerpo legible y moderno sin ser genérico       #}
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="icon" type="image/webp" href="{{ url_for('static', filename='img/logo/logo-dg.webp') }}">
   <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/logo/logo-dg.webp') }}">
 
@@ -60,7 +61,7 @@
 
       {# Logo con imagen circular #}
       <a href="{{ url_for('public.home') }}" class="navbar__logo">
-        <img src="{{ url_for('static', filename='img/logo-dg.png') }}" alt="DG Limpieza" class="navbar__logo-img">
+        <img src="{{ url_for('static', filename='img/logo/logo-dg.webp') }}" alt="DG Limpieza" class="navbar__logo-img">
         <span>DG Limpieza<small>Distribuidora Gauss</small></span>
       </a>
 
@@ -172,7 +173,7 @@
           <div class="footer__title">Contacto</div>
           <ul class="footer__links">
             <li>
-              <a href="https://wa.me/5493513000000" target="_blank">
+              <a href="https://wa.me/5493512515999" target="_blank">
                 WhatsApp
               </a>
             </li>
@@ -224,6 +225,28 @@
           }
         })
         .catch(() => {});
+    })();
+  </script>
+
+  {# ── CSRF: inyectar token en todos los fetch POST automáticamente ── #}
+  <script>
+    (function () {
+      var _fetch = window.fetch;
+      window.fetch = function (url, opts) {
+        opts = opts || {};
+        if (opts.method && opts.method.toUpperCase() === 'POST') {
+          var meta = document.querySelector('meta[name="csrf-token"]');
+          if (meta) {
+            var token = meta.getAttribute('content');
+            if (opts.headers instanceof Headers) {
+              opts.headers.set('X-CSRFToken', token);
+            } else {
+              opts.headers = Object.assign({ 'X-CSRFToken': token }, opts.headers || {});
+            }
+          }
+        }
+        return _fetch.apply(this, arguments);
+      };
     })();
   </script>
 

@@ -57,7 +57,7 @@
   }
   .catalogo-head__inner {
     position: relative; z-index: 1;
-    padding: 52px 0 56px;
+    padding-block: 52px 56px;
   }
   .cat-eyebrow {
     display: inline-flex; align-items: center; gap: 8px;
@@ -394,6 +394,34 @@
     font-size: 22px; font-weight: 700;
     color: var(--teal-deep);
   }
+
+  /* ── Label de filtros de categoría ── */
+  .cat-filter-label {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 12px; font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase; letter-spacing: .06em;
+    padding: 9px 6px;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .cat-filter-label svg { width: 13px; height: 13px; }
+
+  /* ── Mobile ── */
+  @media (max-width: 768px) {
+    .catalogo-head__inner { padding-block: 36px 32px; text-align: center; }
+    .catalogo-head .cat-sub { max-width: 100%; margin-inline: auto; }
+    .cat-filters { justify-content: center; }
+
+    /* Buscador: input + botón en fila (sobreescribe flex-column de styles.css) */
+    .buscador-form {
+      flex-direction: row;
+      max-width: 100%;
+      width: 100%;
+      min-width: 0;
+    }
+    .buscador-input { width: 0; flex: 1; }
+    .btn-buscar { width: auto; padding: 10px 16px; border-radius: 0 999px 999px 0; }
+  }
 </style>
 {% endblock %}
 
@@ -402,10 +430,13 @@
 {# ── Hero claro ── #}
 <section class="catalogo-head">
   <div class="container catalogo-head__inner">
-    <span class="cat-eyebrow">Catálogo mayorista</span>
     <h1>Todo nuestro <span>catálogo</span></h1>
     <p class="cat-sub">Limpieza, descartables, perfumería, piscinas y bolsas. Precios por unidad, mayor y caja.</p>
     <div class="cat-filters">
+      <span class="cat-filter-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+        Categorías
+      </span>
       <a href="{{ url_for('public.catalogo') }}{% if busqueda %}?q={{ busqueda }}{% endif %}"
         class="cat-chip {% if not categoria_activa %}activo{% endif %}">Todos</a>
       {% for cat in categorias %}

@@ -217,7 +217,7 @@
 .badge-admin   { background: var(--color-navy); color: #fff; }
 .badge-vendedor { background: #e0f2fe; color: #0369a1; }
 
-/* Estado de stock (usado en usuarios) */
+/* Estado de stock / usuario (activo / inactivo) */
 .badge-stock-ok {
   display: inline-block;
   padding: 2px 10px;
@@ -226,6 +226,16 @@
   font-weight: 700;
   background: #dcfce7;
   color: #15803d;
+}
+
+.badge-sin-stock {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: #fee2e2;
+  color: #991b1b;
 }
 
 /* ── Buttons — sistema .btn ──────────────────────────────── */
@@ -382,36 +392,24 @@
 .flash-error,   .alert-error   { background: #fee2e2; color: #991b1b; }
 .flash-info,    .alert-info    { background: #cce5ff; color: #004085; }
 
-/* ── Responsive ──────────────────────────────────────────── */
-@media (max-width: 768px) {
-  .admin-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .admin-filters {
-    flex-direction: column;
-  }
-
-  .admin-input,
-  .admin-select {
-    min-width: 100%;
-  }
-}
-
 /* ════════════════════════════════════════════════════════════
-   RESPONSIVE MOBILE-FIRST — panel admin (≤ 768px)
+   RESPONSIVE TABLET — panel admin (≤768px)
+   Scroll horizontal en tablas + compacidad general.
 ════════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
 
-  /* ── Contenedores: menos padding en mobile ──────────────── */
+  /* ── Contenedores ───────────────────────────────────────── */
   .admin-page,
   .admin-container,
   .admin-section {
     padding: 1.25rem 1rem;
   }
 
-  /* ── Títulos más compactos ──────────────────────────────── */
+  /* ── Header ─────────────────────────────────────────────── */
+  .admin-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
   .admin-header h1,
   .admin-title {
     font-size: 1.35rem;
@@ -420,66 +418,428 @@
     font-size: 1.35rem;
   }
 
-  /* ── Filtros: cada grupo ocupa todo el ancho ────────────── */
+  /* ── Filtros: apilados verticalmente, items full-width ──── */
+  .admin-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .admin-input,
+  .admin-select {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
   .filter-group {
     width: 100%;
   }
 
-  /* ── Botones touch-friendly (≥ 44 px) ──────────────────── */
+  /* ── Botones touch-friendly ─────────────────────────────── */
   .admin-btn,
   .admin-btn-primary {
     min-height: 44px;
     justify-content: center;
   }
-  .btn {
-    min-height: 44px;
-  }
+  .btn { min-height: 44px; }
   .btn-sm,
-  .admin-btn-sm {
-    min-height: 36px;
-  }
+  .admin-btn-sm { min-height: 36px; }
 
-  /* ── Botones de acción en tablas: apilados verticalmente ── */
-  .action-btns {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.3rem;
-  }
+  /* ── Stats row ───────────────────────────────────────────── */
+  .admin-stat { min-width: 80px; flex: 1; }
+  .admin-stat-num { font-size: 1.25rem; }
 
-  /* ── Stats row: flex-wrap ya existe, solo ajustar tamaño ── */
-  .admin-stat {
-    min-width: 80px;
-    flex: 1;
-  }
-  .admin-stat-num {
-    font-size: 1.25rem;
-  }
+  /* ── Tablas: scroll horizontal con min-width suficiente ─── */
+  .admin-table { min-width: 680px; }
 
-  /* ── Producto info en tabla: permitir wrap ──────────────── */
-  .prod-info {
-    gap: 0.5rem;
-  }
+  /* ── Cards ───────────────────────────────────────────────── */
+  .admin-card { padding: 1rem; overflow-x: auto; }
 
-  /* ── Tablas: el wrapper ya tiene overflow-x: auto ────────
-     Asegurar que las celdas no rompan el layout            */
-  .admin-table {
-    min-width: 600px;
-  }
-
-  /* ── Cards admin: reducir padding ──────────────────────── */
-  .admin-card {
-    padding: 1rem;
-  }
-
-  /* ── Formularios admin: inputs y selects al 100% ─────────
-     form-row y form-section usan display flex/grid;
-     pasarlos a bloque en mobile                            */
-  .form-row {
-    flex-direction: column;
-  }
+  /* ── Formularios ─────────────────────────────────────────── */
+  .form-row { flex-direction: column; }
   .form-group input,
   .form-group select,
-  .form-group textarea {
-    width: 100%;
+  .form-group textarea { width: 100%; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   RESPONSIVE MÓVIL — panel admin (≤576px)
+   Tablas convertidas a tarjetas (card layout).
+   Requiere atributo data-label en cada <td>.
+════════════════════════════════════════════════════════════ */
+@media (max-width: 576px) {
+
+  /* ── Wrapper: sin borde propio en modo tarjeta ──────────── */
+  .admin-table-wrap,
+  .admin-table-wrapper {
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    background: transparent;
+    overflow: visible;
   }
+
+  /* ── Convertir todos los elementos de la tabla a bloques ── */
+  .admin-table,
+  .admin-table thead,
+  .admin-table tbody,
+  .admin-table tfoot,
+  .admin-table th,
+  .admin-table td,
+  .admin-table tr {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Ocultar la fila de encabezados (los labels vienen de data-label) */
+  .admin-table thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    visibility: hidden;
+  }
+
+  /* ── Cada fila tbody → tarjeta ──────────────────────────── */
+  .admin-table tbody tr {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    min-width: 0;
+  }
+
+  /* Estados de fila en modo tarjeta */
+  .admin-table tbody tr.row-inactivo { opacity: 0.6; }
+  .admin-table tbody tr.row-warn   { background: #fffbeb; }
+  .admin-table tbody tr.row-danger { background: #fff5f5; }
+
+  /* ── Cada celda: etiqueta a la izquierda, valor a la derecha */
+  .admin-table td {
+    border: none;
+    border-bottom: 1px solid #f3f4f6;
+    padding: 0.65rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    text-align: right;
+    min-height: 44px;
+    background: transparent;
+  }
+
+  .admin-table td:last-child { border-bottom: none; }
+
+  /* Etiqueta generada desde data-label */
+  .admin-table td::before {
+    content: attr(data-label);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #9ca3af;
+    text-align: left;
+    flex-shrink: 0;
+    min-width: 72px;
+    line-height: 1.3;
+  }
+
+  /* Celda de nombre/imagen (prod-info): columna completa, sin label */
+  .admin-table td:has(.prod-info) {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    background: #f9fafb;
+    padding: 0.9rem 1rem;
+    min-height: unset;
+  }
+  .admin-table td:has(.prod-info)::before { display: none; }
+  .admin-table .prod-info { flex-direction: row; text-align: left; }
+
+  /* ── Botones de acción: fila horizontal ─────────────────── */
+  .admin-table .action-btns {
+    flex-direction: row;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  /* ── tfoot (filas de totales) ───────────────────────────── */
+  .admin-table tfoot tr {
+    background: #f9fafb;
+    border-top: 2px solid #e5e7eb;
+    border-radius: 0;
+    box-shadow: none;
+    margin-bottom: 0;
+    overflow: visible;
+  }
+  .admin-table tfoot td {
+    border-bottom: 1px solid #ebebeb;
+    min-height: auto;
+    padding: 0.6rem 1rem;
+  }
+  .admin-table tfoot td:last-child { border-bottom: none; }
+  .admin-table tfoot td::before { display: none; }
+
+  /* ── admin-card que contiene tabla (usuarios) ───────────── */
+  .admin-card {
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+  }
+
+  /* ── Botones de stock (Ajustar / Historial) ─────────────── */
+  .btn-ajustar,
+  .btn-historial {
+    min-height: 44px;
+    padding: 0.55rem 1rem;
+    font-size: 0.85rem;
+    flex: 1;
+    justify-content: center;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* ── Celdas con badges múltiples: columna + alineado izq ── */
+  .admin-table td:has(.badge-cat),
+  .admin-table td:has(.badge-canal) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+    text-align: left;
+  }
+  .admin-table td:has(.badge-cat)::before,
+  .admin-table td:has(.badge-canal)::before {
+    min-width: unset;
+  }
+
+  /* ── Tabla compacta dentro de modales: mantener como tabla ─ */
+  .admin-table--compact {
+    display: table;
+    width: 100%;
+    min-width: 480px;
+  }
+  .admin-table--compact thead {
+    display: table-header-group;
+    position: static;
+    visibility: visible;
+    background: var(--color-navy);
+    color: #fff;
+  }
+  .admin-table--compact tbody { display: table-row-group; }
+  .admin-table--compact tfoot { display: table-footer-group; }
+  .admin-table--compact tr {
+    display: table-row;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    margin-bottom: 0;
+    box-shadow: none;
+  }
+  .admin-table--compact th,
+  .admin-table--compact td {
+    display: table-cell;
+    width: auto;
+    border: none;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 0.5rem 0.65rem;
+    min-height: auto;
+    background: transparent;
+    text-align: left;
+  }
+  .admin-table--compact td::before { display: none; }
+
+  /* Scroll horizontal en modal body para tabla compacta */
+  .modal-body { overflow-x: auto; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   DUAL-LAYOUT DATA CARDS — sistema genérico (≤768px)
+   Usar .data-desktop en el wrapper de la tabla y
+   .data-cards en el contenedor de tarjetas.
+════════════════════════════════════════════════════════════ */
+
+/* Ocultar tarjetas en desktop */
+.data-cards { display: none; }
+
+@media (max-width: 768px) {
+
+  /* Ocultar tabla, mostrar tarjetas */
+  .data-desktop { display: none !important; }
+  .data-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  /* ── Carcasa de tarjeta ── */
+  .data-card {
+    background: #fff;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .data-card--inactivo { opacity: 0.55; }
+  .data-card--warn     { border-left: 4px solid #f59e0b; }
+  .data-card--danger   { border-left: 4px solid #ef4444; }
+
+  /* ── Cabecera ── */
+  .data-card__head {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.9rem 1rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .data-card__head--gray { background: #f9fafb; }
+  .data-card__head--navy { background: var(--color-navy); }
+
+  /* Imagen en cabecera */
+  .data-card__head-img {
+    width: 52px;
+    height: 52px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    flex-shrink: 0;
+    background: #f3f4f6;
+  }
+  .data-card__head-img--empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    background: #f3f4f6;
+  }
+
+  /* Bloque de texto en cabecera */
+  .data-card__head-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
+    flex: 1;
+  }
+  .data-card__head-title {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.3;
+    word-break: break-word;
+    color: var(--color-navy);
+  }
+  .data-card__head--navy .data-card__head-title { color: #fff; }
+  .data-card__head-sub {
+    font-size: 0.82rem;
+    color: #6b7280;
+    line-height: 1.3;
+  }
+  .data-card__head--navy .data-card__head-sub { color: rgba(255,255,255,0.65); }
+
+  /* Fila con meta info (id + badge + total) */
+  .data-card__head-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+  .data-card__head-id    { font-size: 0.8rem; font-weight: 600; color: rgba(255,255,255,0.65); }
+  .data-card__head-total { font-size: 1.1rem; font-weight: 800; color: #fff; }
+  .data-card__head-date  { font-size: 0.8rem; color: rgba(255,255,255,0.65); }
+
+  /* ── Etiqueta ── */
+  .data-card__label {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #9ca3af;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-bottom: 0.1rem;
+  }
+
+  /* ── Fila: etiqueta izquierda / valor derecha ── */
+  .data-card__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid #f3f4f6;
+    gap: 0.75rem;
+  }
+  .data-card__val {
+    text-align: right;
+    font-size: 0.9rem;
+    color: #374151;
+  }
+
+  /* Badges agrupados a la derecha */
+  .data-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    justify-content: flex-end;
+  }
+
+  /* ── Grid 2 columnas ── */
+  .data-card__grid2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid #f3f4f6;
+  }
+  .data-card__cell {
+    display: flex;
+    flex-direction: column;
+    padding: 0.7rem 1rem;
+    gap: 0.1rem;
+  }
+  .data-card__cell:first-child { border-right: 1px solid #f3f4f6; }
+  .data-card__cell-val {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-navy);
+  }
+
+  /* ── Barra de acciones ── */
+  .data-card__actions {
+    display: grid;
+    border-top: 1px solid #f0f0f0;
+  }
+  .data-card__actions--1 { grid-template-columns: 1fr; }
+  .data-card__actions--2 { grid-template-columns: 1fr 1fr; }
+
+  .data-card__action-form { display: flex; }
+
+  .data-card__action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    min-height: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    border-right: 1px solid #f0f0f0;
+    text-decoration: none;
+    width: 100%;
+    transition: opacity 0.15s;
+    padding: 0 0.75rem;
+    line-height: 1.2;
+  }
+  .data-card__action-btn:last-child,
+  .data-card__action-form:last-child .data-card__action-btn { border-right: none; }
+  .data-card__action-btn:hover { opacity: 0.82; }
+
+  /* Variantes de color */
+  .data-card__action-btn--default { background: #f0f4ff; color: var(--color-navy); }
+  .data-card__action-btn--danger  { background: #fff1f1; color: #991b1b; }
+  .data-card__action-btn--success { background: #f0fdf4; color: #166534; }
+  .data-card__action-btn--primary { background: var(--color-navy); color: #fff; }
+  .data-card__action-btn--teal    { background: var(--color-sky); color: var(--color-navy); }
+  .data-card__action-btn--muted   { background: #f9fafb; color: #9ca3af; cursor: default; }
 }

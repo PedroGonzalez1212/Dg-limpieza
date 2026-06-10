@@ -2,64 +2,138 @@
 {% block title %}Usuarios{% endblock %}
 
 {% block content %}
-<div class="admin-header">
-  <h1>Usuarios</h1>
-  <a href="{{ url_for('admin.usuario_nuevo') }}" class="admin-btn">+ Nuevo usuario</a>
-</div>
+<div class="admin-page">
 
-{% with messages = get_flashed_messages(with_categories=true) %}
-  {% for category, message in messages %}
-    <div class="flash flash-{{ category }}">{{ message }}</div>
-  {% endfor %}
-{% endwith %}
+  <div class="admin-header">
+    <div>
+      <h1 class="admin-title">Usuarios</h1>
+      <p class="admin-subtitle">Gestioná los accesos al panel</p>
+    </div>
+    <a href="{{ url_for('admin.usuario_nuevo') }}" class="admin-btn">+ Nuevo usuario</a>
+  </div>
 
-<div class="admin-card">
-  <table class="admin-table">
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Email</th>
-        <th>Rol</th>
-        <th>Estado</th>
-        <th>Creado</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for u in usuarios %}
-      <tr class="{{ 'row-inactivo' if not u.activo }}">
-        <td>{{ u.nombre }}</td>
-        <td>{{ u.email }}</td>
-        <td>
-          <span class="badge-rol badge-{{ u.rol }}">{{ u.rol }}</span>
-        </td>
-        <td>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}
+      <div class="flash flash-{{ category }}">{{ message }}</div>
+    {% endfor %}
+  {% endwith %}
+
+  <!-- ── Tabla DESKTOP ───────────────────────────────────────────────── -->
+  <div class="admin-table-wrap data-desktop">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Rol</th>
+          <th>Estado</th>
+          <th>Creado</th>
+          <th class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for u in usuarios %}
+        <tr class="{{ 'row-inactivo' if not u.activo }}">
+          <td data-label="Nombre"><strong>{{ u.nombre }}</strong></td>
+          <td data-label="Email">{{ u.email }}</td>
+          <td data-label="Rol">
+            <span class="badge-rol badge-{{ u.rol }}">{{ u.rol }}</span>
+          </td>
+          <td data-label="Estado">
+            {% if u.activo %}
+              <span class="badge-stock-ok">Activo</span>
+            {% else %}
+              <span class="badge-sin-stock">Inactivo</span>
+            {% endif %}
+          </td>
+          <td data-label="Creado">{{ u.creado_en.strftime('%d/%m/%Y') }}</td>
+          <td data-label="Acciones" class="text-center">
+            <div class="action-btns">
+              <a href="{{ url_for('admin.usuario_editar', id=u.id) }}" class="admin-btn admin-btn-sm">Editar</a>
+
+              {% if u.id != current_user.id %}
+              <form method="POST" action="{{ url_for('admin.usuario_toggle', id=u.id) }}" style="display:inline">
+                <button type="submit"
+                  class="admin-btn admin-btn-sm {% if u.activo %}admin-btn-secondary{% endif %}"
+                  onclick="return confirm('¿Seguro?')">
+                  {{ 'Desactivar' if u.activo else 'Activar' }}
+                </button>
+              </form>
+              {% else %}
+                <span class="admin-label-muted">Sos vos</span>
+              {% endif %}
+            </div>
+          </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6" class="text-center">No hay usuarios.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── Cards MOBILE / TABLET (≤768px) ─────────────────────────────── -->
+  <div class="data-cards">
+    {% for u in usuarios %}
+    <div class="data-card{% if not u.activo %} data-card--inactivo{% endif %}">
+
+      <!-- Cabecera navy: nombre + rol -->
+      <div class="data-card__head data-card__head--navy">
+        <div class="data-card__head-body">
+          <div class="data-card__head-meta">
+            <span class="data-card__head-title">{{ u.nombre }}</span>
+            <span class="badge-rol badge-{{ u.rol }}">{{ u.rol }}</span>
+          </div>
+          <span class="data-card__head-sub">{{ u.email }}</span>
+        </div>
+      </div>
+
+      <!-- Estado + Fecha creación -->
+      <div class="data-card__grid2">
+        <div class="data-card__cell">
+          <span class="data-card__label">Estado</span>
           {% if u.activo %}
             <span class="badge-stock-ok">Activo</span>
           {% else %}
             <span class="badge-sin-stock">Inactivo</span>
           {% endif %}
-        </td>
-        <td>{{ u.creado_en.strftime('%d/%m/%Y') }}</td>
-        <td class="acciones">
-          <a href="{{ url_for('admin.usuario_editar', id=u.id) }}" class="admin-btn admin-btn-sm">Editar</a>
+        </div>
+        <div class="data-card__cell">
+          <span class="data-card__label">Miembro desde</span>
+          <span class="data-card__cell-val" style="font-size:0.9rem;font-weight:500">
+            {{ u.creado_en.strftime('%d/%m/%Y') }}
+          </span>
+        </div>
+      </div>
 
-          {% if u.id != current_user.id %}
-          <form method="POST" action="{{ url_for('admin.usuario_toggle', id=u.id) }}" style="display:inline">
-            <button type="submit" class="admin-btn admin-btn-sm {{ 'btn-danger' if u.activo else 'btn-ok' }}"
-              onclick="return confirm('¿Seguro?')">
-              {{ 'Desactivar' if u.activo else 'Activar' }}
-            </button>
-          </form>
-          {% else %}
-            <span class="admin-label-muted">Sos vos</span>
-          {% endif %}
-        </td>
-      </tr>
-      {% else %}
-      <tr><td colspan="6" class="text-center">No hay usuarios.</td></tr>
-      {% endfor %}
-    </tbody>
-  </table>
+      <!-- Acciones -->
+      <div class="data-card__actions data-card__actions--2">
+        <a href="{{ url_for('admin.usuario_editar', id=u.id) }}"
+           class="data-card__action-btn data-card__action-btn--default">
+          ✏️ Editar
+        </a>
+        {% if u.id != current_user.id %}
+        <form method="POST"
+              action="{{ url_for('admin.usuario_toggle', id=u.id) }}"
+              class="data-card__action-form"
+              onsubmit="return confirm('¿Seguro?')">
+          <button type="submit"
+                  class="data-card__action-btn {{ 'data-card__action-btn--danger' if u.activo else 'data-card__action-btn--success' }}">
+            {{ 'Desactivar' if u.activo else '✅ Activar' }}
+          </button>
+        </form>
+        {% else %}
+        <span class="data-card__action-btn data-card__action-btn--muted">
+          Sos vos
+        </span>
+        {% endif %}
+      </div>
+
+    </div>
+    {% else %}
+    <p class="admin-empty">No hay usuarios.</p>
+    {% endfor %}
+  </div>
+
 </div>
 {% endblock %}

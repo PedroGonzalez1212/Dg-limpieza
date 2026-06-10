@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, abort, Response
+from sqlalchemy import case
 from app.models import Product, Category, Combo
 
 public_bp = Blueprint('public', __name__)
@@ -35,7 +36,10 @@ def catalogo():
             Product.nombre.ilike(f'%{busqueda}%')
         )
 
-    productos = query.order_by(Product.nombre).all()
+    productos = query.order_by(
+        case((Product.stock <= 0, 1), else_=0),
+        Product.nombre
+    ).all()
     categorias = Category.query.filter_by(activa=True).all()
 
     return render_template('public/catalogo.html',
@@ -337,15 +341,17 @@ def carrito_confirmar():
 
     # Guardamos cada item del carrito como SaleItem
     for key, item in carrito.items():
-        # Los combos usan clave "combo_X", los productos usan el id numérico
         if item.get('es_combo'):
+            combo_id    = int(str(key).replace('combo_', ''))
             producto_id = None
         else:
+            combo_id    = None
             producto_id = int(key)
 
         sale_item = SaleItem(
             venta_id        = sale.id,
-            producto_id     = producto_id or 1,  # fallback para combos
+            producto_id     = producto_id,
+            combo_id        = combo_id,
             nombre_producto = item['nombre'],
             cantidad        = item['cantidad'],
             tipo_precio     = 'unidad',

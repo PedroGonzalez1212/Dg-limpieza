@@ -4,10 +4,196 @@
 
 {% block styles %}
 <style>
-  .badge-pendiente  { background: #f39c12; color: #fff; padding: 3px 10px; border-radius: 20px; font-size: .78rem; font-weight: 600; }
-  .badge-items      { background: var(--color-sky, #39EBE1); color: var(--color-navy, #0C0C62); padding: 3px 8px; border-radius: 20px; font-size: .78rem; font-weight: 600; }
-  .pedidos-vacio    { text-align: center; padding: 3rem; color: #888; }
-  .pedidos-vacio p  { font-size: 1.1rem; margin-top: .5rem; }
+  /* ── Badges de estado ──────────────────────────────────────── */
+  .badge-pendiente { background: #f39c12; color: #fff; padding: 3px 10px; border-radius: 20px; font-size: .78rem; font-weight: 600; }
+  .badge-items     { background: var(--color-sky, #39EBE1); color: var(--color-navy, #0C0C62); padding: 3px 8px; border-radius: 20px; font-size: .78rem; font-weight: 600; }
+  .pedidos-vacio   { text-align: center; padding: 3rem; color: #888; }
+  .pedidos-vacio p { font-size: 1.1rem; margin-top: .5rem; }
+
+  /* ── Tarjetas mobile: ocultas en desktop ───────────────────── */
+  .pedidos-mobile { display: none; }
+
+  /* ══════════════════════════════════════════════════════════════
+     MÓVIL ≤ 640px — tarjetas de pedido ricas
+  ══════════════════════════════════════════════════════════════ */
+  @media (max-width: 640px) {
+
+    /* Ocultar tabla, mostrar tarjetas */
+    .pedidos-desktop { display: none !important; }
+    .pedidos-mobile  { display: block; }
+
+    /* ── Tarjeta individual ─────────────────────────────────── */
+    .pedido-card {
+      background: #fff;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 16px;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,.07);
+      overflow: hidden;
+    }
+
+    /* ── Cabecera de la tarjeta ─────────────────────────────── */
+    .pedido-card__head {
+      background: var(--color-navy, #0C0C62);
+      color: #fff;
+      padding: .75rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: .5rem;
+    }
+    .pedido-card__id {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: .02em;
+    }
+    .pedido-card__fecha {
+      font-size: .78rem;
+      opacity: .8;
+    }
+
+    /* ── Cuerpo ─────────────────────────────────────────────── */
+    .pedido-card__body {
+      padding: .85rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: .65rem;
+    }
+
+    /* ── Fila de dato (label + valor) ──────────────────────── */
+    .pedido-row {
+      display: flex;
+      flex-direction: column;
+      gap: .1rem;
+    }
+    .pedido-row__label {
+      font-size: .68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: #9ca3af;
+    }
+    .pedido-row__value {
+      font-size: .95rem;
+      color: var(--color-navy, #0C0C62);
+      font-weight: 500;
+      word-break: break-word;
+    }
+
+    /* ── Enlace de WhatsApp ──────────────────────────────────── */
+    .pedido-wsp-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      color: #1a7a4a;
+      font-weight: 600;
+      font-size: .95rem;
+      text-decoration: none;
+    }
+    .pedido-wsp-link:hover { text-decoration: underline; }
+
+    /* ── Lista de productos ─────────────────────────────────── */
+    .pedido-items-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: .3rem;
+    }
+    .pedido-item-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: .5rem;
+      font-size: .875rem;
+      padding: .3rem 0;
+      border-bottom: 1px dashed #f0f0f0;
+    }
+    .pedido-item-row:last-child { border-bottom: none; }
+    .pedido-item-name {
+      color: #374151;
+      flex: 1;
+    }
+    .pedido-item-qty {
+      font-size: .78rem;
+      color: #6b7280;
+      white-space: nowrap;
+    }
+    .pedido-item-sub {
+      font-weight: 700;
+      color: var(--color-navy, #0C0C62);
+      white-space: nowrap;
+    }
+
+    /* ── Separador ───────────────────────────────────────────── */
+    .pedido-divider {
+      border: none;
+      border-top: 1px solid #f0f0f0;
+      margin: 0;
+    }
+
+    /* ── Total ───────────────────────────────────────────────── */
+    .pedido-card__total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: .65rem 1rem;
+      background: #f8fffe;
+      border-top: 1px solid #e0faf8;
+    }
+    .pedido-card__total-label {
+      font-size: .8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #6b7280;
+      letter-spacing: .05em;
+    }
+    .pedido-card__total-value {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--color-navy, #0C0C62);
+    }
+
+    /* ── Botones de acción ───────────────────────────────────── */
+    .pedido-card__actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .5rem;
+      padding: .75rem 1rem;
+      border-top: 1px solid #f0f0f0;
+    }
+    .pedido-btn-confirm,
+    .pedido-btn-cancel {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .4rem;
+      padding: .8rem .5rem;
+      border-radius: 10px;
+      font-size: .9rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      min-height: 48px;
+      transition: opacity .15s, transform .1s;
+    }
+    .pedido-btn-confirm:active,
+    .pedido-btn-cancel:active {
+      opacity: .85;
+      transform: scale(.97);
+    }
+    .pedido-btn-confirm {
+      background: var(--color-navy, #0C0C62);
+      color: #fff;
+    }
+    .pedido-btn-cancel {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1.5px solid #fca5a5;
+    }
+  }
 </style>
 {% endblock %}
 
@@ -29,49 +215,131 @@
   {% endwith %}
 
   {% if pedidos %}
-  <table class="admin-table">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Fecha</th>
-        <th>Cliente</th>
-        <th>Teléfono</th>
-        <th>Retiro</th>
-        <th>Items</th>
-        <th>Total</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for p in pedidos %}
-      <tr>
-        <td><strong>#{{ p.id }}</strong></td>
-        <td>{{ p.creado_en.strftime('%d/%m %H:%M') }}</td>
-        <td>{{ p.nombre_cliente or '—' }}</td>
-        <td>{{ p.telefono_cliente or '—' }}</td>
-        <td style="font-size:.85rem; color:#555;">
-          {# El horario de retiro lo guardamos en notas #}
-          {{ p.notas or '—' }}
-        </td>
-        <td>
-          <span class="badge-items">{{ p.items|length }} producto{% if p.items|length != 1 %}s{% endif %}</span>
-        </td>
-        <td><strong>${{ "%.2f"|format(p.total|float) }}</strong></td>
-        <td style="display:flex; gap:.5rem; flex-wrap:wrap;">
-          <a href="{{ url_for('admin.pedido_confirmar', id=p.id) }}" class="admin-btn" style="font-size:.82rem; padding:.35rem .8rem;">
-            ✅ Confirmar
+
+  {# ══ DESKTOP: tabla estándar ══════════════════════════════════ #}
+  <div class="pedidos-desktop admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Fecha</th>
+          <th>Cliente</th>
+          <th>Teléfono</th>
+          <th>Retiro / Notas</th>
+          <th>Items</th>
+          <th>Total</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in pedidos %}
+        <tr>
+          <td data-label="#">#{{ p.id }}</td>
+          <td data-label="Fecha">{{ p.creado_en.strftime('%d/%m %H:%M') }}</td>
+          <td data-label="Cliente">{{ p.nombre_cliente or '—' }}</td>
+          <td data-label="Teléfono">{{ p.telefono_cliente or '—' }}</td>
+          <td data-label="Retiro" style="font-size:.85rem; color:#555;">{{ p.notas or '—' }}</td>
+          <td data-label="Items">
+            <span class="badge-items">{{ p.items|length }} producto{% if p.items|length != 1 %}s{% endif %}</span>
+          </td>
+          <td data-label="Total"><strong>${{ "%.2f"|format(p.total|float) }}</strong></td>
+          <td data-label="Acciones" class="text-center">
+            <div class="action-btns">
+              <a href="{{ url_for('admin.pedido_confirmar', id=p.id) }}" class="admin-btn admin-btn-sm">
+                ✅ Confirmar
+              </a>
+              <form method="POST" action="{{ url_for('admin.pedido_cancelar', id=p.id) }}"
+                    onsubmit="return confirm('¿Cancelar el pedido #{{ p.id }}?')">
+                <button type="submit" class="admin-btn admin-btn-sm admin-btn-secondary">
+                  ✖ Cancelar
+                </button>
+              </form>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {# ══ MOBILE: tarjetas ricas ═══════════════════════════════════ #}
+  <div class="pedidos-mobile">
+    {% for p in pedidos %}
+    <div class="pedido-card">
+
+      {# Cabecera: ID + fecha #}
+      <div class="pedido-card__head">
+        <span class="pedido-card__id">Pedido #{{ p.id }}</span>
+        <span class="pedido-card__fecha">{{ p.creado_en.strftime('%d/%m/%Y %H:%M') }}</span>
+      </div>
+
+      <div class="pedido-card__body">
+
+        {# Cliente #}
+        <div class="pedido-row">
+          <span class="pedido-row__label">Cliente</span>
+          <span class="pedido-row__value">{{ p.nombre_cliente or '—' }}</span>
+        </div>
+
+        {# Teléfono con link a WhatsApp #}
+        {% if p.telefono_cliente %}
+        <div class="pedido-row">
+          <span class="pedido-row__label">Teléfono</span>
+          <a class="pedido-wsp-link"
+             href="https://wa.me/{{ p.telefono_cliente | replace(' ','') | replace('+','') | replace('-','') }}"
+             target="_blank" rel="noopener">
+            📱 {{ p.telefono_cliente }}
           </a>
-          <form method="POST" action="{{ url_for('admin.pedido_cancelar', id=p.id) }}"
-                onsubmit="return confirm('¿Cancelar el pedido #{{ p.id }}?')">
-            <button type="submit" class="admin-btn admin-btn-secondary" style="font-size:.82rem; padding:.35rem .8rem;">
-              ✖ Cancelar
-            </button>
-          </form>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+        </div>
+        {% endif %}
+
+        {# Notas / retiro #}
+        {% if p.notas %}
+        <div class="pedido-row">
+          <span class="pedido-row__label">Retiro / Notas</span>
+          <span class="pedido-row__value">{{ p.notas }}</span>
+        </div>
+        {% endif %}
+
+        {# Lista de productos #}
+        <div class="pedido-row">
+          <span class="pedido-row__label">Productos ({{ p.items|length }})</span>
+          <ul class="pedido-items-list">
+            {% for item in p.items %}
+            <li class="pedido-item-row">
+              <span class="pedido-item-name">{{ item.nombre_producto }}</span>
+              <span class="pedido-item-qty">× {{ item.cantidad }}</span>
+              <span class="pedido-item-sub">${{ "%.2f"|format(item.subtotal|float) }}</span>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+      </div>{# /body #}
+
+      {# Total #}
+      <div class="pedido-card__total">
+        <span class="pedido-card__total-label">Total</span>
+        <span class="pedido-card__total-value">${{ "%.2f"|format(p.total|float) }}</span>
+      </div>
+
+      {# Botones #}
+      <div class="pedido-card__actions">
+        <a href="{{ url_for('admin.pedido_confirmar', id=p.id) }}" class="pedido-btn-confirm">
+          ✅ Confirmar
+        </a>
+        <form method="POST" action="{{ url_for('admin.pedido_cancelar', id=p.id) }}"
+              onsubmit="return confirm('¿Cancelar el pedido #{{ p.id }}?')"
+              style="display:contents;">
+          <button type="submit" class="pedido-btn-cancel">
+            ✖ Cancelar
+          </button>
+        </form>
+      </div>
+
+    </div>{# /pedido-card #}
+    {% endfor %}
+  </div>{# /pedidos-mobile #}
 
   {% else %}
   <div class="pedidos-vacio">

@@ -27,7 +27,9 @@
   </div>
 
   {% if combos %}
-  <div class="admin-table-wrap">
+
+  <!-- ── Tabla DESKTOP ───────────────────────────────────────────────── -->
+  <div class="admin-table-wrap data-desktop">
     <table class="admin-table">
       <thead>
         <tr>
@@ -44,7 +46,7 @@
         {% for c in combos %}
         <tr class="{% if not c.activo %}row-inactivo{% endif %}">
 
-          <td>
+          <td data-label="Combo">
             <div class="prod-info">
               {% if c.imagen_url %}
                 <img src="{{ c.imagen_url }}" alt="{{ c.nombre }}" class="prod-thumb">
@@ -60,7 +62,7 @@
             </div>
           </td>
 
-          <td>
+          <td data-label="Productos">
             {% for item in c.items %}
               <span class="badge badge-cat">{{ item.cantidad }}x {{ item.producto.nombre }}</span>
             {% else %}
@@ -68,23 +70,23 @@
             {% endfor %}
           </td>
 
-          <td class="text-right">
+          <td data-label="Precio orig." class="text-right">
             {% if c.precio_original %}
               <span class="text-muted"><s>${{ "%.0f"|format(c.precio_original) }}</s></span>
             {% else %}—{% endif %}
           </td>
 
-          <td class="text-right">
+          <td data-label="Precio combo" class="text-right">
             <strong>${{ "%.0f"|format(c.precio_combo) }}</strong>
           </td>
 
-          <td class="text-center">
+          <td data-label="Descuento" class="text-center">
             {% if c.descuento_texto %}
               <span class="badge badge-warn">{{ c.descuento_texto }}</span>
             {% else %}—{% endif %}
           </td>
 
-          <td class="text-center">
+          <td data-label="Estado" class="text-center">
             {% if c.activo %}
               <span class="badge badge-ok">Activo</span>
             {% else %}
@@ -92,7 +94,7 @@
             {% endif %}
           </td>
 
-          <td class="text-center">
+          <td data-label="Acciones" class="text-center">
             <div class="action-btns">
               <a href="{{ url_for('admin.combo_editar', id=c.id) }}"
                  class="btn btn-sm btn-secondary" title="Editar">✏️</a>
@@ -115,6 +117,97 @@
     </table>
   </div>
 
+  <!-- ── Cards MOBILE / TABLET (≤768px) ─────────────────────────────── -->
+  <div class="data-cards">
+    {% for c in combos %}
+    <div class="data-card{% if not c.activo %} data-card--inactivo{% endif %}">
+
+      <!-- Cabecera: imagen + nombre + descripción -->
+      <div class="data-card__head data-card__head--gray">
+        {% if c.imagen_url %}
+          <img src="{{ c.imagen_url }}" alt="{{ c.nombre }}" class="data-card__head-img">
+        {% else %}
+          <div class="data-card__head-img data-card__head-img--empty">🎁</div>
+        {% endif %}
+        <div class="data-card__head-body">
+          <span class="data-card__head-title">{{ c.nombre }}</span>
+          {% if c.descripcion %}
+            <span class="data-card__head-sub">
+              {{ c.descripcion[:70] }}{% if c.descripcion|length > 70 %}…{% endif %}
+            </span>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Productos incluidos -->
+      <div class="data-card__row" style="align-items:flex-start">
+        <span class="data-card__label" style="padding-top:0.15rem">Productos</span>
+        <div class="data-card__tags">
+          {% for item in c.items %}
+            <span class="badge badge-cat">{{ item.cantidad }}x {{ item.producto.nombre }}</span>
+          {% else %}
+            <span class="text-muted">—</span>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Precio original + Precio combo -->
+      <div class="data-card__grid2">
+        <div class="data-card__cell">
+          <span class="data-card__label">Precio original</span>
+          {% if c.precio_original %}
+            <span class="combo-precio-tachado">${{ "%.0f"|format(c.precio_original) }}</span>
+          {% else %}
+            <span class="text-muted">—</span>
+          {% endif %}
+        </div>
+        <div class="data-card__cell">
+          <span class="data-card__label">Precio combo</span>
+          <span class="data-card__cell-val">${{ "%.0f"|format(c.precio_combo) }}</span>
+        </div>
+      </div>
+
+      <!-- Descuento -->
+      <div class="data-card__row">
+        <span class="data-card__label">Descuento</span>
+        {% if c.descuento_texto %}
+          <span class="badge badge-warn">{{ c.descuento_texto }}</span>
+        {% else %}
+          <span class="text-muted">—</span>
+        {% endif %}
+      </div>
+
+      <!-- Estado -->
+      <div class="data-card__row">
+        <span class="data-card__label">Estado</span>
+        {% if c.activo %}
+          <span class="badge badge-ok">Activo</span>
+        {% else %}
+          <span class="badge badge-muted">Inactivo</span>
+        {% endif %}
+      </div>
+
+      <!-- Acciones -->
+      <div class="data-card__actions data-card__actions--2">
+        <a href="{{ url_for('admin.combo_editar', id=c.id) }}"
+           class="data-card__action-btn data-card__action-btn--default">
+          ✏️ Editar
+        </a>
+        <form method="POST"
+              action="{{ url_for('admin.combo_toggle', id=c.id) }}"
+              class="data-card__action-form"
+              onsubmit="return confirm('¿Confirmás {{ 'desactivar' if c.activo else 'activar' }} este combo?')">
+          <button type="submit"
+                  class="data-card__action-btn {{ 'data-card__action-btn--danger' if c.activo else 'data-card__action-btn--success' }}">
+            {{ '🚫 Desactivar' if c.activo else '✅ Activar' }}
+          </button>
+        </form>
+      </div>
+
+    </div>
+    {% endfor %}
+  </div>
+
   {% else %}
   <div class="admin-empty">
     <p>Todavía no hay combos cargados.</p>
@@ -125,4 +218,16 @@
   {% endif %}
 
 </div>
+{% endblock %}
+
+{% block styles %}
+<style>
+/* Precio tachado en card de combo */
+.combo-precio-tachado {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #9ca3af;
+  text-decoration: line-through;
+}
+</style>
 {% endblock %}

@@ -79,15 +79,15 @@
       <tbody>
         {% for item in venta.items %}
         <tr>
-          <td>
+          <td data-label="Producto">
             <strong>{{ item.nombre_producto }}</strong>
             {% if item.tipo_precio and item.tipo_precio != 'unidad' %}
               <span class="badge badge-outline" style="font-size:.7rem;">{{ item.tipo_precio }}</span>
             {% endif %}
           </td>
-          <td class="text-center">{{ item.cantidad }}</td>
-          <td class="text-right">${{ "%.2f"|format(item.precio_unitario | float) }}</td>
-          <td class="text-right"><strong>${{ "%.2f"|format(item.subtotal | float) }}</strong></td>
+          <td data-label="Cantidad" class="text-center">{{ item.cantidad }}</td>
+          <td data-label="Precio unit." class="text-right">${{ "%.2f"|format(item.precio_unitario | float) }}</td>
+          <td data-label="Subtotal" class="text-right"><strong>${{ "%.2f"|format(item.subtotal | float) }}</strong></td>
         </tr>
         {% endfor %}
       </tbody>

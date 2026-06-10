@@ -460,7 +460,7 @@ def seed():
 
         configs = [
             StoreConfig(clave='nombre_tienda',   valor='DG Limpieza',              descripcion='Nombre visible en la tienda'),
-            StoreConfig(clave='whatsapp_numero',  valor='5493511234567',            descripcion='Número de WhatsApp sin + ni espacios'),
+            StoreConfig(clave='whatsapp_numero',  valor='5493512515999',            descripcion='Número de WhatsApp sin + ni espacios'),
             StoreConfig(clave='whatsapp_mensaje', valor='Hola! Quiero hacer un pedido:', descripcion='Mensaje inicial del checkout'),
             StoreConfig(clave='moneda',           valor='$',                        descripcion='Símbolo de moneda'),
             StoreConfig(clave='envios_activos',   valor='true',                     descripcion='Si se aceptan envíos a domicilio'),

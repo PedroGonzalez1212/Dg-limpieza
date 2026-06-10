@@ -27,13 +27,14 @@
         {% endfor %}
       </select>
     </div>
-    <button type="submit" class="admin-btn">Filtrar</button>
 
-    <!-- Botones de exportar — pasan los mismos filtros -->
-    <a href="{{ url_for('admin.exportar_excel', desde=desde, hasta=hasta, metodo_pago=metodo_pago) }}"
-      class="admin-btn admin-btn-secondary">⬇ Excel</a>
-    <a href="{{ url_for('admin.exportar_pdf', desde=desde, hasta=hasta, metodo_pago=metodo_pago) }}"
-      class="admin-btn admin-btn-secondary">⬇ PDF</a>
+    <div class="reportes-actions">
+      <button type="submit" class="admin-btn">Filtrar</button>
+      <a href="{{ url_for('admin.exportar_excel', desde=desde, hasta=hasta, metodo_pago=metodo_pago) }}"
+        class="admin-btn admin-btn-secondary">⬇ Excel</a>
+      <a href="{{ url_for('admin.exportar_pdf', desde=desde, hasta=hasta, metodo_pago=metodo_pago) }}"
+        class="admin-btn admin-btn-secondary">⬇ PDF</a>
+    </div>
   </form>
 
   <!-- Métricas resumen -->
@@ -60,45 +61,95 @@
   </div>
   {% endif %}
 
-  <!-- Tabla de ventas -->
+  <!-- ── Tabla DESKTOP ─────────────────────────────────────────────── -->
   {% if ventas %}
-  <table class="admin-table">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Fecha</th>
-        <th>Cliente</th>
-        <th>Canal</th>
-        <th>Método</th>
-        <th>Total</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for v in ventas %}
-      <tr>
-        <td>{{ v.id }}</td>
-        <td>{{ v.creado_en.strftime('%d/%m/%Y %H:%M') }}</td>
-        <td>{{ v.nombre_cliente or '—' }}</td>
-        <td><span class="badge-canal badge-{{ v.tipo }}">{{ v.tipo.upper() }}</span></td>
-        <td>{{ v.metodo_pago or '—' }}</td>
-        <td>${{ "%.2f"|format(v.total) }}</td>
-        <td>
-          <a href="{{ url_for('admin.venta_detalle', id=v.id) }}" class="admin-link">Ver</a>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-    <tfoot>
-      <tr>
-        <td colspan="5" style="text-align:right; font-weight:600;">Total</td>
-        <td style="font-weight:700; color:var(--color-navy)">
-          ${{ "%.2f"|format(monto_total) }}
-        </td>
-        <td></td>
-      </tr>
-    </tfoot>
-  </table>
+  <div class="admin-table-wrap data-desktop">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Fecha</th>
+          <th>Cliente</th>
+          <th>Canal</th>
+          <th>Método</th>
+          <th>Total</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for v in ventas %}
+        <tr>
+          <td data-label="#">{{ v.id }}</td>
+          <td data-label="Fecha">{{ v.creado_en.strftime('%d/%m/%Y %H:%M') }}</td>
+          <td data-label="Cliente">{{ v.nombre_cliente or '—' }}</td>
+          <td data-label="Canal"><span class="badge-canal badge-{{ v.tipo }}">{{ v.tipo.upper() }}</span></td>
+          <td data-label="Método">{{ v.metodo_pago or '—' }}</td>
+          <td data-label="Total">${{ "%.2f"|format(v.total) }}</td>
+          <td data-label="">
+            <a href="{{ url_for('admin.venta_detalle', id=v.id) }}" class="admin-link">Ver</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="5" style="text-align:right; font-weight:600;">Total</td>
+          <td style="font-weight:700; color:var(--color-navy)">
+            ${{ "%.2f"|format(monto_total) }}
+          </td>
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <!-- ── Cards MOBILE / TABLET (≤768px) ─────────────────────────────── -->
+  <div class="data-cards">
+    {% for v in ventas %}
+    <div class="data-card">
+
+      <!-- Cabecera navy: id + canal + total -->
+      <div class="data-card__head data-card__head--navy">
+        <div class="data-card__head-body">
+          <div class="data-card__head-meta">
+            <span class="data-card__head-id">#{{ v.id }}</span>
+            <span class="reporte-canal-badge reporte-canal-badge--{{ v.tipo }}">{{ v.tipo.upper() }}</span>
+            <span class="data-card__head-total">${{ "%.2f"|format(v.total) }}</span>
+          </div>
+          <span class="data-card__head-date">{{ v.creado_en.strftime('%d/%m/%Y · %H:%M') }}</span>
+        </div>
+      </div>
+
+      <!-- Cliente -->
+      <div class="data-card__row">
+        <span class="data-card__label">Cliente</span>
+        <span class="data-card__val">{{ v.nombre_cliente or '—' }}</span>
+      </div>
+
+      <!-- Método -->
+      <div class="data-card__row">
+        <span class="data-card__label">Método de pago</span>
+        <span class="data-card__val">{{ v.metodo_pago or '—' }}</span>
+      </div>
+
+      <!-- Acción -->
+      <div class="data-card__actions data-card__actions--1">
+        <a href="{{ url_for('admin.venta_detalle', id=v.id) }}"
+           class="data-card__action-btn data-card__action-btn--primary">
+          Ver detalle →
+        </a>
+      </div>
+
+    </div>
+    {% endfor %}
+
+    <!-- Total resumen al pie de las cards -->
+    <div class="reportes-cards-total">
+      <span>Total del período</span>
+      <strong>${{ "%.2f"|format(monto_total) }}</strong>
+    </div>
+  </div>
+
   {% else %}
     <p class="admin-empty">No hay ventas para el período seleccionado.</p>
   {% endif %}
@@ -129,8 +180,22 @@ new Chart(ctx, {
 {% endif %}
 </script>
 {% endblock %}
+
 {% block styles %}
 <style>
+/* ── Botones filtrar + exportar ── */
+.reportes-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+@media (max-width: 768px) {
+  .reportes-actions { width: 100%; }
+  .reportes-actions .admin-btn { flex: 1; justify-content: center; min-height: 44px; }
+}
+
+/* ── Métricas ── */
 .reportes-metricas {
   display: flex;
   gap: 1rem;
@@ -157,6 +222,8 @@ new Chart(ctx, {
   color: #666;
   margin-top: 2px;
 }
+
+/* ── Gráfico ── */
 .reporte-grafico-wrap {
   margin: 1.5rem 0;
   background: #fff;
@@ -168,6 +235,39 @@ new Chart(ctx, {
   font-size: .95rem;
   color: var(--color-navy);
   margin-bottom: 1rem;
+}
+
+/* ── Badge canal en cabecera navy ── */
+.reporte-canal-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.9);
+  border: 1px solid rgba(255,255,255,0.25);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.reporte-canal-badge--whatsapp {
+  background: rgba(57,235,225,0.2);
+  border-color: rgba(57,235,225,0.4);
+}
+
+/* ── Total al pie de cards ── */
+.reportes-cards-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.9rem 1rem;
+  background: var(--color-navy);
+  color: #fff;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}
+.reportes-cards-total strong {
+  font-size: 1.1rem;
 }
 </style>
 {% endblock %}

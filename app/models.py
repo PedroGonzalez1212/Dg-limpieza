@@ -131,7 +131,8 @@ class SaleItem(db.Model):
 
     id              = db.Column(db.Integer, primary_key=True)
     venta_id        = db.Column(db.Integer, db.ForeignKey('sales.id'), nullable=False)
-    producto_id     = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)
+    producto_id     = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=True)
+    combo_id        = db.Column(db.Integer, db.ForeignKey('combos.id'), nullable=True)
     variante_id     = db.Column(db.Integer, db.ForeignKey('product_variants.id'))
     nombre_producto = db.Column(db.String(200), nullable=False)  # snapshot
     cantidad        = db.Column(db.Integer, nullable=False)

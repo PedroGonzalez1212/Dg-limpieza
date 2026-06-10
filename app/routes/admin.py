@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash, jsonify
 from flask_login import login_required, current_user
 from app import db
-from app.models import Product, Category, ProductVariant, StockMovement, Sale, SaleItem, User
+from app.models import Product, Category, ProductVariant, StockMovement, Sale, SaleItem, User, Combo, ComboItem
 from app.utils.decorators import admin_required
 from datetime import datetime, date, timedelta
 
@@ -1070,18 +1070,32 @@ def pedido_confirmar(id):
 
     # Descontar stock por cada item del pedido
     for item in pedido.items:
-        producto = Product.query.get(item.producto_id)
-        if producto and producto.stock is not None:
-            producto.stock = max(0, producto.stock - item.cantidad)
-
-            mov = StockMovement(
-                producto_id = producto.id,
-                usuario_id  = current_user.id,
-                tipo        = 'salida',
-                cantidad    = item.cantidad,
-                motivo      = f'Pedido WhatsApp #{pedido.id} confirmado'
-            )
-            db.session.add(mov)
+        if item.combo_id:
+            # Para combos descontamos cada producto componente
+            combo_items = ComboItem.query.filter_by(combo_id=item.combo_id).all()
+            for ci in combo_items:
+                producto = Product.query.get(ci.producto_id)
+                if producto and producto.stock is not None:
+                    descuento = ci.cantidad * item.cantidad
+                    producto.stock = max(0, producto.stock - descuento)
+                    db.session.add(StockMovement(
+                        producto_id = producto.id,
+                        usuario_id  = current_user.id,
+                        tipo        = 'salida',
+                        cantidad    = descuento,
+                        motivo      = f'Pedido WhatsApp #{pedido.id} — combo "{item.nombre_producto}"'
+                    ))
+        else:
+            producto = Product.query.get(item.producto_id)
+            if producto and producto.stock is not None:
+                producto.stock = max(0, producto.stock - item.cantidad)
+                db.session.add(StockMovement(
+                    producto_id = producto.id,
+                    usuario_id  = current_user.id,
+                    tipo        = 'salida',
+                    cantidad    = item.cantidad,
+                    motivo      = f'Pedido WhatsApp #{pedido.id} confirmado'
+                ))
 
     # Actualizar el pedido
     pedido.estado      = 'completada'

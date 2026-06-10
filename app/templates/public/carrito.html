@@ -366,24 +366,23 @@
   const total = document.getElementById('total-precio').textContent.trim();
 
   const mensaje = [
-    '🛒 *Nuevo pedido — DG Limpieza*',
+    ' *Nuevo pedido — DG Limpieza*',
     '',
-    '👤 *Datos del cliente*',
+    '- *Datos del cliente*',
     `- Nombre: ${nombre}`,
     `- Teléfono: ${telefono}`,
     `- Horario para retirar: ${horario}`,
     '',
-    '📦 *Productos*',
+    ' *Productos*',
     ...lineasProductos,
     '',
     `💰 *Total: ${total}*`,
-    `📋 *Pedido #${data.sale_id}*`,
   ].join('\n');
 
   // Vaciamos el carrito en el servidor antes de redirigir
   await fetch('/carrito/vaciar', { method: 'POST' });
 
-  const numeroWA = '5493515484676';
+  const numeroWA = '5493512515999';
   const textoEncoded = encodeURIComponent(mensaje);
   window.location.href = `https://wa.me/${numeroWA}?text=${textoEncoded}`;
 }

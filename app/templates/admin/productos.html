@@ -54,11 +54,11 @@
       {% endfor %}
     </select>
     <select name="mostrar" class="admin-select">
-      <option value="activos"   {% if mostrar == 'activos'   %}selected{% endif %}>Solo activos</option>
-      <option value="inactivos" {% if mostrar == 'inactivos' %}selected{% endif %}>Solo inactivos</option>
+      <option value="activos"    {% if mostrar == 'activos'    %}selected{% endif %}>Solo activos</option>
+      <option value="inactivos"  {% if mostrar == 'inactivos'  %}selected{% endif %}>Solo inactivos</option>
       <option value="stock_bajo" {% if mostrar == 'stock_bajo' %}selected{% endif %}>Stock bajo ⚠️</option>
       <option value="sin_stock"  {% if mostrar == 'sin_stock'  %}selected{% endif %}>Sin stock 🚫</option>
-      <option value="todos"     {% if mostrar == 'todos'     %}selected{% endif %}>Todos</option>
+      <option value="todos"      {% if mostrar == 'todos'      %}selected{% endif %}>Todos</option>
     </select>
     <button type="submit" class="btn btn-secondary">Filtrar</button>
     {% if busqueda or categoria_sel or mostrar != 'activos' %}
@@ -66,9 +66,10 @@
     {% endif %}
   </form>
 
-  <!-- ── Tabla ───────────────────────────────────────────────────────── -->
   {% if productos %}
-  <div class="admin-table-wrap">
+
+  <!-- ── Tabla DESKTOP ───────────────────────────────────────────────── -->
+  <div class="admin-table-wrap productos-desktop">
     <table class="admin-table">
       <thead>
         <tr>
@@ -84,8 +85,7 @@
         {% for p in productos %}
         <tr class="{% if not p.activo %}row-inactivo{% elif p.sin_stock %}row-sin-stock{% elif p.stock_bajo %}row-stock-bajo{% endif %}">
 
-          <!-- Nombre + imagen -->
-          <td>
+          <td data-label="Producto">
             <div class="prod-info">
               {% if p.imagen_url %}
                 <img src="{{ p.imagen_url }}" alt="{{ p.nombre }}" class="prod-thumb">
@@ -101,8 +101,7 @@
             </div>
           </td>
 
-          <!-- Categorías -->
-          <td>
+          <td data-label="Categorías">
             {% for cat in p.categorias %}
               <span class="badge badge-cat">{{ cat.nombre }}</span>
             {% else %}
@@ -110,16 +109,14 @@
             {% endfor %}
           </td>
 
-          <!-- Precio -->
-          <td class="text-right">
+          <td data-label="Precio" class="text-right">
             ${{ "%.0f"|format(p.precio_unidad) }}
             {% if p.precio_mayor %}
               <br><small class="text-muted">Mayor: ${{ "%.0f"|format(p.precio_mayor) }}</small>
             {% endif %}
           </td>
 
-          <!-- Stock -->
-          <td class="text-center">
+          <td data-label="Stock" class="text-center">
             {% if p.sin_stock %}
               <span class="badge badge-danger">Sin stock</span>
             {% elif p.stock_bajo %}
@@ -129,8 +126,7 @@
             {% endif %}
           </td>
 
-          <!-- Estado -->
-          <td class="text-center">
+          <td data-label="Estado" class="text-center">
             {% if p.activo %}
               <span class="badge badge-ok">Activo</span>
             {% else %}
@@ -138,12 +134,10 @@
             {% endif %}
           </td>
 
-          <!-- Acciones -->
-          <td class="text-center">
+          <td data-label="Acciones" class="text-center">
             <div class="action-btns">
               <a href="{{ url_for('admin.producto_editar', id=p.id) }}"
                 class="btn btn-sm btn-secondary" title="Editar">✏️</a>
-
               <form method="POST"
                     action="{{ url_for('admin.producto_toggle', id=p.id) }}"
                     style="display:inline"
@@ -163,6 +157,90 @@
     </table>
   </div>
 
+  <!-- ── Cards MOBILE / TABLET (≤768px) ─────────────────────────────── -->
+  <div class="productos-cards">
+    {% for p in productos %}
+    <div class="prod-card{% if not p.activo %} prod-card--inactivo{% elif p.sin_stock %} prod-card--sin-stock{% elif p.stock_bajo %} prod-card--stock-bajo{% endif %}">
+
+      <!-- Cabecera: imagen + nombre + variantes -->
+      <div class="prod-card__head">
+        {% if p.imagen_url %}
+          <img src="{{ p.imagen_url }}" alt="{{ p.nombre }}" class="prod-card__img">
+        {% else %}
+          <div class="prod-card__img prod-card__img--empty">📦</div>
+        {% endif %}
+        <div class="prod-card__title-wrap">
+          <strong class="prod-card__name">{{ p.nombre }}</strong>
+          {% if p.tiene_variantes %}
+            <span class="badge badge-outline">{{ p.variantes|length }} variantes</span>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Categorías -->
+      <div class="prod-card__row">
+        <span class="prod-card__label">Categorías</span>
+        <div class="prod-card__cats">
+          {% for cat in p.categorias %}
+            <span class="badge badge-cat">{{ cat.nombre }}</span>
+          {% else %}
+            <span class="text-muted">—</span>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Precio + Stock en dos columnas -->
+      <div class="prod-card__grid2">
+        <div class="prod-card__cell">
+          <span class="prod-card__label">Precio unidad</span>
+          <span class="prod-card__cell-val">${{ "%.0f"|format(p.precio_unidad) }}</span>
+          {% if p.precio_mayor %}
+            <small class="text-muted">Mayor: ${{ "%.0f"|format(p.precio_mayor) }}</small>
+          {% endif %}
+        </div>
+        <div class="prod-card__cell">
+          <span class="prod-card__label">Stock</span>
+          {% if p.sin_stock %}
+            <span class="badge badge-danger">Sin stock</span>
+          {% elif p.stock_bajo %}
+            <span class="badge badge-warn">{{ p.stock }} ⚠️</span>
+          {% else %}
+            <span class="badge badge-ok">{{ p.stock }}</span>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Estado -->
+      <div class="prod-card__row">
+        <span class="prod-card__label">Estado</span>
+        {% if p.activo %}
+          <span class="badge badge-ok">Activo</span>
+        {% else %}
+          <span class="badge badge-muted">Inactivo</span>
+        {% endif %}
+      </div>
+
+      <!-- Acciones -->
+      <div class="prod-card__actions">
+        <a href="{{ url_for('admin.producto_editar', id=p.id) }}"
+           class="prod-card__action-btn prod-card__action-edit">
+          ✏️ Editar
+        </a>
+        <form method="POST"
+              action="{{ url_for('admin.producto_toggle', id=p.id) }}"
+              class="prod-card__action-form"
+              onsubmit="return confirm('¿Confirmás {{ 'desactivar' if p.activo else 'activar' }} este producto?')">
+          <button type="submit"
+                  class="prod-card__action-btn {{ 'prod-card__action-deactivate' if p.activo else 'prod-card__action-activate' }}">
+            {{ '🚫 Desactivar' if p.activo else '✅ Activar' }}
+          </button>
+        </form>
+      </div>
+
+    </div>
+    {% endfor %}
+  </div>
+
   {% else %}
   <div class="admin-empty">
     <p>No se encontraron productos con esos filtros.</p>
@@ -178,11 +256,155 @@
 
 {% block styles %}
 <style>
-/* Ancho mínimo del input de búsqueda en el filtro */
-.admin-filters .admin-input { min-width: 220px; }
+/* ── Desktop: ocultar cards ── */
+.productos-cards { display: none; }
 
-/* Estados especiales de filas de la tabla */
-.row-sin-stock td:nth-child(4) { background: #fff1f1; }
+/* ── Estados de fila (tabla desktop) ── */
+.row-sin-stock  td:nth-child(4) { background: #fff1f1; }
 .row-stock-bajo td:nth-child(4) { background: #fffbeb; }
+
+/* ── Tablet + Mobile (≤768px): mostrar cards, ocultar tabla ── */
+@media (max-width: 768px) {
+  .productos-desktop { display: none !important; }
+
+  .productos-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  /* ── Card base ── */
+  .prod-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .prod-card--inactivo   { opacity: 0.55; }
+  .prod-card--sin-stock  { border-left: 4px solid #ef4444; }
+  .prod-card--stock-bajo { border-left: 4px solid #f59e0b; }
+
+  /* ── Cabecera ── */
+  .prod-card__head {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.9rem 1rem;
+    background: #f9fafb;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .prod-card__img {
+    width: 52px;
+    height: 52px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    flex-shrink: 0;
+    background: #f3f4f6;
+  }
+  .prod-card__img--empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    background: #f3f4f6;
+  }
+  .prod-card__title-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    min-width: 0;
+  }
+  .prod-card__name {
+    font-size: 1rem;
+    color: var(--color-navy);
+    line-height: 1.3;
+    word-break: break-word;
+  }
+
+  /* ── Etiquetas ── */
+  .prod-card__label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #9ca3af;
+    margin-bottom: 0.15rem;
+  }
+
+  /* ── Filas label + valor ── */
+  .prod-card__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid #f3f4f6;
+    gap: 0.5rem;
+  }
+  .prod-card__cats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    justify-content: flex-end;
+  }
+
+  /* ── Grid 2 columnas: precio + stock ── */
+  .prod-card__grid2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid #f3f4f6;
+  }
+  .prod-card__cell {
+    display: flex;
+    flex-direction: column;
+    padding: 0.7rem 1rem;
+    gap: 0.15rem;
+  }
+  .prod-card__cell:first-child { border-right: 1px solid #f3f4f6; }
+  .prod-card__cell-val {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-navy);
+  }
+
+  /* ── Acciones: 2 botones a pantalla completa ── */
+  .prod-card__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .prod-card__action-form { display: flex; }
+  .prod-card__action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    min-height: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    width: 100%;
+    transition: opacity 0.15s;
+    padding: 0 0.5rem;
+    line-height: 1.2;
+  }
+  .prod-card__action-btn:hover { opacity: 0.82; }
+  .prod-card__action-edit {
+    background: #f0f4ff;
+    color: var(--color-navy);
+    border-right: 1px solid #e5e7eb;
+  }
+  .prod-card__action-deactivate {
+    background: #fff1f1;
+    color: #991b1b;
+  }
+  .prod-card__action-activate {
+    background: #f0fdf4;
+    color: #166534;
+  }
+}
 </style>
 {% endblock %}

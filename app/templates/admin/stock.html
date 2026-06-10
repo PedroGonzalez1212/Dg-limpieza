@@ -10,12 +10,12 @@
       <h1 class="admin-title">Gestión de Stock</h1>
       <p class="admin-subtitle">Ajustá niveles, registrá entradas y revisá el historial</p>
     </div>
-    <a href="{{ url_for('admin.productos') }}" class="admin-btn-secondary">
+    <a href="{{ url_for('admin.productos') }}" class="admin-btn admin-btn-secondary">
       ← Volver a Productos
     </a>
   </div>
 
-  <!-- ── Mensajes flash ────────────────────────────────────────────────── -->
+  <!-- ── Mensajes flash ───────────────────────────────────────────────── -->
   {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
       {% for category, message in messages %}
@@ -24,7 +24,7 @@
     {% endif %}
   {% endwith %}
 
-  <!-- ── Tabs de filtro ───────────────────────────────────────────────── -->
+  <!-- ── Tabs de filtro ──────────────────────────────────────────────── -->
   <div class="stock-tabs">
     <a href="{{ url_for('admin.stock', filtro='todos') }}"
       class="stock-tab {% if filtro == 'todos' %}active{% endif %}">
@@ -43,9 +43,10 @@
     </a>
   </div>
 
-  <!-- ── Tabla de stock ───────────────────────────────────────────────── -->
   {% if productos %}
-  <div class="admin-table-wrapper">
+
+  <!-- ── Tabla DESKTOP ───────────────────────────────────────────────── -->
+  <div class="admin-table-wrapper data-desktop">
     <table class="admin-table">
       <thead>
         <tr>
@@ -59,7 +60,7 @@
       <tbody>
         {% for p in productos %}
         <tr class="{% if p.stock == 0 %}row-danger{% elif p.stock_bajo %}row-warn{% endif %}">
-          <td>
+          <td data-label="Producto">
             <div class="prod-info">
               {% if p.imagen_url %}
                 <img src="{{ p.imagen_url }}" alt="{{ p.nombre }}" class="prod-thumb">
@@ -74,13 +75,13 @@
               </div>
             </div>
           </td>
-          <td class="text-center">
+          <td data-label="Stock actual" class="text-center">
             <span class="stock-num {% if p.stock == 0 %}stock-num--zero{% elif p.stock_bajo %}stock-num--low{% else %}stock-num--ok{% endif %}">
               {{ p.stock }}
             </span>
           </td>
-          <td class="text-center text-muted">{{ p.stock_minimo }}</td>
-          <td class="text-center">
+          <td data-label="Stock mínimo" class="text-center text-muted">{{ p.stock_minimo }}</td>
+          <td data-label="Estado" class="text-center">
             {% if p.stock == 0 %}
               <span class="badge-stock badge-stock--sin">Sin stock</span>
             {% elif p.stock_bajo %}
@@ -89,7 +90,7 @@
               <span class="badge-stock badge-stock--ok">OK</span>
             {% endif %}
           </td>
-          <td class="text-center">
+          <td data-label="Acciones" class="text-center">
             <div class="action-btns">
               <button class="btn-ajustar"
                       onclick="abrirModalAjuste({{ p.id }}, '{{ p.nombre|e }}', {{ p.stock }})"
@@ -107,6 +108,68 @@
         {% endfor %}
       </tbody>
     </table>
+  </div>
+
+  <!-- ── Cards MOBILE / TABLET (≤768px) ─────────────────────────────── -->
+  <div class="data-cards">
+    {% for p in productos %}
+    <div class="data-card{% if p.stock == 0 %} data-card--danger{% elif p.stock_bajo %} data-card--warn{% endif %}">
+
+      <!-- Cabecera: imagen + nombre -->
+      <div class="data-card__head data-card__head--gray">
+        {% if p.imagen_url %}
+          <img src="{{ p.imagen_url }}" alt="{{ p.nombre }}" class="data-card__head-img">
+        {% else %}
+          <div class="data-card__head-img data-card__head-img--empty">📦</div>
+        {% endif %}
+        <div class="data-card__head-body">
+          <span class="data-card__head-title">{{ p.nombre }}</span>
+          {% if p.tiene_variantes %}
+            <span class="prod-tag">Con variantes</span>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Stock actual + Stock mínimo -->
+      <div class="data-card__grid2">
+        <div class="data-card__cell">
+          <span class="data-card__label">Stock actual</span>
+          <span class="stock-num stock-num--xl {% if p.stock == 0 %}stock-num--zero{% elif p.stock_bajo %}stock-num--low{% else %}stock-num--ok{% endif %}">
+            {{ p.stock }}
+          </span>
+        </div>
+        <div class="data-card__cell">
+          <span class="data-card__label">Stock mínimo</span>
+          <span class="data-card__cell-val" style="font-size:0.95rem;color:#6b7280">{{ p.stock_minimo }}</span>
+        </div>
+      </div>
+
+      <!-- Estado -->
+      <div class="data-card__row">
+        <span class="data-card__label">Estado</span>
+        {% if p.stock == 0 %}
+          <span class="badge-stock badge-stock--sin">Sin stock</span>
+        {% elif p.stock_bajo %}
+          <span class="badge-stock badge-stock--bajo">Stock bajo</span>
+        {% else %}
+          <span class="badge-stock badge-stock--ok">OK</span>
+        {% endif %}
+      </div>
+
+      <!-- Acciones -->
+      <div class="data-card__actions data-card__actions--2">
+        <button class="data-card__action-btn data-card__action-btn--teal"
+                onclick="abrirModalAjuste({{ p.id }}, '{{ p.nombre|e }}', {{ p.stock }})">
+          ✏️ Ajustar
+        </button>
+        <button class="data-card__action-btn data-card__action-btn--default"
+                onclick="verHistorial({{ p.id }}, '{{ p.nombre|e }}')">
+          📋 Historial
+        </button>
+      </div>
+
+    </div>
+    {% endfor %}
   </div>
 
   {% else %}
@@ -386,7 +449,7 @@
   .tab-badge--warn   { background: #fff3cd; color: #856404; }
   .tab-badge--danger { background: #f8d7da; color: #842029; }
 
-  /* ── Tabla (override cabecera uppercase) ────────────────── */
+  /* ── Tabla ──────────────────────────────────────────────── */
   .admin-table-wrapper { background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); overflow: hidden; }
   .admin-table thead th { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; }
   .admin-table--compact thead th { padding: 0.6rem 0.8rem; }
@@ -398,12 +461,13 @@
   .admin-table tbody tr.row-warn:hover   { background: #fef9e7; }
   .admin-table tbody tr.row-danger:hover { background: #fff0f0; }
 
-  /* ── Producto en tabla ──────────────────────────────────── */
+  /* ── Producto ───────────────────────────────────────────── */
   .prod-nombre { font-weight: 600; color: var(--color-navy); display: block; }
   .prod-tag { font-size: 0.7rem; background: #e8f4fd; color: #0c63a5; padding: 0.1rem 0.4rem; border-radius: 4px; display: inline-block; margin-top: 0.2rem; }
 
-  /* ── Stock número ───────────────────────────────────────── */
+  /* ── Número de stock ────────────────────────────────────── */
   .stock-num { font-size: 1.25rem; font-weight: 700; display: inline-block; min-width: 2rem; }
+  .stock-num--xl   { font-size: 1.6rem; }
   .stock-num--ok   { color: #2d9e5a; }
   .stock-num--low  { color: #c77c00; }
   .stock-num--zero { color: #d32f2f; }
@@ -414,7 +478,7 @@
   .badge-stock--bajo { background: #fff3cd; color: #856404; }
   .badge-stock--sin  { background: #f8d7da; color: #721c24; }
 
-  /* ── Botones de acción ──────────────────────────────────── */
+  /* ── Botones de acción (tabla desktop) ──────────────────── */
   .btn-ajustar, .btn-historial { padding: 0.35rem 0.75rem; border: none; border-radius: 6px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.15s; }
   .btn-ajustar { background: var(--color-sky); color: var(--color-navy); }
   .btn-ajustar:hover { filter: brightness(1.1); }
@@ -436,7 +500,7 @@
   .modal-subtitle { color: #666; font-size: 0.9rem; margin: 0.2rem 0 0; }
   .modal-close { background: #f0f2f5; border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 0.9rem; color: #555; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.15s; }
   .modal-close:hover { background: #e4e8ee; }
-  .modal-body { padding: 1.25rem 1.5rem; }
+  .modal-body { padding: 1.25rem 1.5rem; overflow-x: auto; }
   .modal-producto-nombre { font-size: 1rem; font-weight: 700; color: var(--color-navy); margin: 0 0 0.25rem; }
   .modal-stock-actual { color: #555; font-size: 0.9rem; margin: 0 0 1.25rem; }
   .modal-footer { display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #f0f2f5; }
@@ -466,5 +530,17 @@
 
   /* ── Empty state ─────────────────────────────────────────── */
   .empty-state { text-align: center; padding: 3rem; color: #888; background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+
+  /* ── Mobile: tabs con scroll ─────────────────────────────── */
+  @media (max-width: 768px) {
+    .stock-tabs { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 0.25rem; -webkit-overflow-scrolling: touch; }
+    .stock-tab  { white-space: nowrap; flex-shrink: 0; }
+
+    /* Modal ocupa casi toda la pantalla */
+    .modal-overlay { padding: 0.5rem; }
+    .modal-box     { max-height: 95vh; border-radius: 12px; }
+    .modal-header  { padding: 1rem 1rem 0; }
+    .modal-body    { padding: 1rem; }
+  }
 </style>
 {% endblock %}

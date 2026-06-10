@@ -28,20 +28,8 @@
       placeholder="Buscar cliente…"
       class="admin-input"
     >
-    <input
-      type="date"
-      name="desde"
-      value="{{ desde }}"
-      class="admin-input"
-      title="Desde"
-    >
-    <input
-      type="date"
-      name="hasta"
-      value="{{ hasta }}"
-      class="admin-input"
-      title="Hasta"
-    >
+    <input type="date" name="desde" value="{{ desde }}" class="admin-input" title="Desde">
+    <input type="date" name="hasta" value="{{ hasta }}" class="admin-input" title="Hasta">
     <select name="tipo" class="admin-select">
       <option value="">Todos los tipos</option>
       <option value="pos"      {% if tipo == 'pos'      %}selected{% endif %}>🖥️ POS</option>
@@ -57,9 +45,9 @@
     <a href="{{ url_for('admin.ventas') }}" class="btn btn-ghost">Limpiar</a>
   </form>
 
-  <!-- ── Tabla ────────────────────────────────────────────────────────── -->
+  <!-- ── Tabla DESKTOP ───────────────────────────────────────────────── -->
   {% if ventas %}
-  <div class="admin-table-wrap">
+  <div class="admin-table-wrap data-desktop">
     <table class="admin-table">
       <thead>
         <tr>
@@ -76,12 +64,12 @@
       <tbody>
         {% for venta in ventas %}
         <tr>
-          <td><span class="text-muted">#{{ venta.id }}</span></td>
-          <td>
+          <td data-label="#"><span class="text-muted">#{{ venta.id }}</span></td>
+          <td data-label="Fecha">
             {{ venta.creado_en.strftime('%d/%m/%Y') }}<br>
             <small class="text-muted">{{ venta.creado_en.strftime('%H:%M') }}</small>
           </td>
-          <td>
+          <td data-label="Cliente">
             {% if venta.nombre_cliente %}
               <strong>{{ venta.nombre_cliente }}</strong>
               {% if venta.telefono_cliente %}
@@ -91,17 +79,17 @@
               <span class="text-muted">—</span>
             {% endif %}
           </td>
-          <td>
+          <td data-label="Tipo">
             {% if venta.tipo == 'pos' %}
               <span class="badge badge-outline">🖥️ POS</span>
             {% else %}
               <span class="badge badge-ok">📱 WhatsApp</span>
             {% endif %}
           </td>
-          <td>{{ venta.metodo_pago | capitalize if venta.metodo_pago else '—' }}</td>
-          <td class="text-right"><strong>${{ "%.2f"|format(venta.total | float) }}</strong></td>
-          <td><small class="text-muted">{{ venta.usuario.nombre }}</small></td>
-          <td class="text-center">
+          <td data-label="Método">{{ venta.metodo_pago | capitalize if venta.metodo_pago else '—' }}</td>
+          <td data-label="Total" class="text-right"><strong>${{ "%.2f"|format(venta.total | float) }}</strong></td>
+          <td data-label="Vendedor"><small class="text-muted">{{ venta.usuario.nombre }}</small></td>
+          <td data-label="Ver" class="text-center">
             <a href="{{ url_for('admin.venta_detalle', id=venta.id) }}" class="btn btn-sm btn-secondary">
               Ver →
             </a>
@@ -110,6 +98,72 @@
         {% endfor %}
       </tbody>
     </table>
+  </div>
+
+  <!-- ── Cards MOBILE / TABLET (≤768px) ─────────────────────────────── -->
+  <div class="data-cards">
+    {% for venta in ventas %}
+    <div class="data-card">
+
+      <!-- Cabecera navy: id + tipo + total -->
+      <div class="data-card__head data-card__head--navy">
+        <div class="data-card__head-body">
+          <div class="data-card__head-meta">
+            <span class="data-card__head-id">#{{ venta.id }}</span>
+            {% if venta.tipo == 'pos' %}
+              <span class="venta-tipo-badge">🖥️ POS</span>
+            {% else %}
+              <span class="venta-tipo-badge venta-tipo-badge--wsp">📱 WhatsApp</span>
+            {% endif %}
+            <span class="data-card__head-total">${{ "%.2f"|format(venta.total|float) }}</span>
+          </div>
+          <span class="data-card__head-date">
+            {{ venta.creado_en.strftime('%d/%m/%Y · %H:%M') }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Cliente -->
+      <div class="data-card__row">
+        <span class="data-card__label">Cliente</span>
+        <div class="data-card__val">
+          {% if venta.nombre_cliente %}
+            <strong>{{ venta.nombre_cliente }}</strong>
+            {% if venta.telefono_cliente %}
+              <br><small class="text-muted">{{ venta.telefono_cliente }}</small>
+            {% endif %}
+          {% else %}
+            <span class="text-muted">—</span>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Método + Vendedor -->
+      <div class="data-card__grid2">
+        <div class="data-card__cell">
+          <span class="data-card__label">Método</span>
+          <span class="data-card__cell-val" style="font-size:0.95rem">
+            {{ venta.metodo_pago|capitalize if venta.metodo_pago else '—' }}
+          </span>
+        </div>
+        <div class="data-card__cell">
+          <span class="data-card__label">Vendedor</span>
+          <span class="data-card__cell-val" style="font-size:0.9rem;font-weight:500">
+            {{ venta.usuario.nombre }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Acción -->
+      <div class="data-card__actions data-card__actions--1">
+        <a href="{{ url_for('admin.venta_detalle', id=venta.id) }}"
+           class="data-card__action-btn data-card__action-btn--primary">
+          Ver detalle →
+        </a>
+      </div>
+
+    </div>
+    {% endfor %}
   </div>
 
   {% else %}
@@ -125,6 +179,19 @@
 
 {% block styles %}
 <style>
-.admin-filters .admin-input { min-width: 180px; }
+/* Badges de tipo en cabecera navy */
+.venta-tipo-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.9);
+  border: 1px solid rgba(255,255,255,0.25);
+}
+.venta-tipo-badge--wsp {
+  background: rgba(57,235,225,0.2);
+  border-color: rgba(57,235,225,0.4);
+}
 </style>
 {% endblock %}
