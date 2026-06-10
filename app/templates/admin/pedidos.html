@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block title %}Pedidos pendientes — DG Limpieza{% endblock %}
+
+{% block styles %}
+<style>
+  .badge-pendiente  { background: #f39c12; color: #fff; padding: 3px 10px; border-radius: 20px; font-size: .78rem; font-weight: 600; }
+  .badge-items      { background: var(--color-sky, #39EBE1); color: var(--color-navy, #0C0C62); padding: 3px 8px; border-radius: 20px; font-size: .78rem; font-weight: 600; }
+  .pedidos-vacio    { text-align: center; padding: 3rem; color: #888; }
+  .pedidos-vacio p  { font-size: 1.1rem; margin-top: .5rem; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="admin-section">
+
+  <div class="admin-section-header">
+    <h2>📬 Pedidos WhatsApp pendientes</h2>
+    <span class="badge-pendiente">{{ pedidos|length }} pendiente{% if pedidos|length != 1 %}s{% endif %}</span>
+  </div>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for cat, msg in messages %}
+      <div class="alert alert-{{ cat }}" style="margin-bottom:1rem; padding:.75rem 1rem; border-radius:8px;
+        background: {% if cat == 'success' %}#d4edda{% elif cat == 'error' %}#f8d7da{% else %}#d1ecf1{% endif %};">
+        {{ msg }}
+      </div>
+    {% endfor %}
+  {% endwith %}
+
+  {% if pedidos %}
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Fecha</th>
+        <th>Cliente</th>
+        <th>Teléfono</th>
+        <th>Retiro</th>
+        <th>Items</th>
+        <th>Total</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in pedidos %}
+      <tr>
+        <td><strong>#{{ p.id }}</strong></td>
+        <td>{{ p.creado_en.strftime('%d/%m %H:%M') }}</td>
+        <td>{{ p.nombre_cliente or '—' }}</td>
+        <td>{{ p.telefono_cliente or '—' }}</td>
+        <td style="font-size:.85rem; color:#555;">
+          {# El horario de retiro lo guardamos en notas #}
+          {{ p.notas or '—' }}
+        </td>
+        <td>
+          <span class="badge-items">{{ p.items|length }} producto{% if p.items|length != 1 %}s{% endif %}</span>
+        </td>
+        <td><strong>${{ "%.2f"|format(p.total|float) }}</strong></td>
+        <td style="display:flex; gap:.5rem; flex-wrap:wrap;">
+          <a href="{{ url_for('admin.pedido_confirmar', id=p.id) }}" class="admin-btn" style="font-size:.82rem; padding:.35rem .8rem;">
+            ✅ Confirmar
+          </a>
+          <form method="POST" action="{{ url_for('admin.pedido_cancelar', id=p.id) }}"
+                onsubmit="return confirm('¿Cancelar el pedido #{{ p.id }}?')">
+            <button type="submit" class="admin-btn admin-btn-secondary" style="font-size:.82rem; padding:.35rem .8rem;">
+              ✖ Cancelar
+            </button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% else %}
+  <div class="pedidos-vacio">
+    <div style="font-size:3rem;">📭</div>
+    <p>No hay pedidos pendientes en este momento.</p>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}

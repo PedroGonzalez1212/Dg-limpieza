@@ -33,14 +33,13 @@ def vendedor_required(f):
 
 def admin_required(f):
     """
-    Decorador para rutas exclusivas de admin.
-    Vendedores no pueden acceder.
+    Decorador para rutas que solo puede ver un admin.
+    Uso: @admin_required encima de la función de ruta.
+    Si el usuario no es admin, devuelve 403 Forbidden.
     """
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if not current_user.is_authenticated:
-            abort(401)
-        if current_user.rol != 'admin':
+        if not current_user.is_authenticated or not current_user.es_admin():
             abort(403)
         return f(*args, **kwargs)
     return decorated_function

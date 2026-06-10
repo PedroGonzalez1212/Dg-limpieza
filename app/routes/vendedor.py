@@ -14,7 +14,14 @@ vendedor_bp = Blueprint('panel', __name__)
 @login_required
 @vendedor_required
 def dashboard():
-    return render_template('panel/dashboard.html')
+    from app.models import Sale
+    pedidos_pendientes = 0
+    if current_user.es_admin():
+        pedidos_pendientes = Sale.query.filter_by(
+            tipo='whatsapp', estado='pendiente'
+        ).count()
+    return render_template('panel/dashboard.html',
+        pedidos_pendientes=pedidos_pendientes)
 
 
 # ── POS — Pantalla principal ─────────────────────────────────────────────────

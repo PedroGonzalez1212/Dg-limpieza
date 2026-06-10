@@ -1,25 +1,22 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash, jsonify
 from flask_login import login_required, current_user
-from functools import wraps
 from app import db
 from app.models import Product, Category, ProductVariant, StockMovement, Sale, SaleItem, User
+from app.utils.decorators import admin_required
 from datetime import datetime, date, timedelta
 
+import cloudinary
+import cloudinary.uploader
+import os
+
+cloudinary.config(
+    cloud_name = os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    api_key    = os.environ.get('CLOUDINARY_API_KEY'),
+    api_secret = os.environ.get('CLOUDINARY_API_SECRET'),
+    secure     = True
+)
+
 admin_bp = Blueprint('admin', __name__)
-
-
-# ── Decorador de protección por rol ─────────────────────────────────────────
-# Lo definimos acá y no en otro archivo para mantener todo el admin junto.
-# "wraps(f)" preserva el nombre de la función original, necesario para que
-# Flask no se confunda cuando registra múltiples rutas protegidas.
-def admin_required(f):
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        if not current_user.is_authenticated or not current_user.es_admin():
-            flash('Necesitás ser administrador para acceder.', 'error')
-            return redirect(url_for('panel.dashboard'))
-        return f(*args, **kwargs)
-    return decorated
 
 
 # ── Helpers ──────────────────────────────────────────────────────────────────
@@ -901,3 +898,262 @@ def exportar_pdf():
     nombre_archivo = f"reporte_{desde.isoformat()}_{hasta.isoformat()}.pdf"
     return send_file(buffer, mimetype='application/pdf',
                     as_attachment=True, download_name=nombre_archivo)
+
+# ════════════════════════════════════════════════════════════════════════════
+# COMBOS
+# ════════════════════════════════════════════════════════════════════════════
+from app.models import Combo, ComboItem
+
+@admin_bp.route('/combos')
+@login_required
+@admin_required
+def combos():
+    todos = Combo.query.order_by(Combo.creado_en.desc()).all()
+    return render_template('admin/combos.html', combos=todos)
+
+
+@admin_bp.route('/combos/nuevo', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def combo_nuevo():
+    productos = Product.query.filter_by(activo=True).order_by(Product.nombre).all()
+
+    if request.method == 'GET':
+        return render_template('admin/combo_form.html',
+            combo=None, productos=productos)
+
+    nombre          = request.form.get('nombre', '').strip()
+    descripcion     = request.form.get('descripcion', '').strip() or None
+    imagen_url      = request.form.get('imagen_url', '').strip() or None
+    precio_original = _precio_float(request.form.get('precio_original'))
+    precio_combo    = _precio_float(request.form.get('precio_combo'))
+    descuento_texto = request.form.get('descuento_texto', '').strip() or None
+
+    if not nombre or not precio_combo:
+        flash('El nombre y el precio del combo son obligatorios.', 'error')
+        return render_template('admin/combo_form.html',
+            combo=None, productos=productos)
+
+    combo = Combo(
+        nombre=nombre,
+        descripcion=descripcion,
+        imagen_url=imagen_url,
+        precio_original=precio_original,
+        precio_combo=precio_combo,
+        descuento_texto=descuento_texto,
+        activo=True
+    )
+    db.session.add(combo)
+    db.session.flush()  # necesitamos combo.id antes de crear los items
+
+    # Items del combo: listas paralelas producto_id[] y cantidad[]
+    producto_ids = request.form.getlist('item_producto_id')
+    cantidades   = request.form.getlist('item_cantidad')
+
+    for pid, cant in zip(producto_ids, cantidades):
+        if pid and cant:
+            item = ComboItem(
+                combo_id    = combo.id,
+                producto_id = int(pid),
+                cantidad    = int(cant) if cant else 1
+            )
+            db.session.add(item)
+
+    db.session.commit()
+    flash(f'Combo "{combo.nombre}" creado correctamente.', 'success')
+    return redirect(url_for('admin.combos'))
+
+
+@admin_bp.route('/combos/<int:id>/editar', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def combo_editar(id):
+    combo     = Combo.query.get_or_404(id)
+    productos = Product.query.filter_by(activo=True).order_by(Product.nombre).all()
+
+    if request.method == 'GET':
+        return render_template('admin/combo_form.html',
+            combo=combo, productos=productos)
+
+    combo.nombre          = request.form.get('nombre', '').strip()
+    combo.descripcion     = request.form.get('descripcion', '').strip() or None
+    combo.imagen_url      = request.form.get('imagen_url', '').strip() or None
+    combo.precio_original = _precio_float(request.form.get('precio_original'))
+    combo.precio_combo    = _precio_float(request.form.get('precio_combo'))
+    combo.descuento_texto = request.form.get('descuento_texto', '').strip() or None
+
+    if not combo.nombre or not combo.precio_combo:
+        flash('El nombre y el precio del combo son obligatorios.', 'error')
+        return render_template('admin/combo_form.html',
+            combo=combo, productos=productos)
+
+    # Reemplazar items: borrar los anteriores y recrear
+    ComboItem.query.filter_by(combo_id=combo.id).delete()
+
+    producto_ids = request.form.getlist('item_producto_id')
+    cantidades   = request.form.getlist('item_cantidad')
+
+    for pid, cant in zip(producto_ids, cantidades):
+        if pid and cant:
+            item = ComboItem(
+                combo_id    = combo.id,
+                producto_id = int(pid),
+                cantidad    = int(cant) if cant else 1
+            )
+            db.session.add(item)
+
+    db.session.commit()
+    flash(f'Combo "{combo.nombre}" actualizado.', 'success')
+    return redirect(url_for('admin.combos'))
+
+
+@admin_bp.route('/combos/<int:id>/toggle', methods=['POST'])
+@login_required
+@admin_required
+def combo_toggle(id):
+    combo = Combo.query.get_or_404(id)
+    combo.activo = not combo.activo
+    db.session.commit()
+    estado = 'activado' if combo.activo else 'desactivado'
+    flash(f'Combo "{combo.nombre}" {estado}.', 'success')
+    return redirect(url_for('admin.combos'))
+
+# ════════════════════════════════════════════════════════════════════════════
+# PEDIDOS WHATSAPP PENDIENTES
+# ════════════════════════════════════════════════════════════════════════════
+
+@admin_bp.route('/pedidos')
+@login_required
+@admin_required
+def pedidos():
+    """
+    Lista los pedidos WhatsApp con estado 'pendiente'.
+    Son los pedidos que el cliente generó desde la tienda pero
+    todavía no fueron confirmados ni cobrados por el vendedor.
+    """
+    pedidos_list = (
+        Sale.query
+        .filter_by(tipo='whatsapp', estado='pendiente')
+        .order_by(Sale.creado_en.desc())
+        .all()
+    )
+    return render_template('admin/pedidos.html', pedidos=pedidos_list)
+
+
+@admin_bp.route('/pedidos/<int:id>/confirmar', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def pedido_confirmar(id):
+    """
+    GET  → muestra el detalle del pedido con formulario para elegir método de pago.
+    POST → confirma el pedido: descuenta stock, cambia estado a 'completada',
+        asigna el vendedor que lo procesó.
+
+    ¿Por qué descontamos stock recién acá y no cuando el cliente confirma?
+    Porque hasta este momento el pedido puede cancelarse. El stock se reserva
+    en el mundo real cuando el vendedor lo confirma y prepara el paquete.
+    """
+    pedido = Sale.query.get_or_404(id)
+
+    if pedido.estado != 'pendiente':
+        flash('Este pedido ya fue procesado.', 'info')
+        return redirect(url_for('admin.pedidos'))
+
+    if request.method == 'GET':
+        return render_template('admin/pedido_confirmar.html', pedido=pedido)
+
+    # ── POST: confirmar el pedido ─────────────────────────────────────────
+    metodo_pago = request.form.get('metodo_pago', '').strip()
+    if not metodo_pago:
+        flash('Seleccioná un método de pago.', 'error')
+        return render_template('admin/pedido_confirmar.html', pedido=pedido)
+
+    # Descontar stock por cada item del pedido
+    for item in pedido.items:
+        producto = Product.query.get(item.producto_id)
+        if producto and producto.stock is not None:
+            producto.stock = max(0, producto.stock - item.cantidad)
+
+            mov = StockMovement(
+                producto_id = producto.id,
+                usuario_id  = current_user.id,
+                tipo        = 'salida',
+                cantidad    = item.cantidad,
+                motivo      = f'Pedido WhatsApp #{pedido.id} confirmado'
+            )
+            db.session.add(mov)
+
+    # Actualizar el pedido
+    pedido.estado      = 'completada'
+    pedido.metodo_pago = metodo_pago
+    pedido.usuario_id  = current_user.id  # asignamos al vendedor que lo procesó
+
+    db.session.commit()
+    flash(f'Pedido #{pedido.id} confirmado correctamente.', 'success')
+    return redirect(url_for('admin.pedidos'))
+
+
+@admin_bp.route('/pedidos/<int:id>/cancelar', methods=['POST'])
+@login_required
+@admin_required
+def pedido_cancelar(id):
+    """
+    Cancela un pedido pendiente sin descontar stock.
+    Útil cuando el cliente no vino a retirar o canceló por WhatsApp.
+    """
+    pedido = Sale.query.get_or_404(id)
+
+    if pedido.estado != 'pendiente':
+        flash('Este pedido ya fue procesado.', 'info')
+        return redirect(url_for('admin.pedidos'))
+
+    pedido.estado = 'cancelada'
+    db.session.commit()
+    flash(f'Pedido #{pedido.id} cancelado.', 'info')
+    return redirect(url_for('admin.pedidos'))
+
+# ════════════════════════════════════════════════════════
+# UPLOAD DE IMAGEN A CLOUDINARY
+# ════════════════════════════════════════════════════════
+@admin_bp.route('/upload-imagen', methods=['POST'])
+@login_required
+@admin_required
+def upload_imagen():
+    """
+    Recibe una imagen desde el formulario de producto,
+    la sube a Cloudinary y devuelve la URL segura.
+    
+    ¿Por qué una ruta separada y no procesar en producto_nuevo?
+    Porque así el upload es independiente del guardado del producto.
+    Si el usuario cambia la imagen varias veces antes de guardar,
+    solo hacemos un upload, no mezclamos lógicas.
+    """
+    import cloudinary.uploader
+
+    if 'imagen' not in request.files:
+        return jsonify({'error': 'No se recibió ninguna imagen'}), 400
+
+    archivo = request.files['imagen']
+
+    if archivo.filename == '':
+        return jsonify({'error': 'Archivo vacío'}), 400
+
+    # Validar que sea una imagen
+    extensiones_permitidas = {'jpg', 'jpeg', 'png', 'webp', 'gif'}
+    extension = archivo.filename.rsplit('.', 1)[-1].lower()
+    if extension not in extensiones_permitidas:
+        return jsonify({'error': 'Formato no permitido. Usá JPG, PNG o WEBP'}), 400
+
+    try:
+        resultado = cloudinary.uploader.upload(
+            archivo,
+            folder='dg-limpieza/productos',   # carpeta dentro de tu cuenta
+            transformation=[
+                {'width': 800, 'height': 800, 'crop': 'limit'},  # máximo 800x800
+                {'quality': 'auto'},                               # optimiza el peso
+                {'fetch_format': 'auto'}                           # convierte a WebP si el browser lo soporta
+            ]
+        )
+        return jsonify({'url': resultado['secure_url']})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500

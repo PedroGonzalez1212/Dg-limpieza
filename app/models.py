@@ -158,6 +158,40 @@ class StockMovement(db.Model):
     def __repr__(self):
         return f'<StockMovement {self.tipo} {self.cantidad}>'
 
+# ── Combos ────────────────────────────────────────────────────────────────────
+class Combo(db.Model):
+    __tablename__ = 'combos'
+
+    id               = db.Column(db.Integer, primary_key=True)
+    nombre           = db.Column(db.String(200), nullable=False)
+    descripcion      = db.Column(db.Text)
+    imagen_url       = db.Column(db.String(500))
+    precio_original  = db.Column(db.Numeric(10, 2))  # precio sin descuento (referencia)
+    precio_combo     = db.Column(db.Numeric(10, 2), nullable=False)  # precio final
+    descuento_texto  = db.Column(db.String(100))  # ej: "Ahorrás $300", "20% OFF"
+    activo           = db.Column(db.Boolean, default=True)
+    creado_en        = db.Column(db.DateTime, default=datetime.utcnow)
+
+    items = db.relationship('ComboItem', backref='combo', lazy=True,
+                            cascade='all, delete-orphan')
+
+    def __repr__(self):
+        return f'<Combo {self.nombre}>'
+
+
+class ComboItem(db.Model):
+    __tablename__ = 'combo_items'
+
+    id          = db.Column(db.Integer, primary_key=True)
+    combo_id    = db.Column(db.Integer, db.ForeignKey('combos.id'), nullable=False)
+    producto_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)
+    cantidad    = db.Column(db.Integer, nullable=False, default=1)
+
+    producto = db.relationship('Product')
+
+    def __repr__(self):
+        return f'<ComboItem combo={self.combo_id} producto={self.producto_id}>'
+
 # ── Configuración de la tienda ────────────────────────────────────────────────
 class StoreConfig(db.Model):
     __tablename__ = 'store_config'

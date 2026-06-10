@@ -5,20 +5,25 @@
 
 :root {
   /* ── Paleta principal ─────────────────────────────────── */
-  --color-turquoise:      #39EBE1;   /* color principal: turquesa vibrante */
-  --color-turquoise-dark: #1ABDB4;   /* turquesa oscuro para hovers */
-  --color-turquoise-light:#D0FBF9;   /* turquesa muy claro para fondos suaves */
+  --color-turquoise:      #3F97CE;   /* azul acero: color principal */
+  --color-turquoise-dark: #2C77AC;   /* azul acero oscuro para hovers */
+  --color-turquoise-light:#D4E6F3;   /* azul muy claro para fondos suaves */
 
-  --color-navy:           #0C0C62;   /* azul marino oscuro: nav, fondos, botones */
-  --color-navy-mid:       #1A1A8C;   /* marino medio para hovers */
-  --color-navy-light:     #EDEDFA;   /* marino muy claro para superficies */
+  --color-navy:           #0B2A45;   /* azul marino profundo: nav, fondos, botones */
+  --color-navy-mid:       #1B4D74;   /* marino medio para hovers */
+  --color-navy-light:     #E8F3FA;   /* marino muy claro para superficies */
 
   --color-white:          #FFFFFF;
-  --color-bg:             #F5F5FD;   /* fondo general: marino casi blanco */
+  --color-bg:             #F2F8FC;   /* fondo general: azul casi blanco */
   --color-surface:        #FFFFFF;   /* fondo de cards */
-  --color-border:         #DCDCF5;   /* bordes suaves con tono marino */
-  --color-text:           #0C0C62;   /* texto principal = marino */
-  --color-text-muted:     #6666A3;   /* texto secundario: marino desaturado */
+  --color-border:         #DCEAF3;   /* bordes suaves con tono azul */
+  --color-text:           #0C2A40;   /* texto principal = marino */
+  --color-text-muted:     #5C7589;   /* texto secundario: azul-gris */
+
+  /* Alias sky (mismo que turquoise, para compatibilidad con estilos legacy) */
+  --color-sky:            #3F97CE;
+  --color-sky-light:      #D4E6F3;
+  --color-sky-dark:       #2C77AC;
 
   /* ── Semánticos ───────────────────────────────────────── */
   --color-success:        #22C55E;
@@ -27,8 +32,8 @@
   --color-sin-stock:      #94A3B8;
 
   /* ── Tipografía ───────────────────────────────────────── */
-  --font-display: 'Syne', sans-serif;
-  --font-body:    'DM Sans', sans-serif;
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body:    'Plus Jakarta Sans', sans-serif;
 
   /* ── Espaciado (escala 4px) ───────────────────────────── */
   --space-1:  4px;
@@ -106,16 +111,17 @@ p:last-child { margin-bottom: 0; }
 main { flex: 1; }
 
 /* ════════════════════════════════════════════════════════════
-   NAVBAR
-   Fondo marino oscuro (#0C0C62), acento turquesa (#39EBE1)
+   NAVBAR — blanca / glassmorphism
 ════════════════════════════════════════════════════════════ */
 .navbar {
-  background-color: var(--color-navy);
-  padding: var(--space-4) 0;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: saturate(160%) blur(12px);
+  -webkit-backdrop-filter: saturate(160%) blur(12px);
+  border-bottom: 1px solid var(--color-border);
+  padding: 0;
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 2px 16px rgba(12, 12, 98, 0.35);
 }
 
 .navbar__inner {
@@ -123,70 +129,59 @@ main { flex: 1; }
   align-items: center;
   justify-content: space-between;
   gap: var(--space-6);
+  height: 72px;
 }
 
-/* Logo: "DG" en turquesa, "Limpieza" en blanco */
+/* Logo: imagen circular + nombre + tagline */
 .navbar__logo {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: 12px;
   font-family: var(--font-display);
-  font-size: 1.35rem;
-  font-weight: 800;
-  color: var(--color-white);
-  letter-spacing: -0.02em;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-navy);
+  letter-spacing: -0.01em;
+  flex-shrink: 0;
+  line-height: 1.1;
+}
+
+.navbar__logo-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
   flex-shrink: 0;
 }
 
-.navbar__logo span {
-  color: var(--color-turquoise);
+.navbar__logo small {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  margin-top: 2px;
 }
 
-/* Buscador */
-.navbar__search {
-  flex: 1;
-  max-width: 480px;
-  position: relative;
-}
-
-.navbar__search input {
-  width: 100%;
-  padding: var(--space-2) var(--space-4);
-  padding-right: 44px;
-  background: rgba(255, 255, 255, 0.07);
-  border: 1.5px solid rgba(255, 255, 255, 0.15);
-  border-radius: var(--radius-full);
-  color: var(--color-white);
-  font-size: 0.9rem;
-  transition: border-color var(--transition), background var(--transition);
-  outline: none;
-}
-
-.navbar__search input::placeholder { color: rgba(255, 255, 255, 0.4); }
-
-.navbar__search input:focus {
-  border-color: var(--color-turquoise);
-  background: rgba(57, 235, 225, 0.08);
-}
-
-.navbar__search-btn {
-  position: absolute;
-  right: var(--space-3);
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: rgba(255, 255, 255, 0.5);
+/* Grupo derecho: links + acciones juntos */
+.navbar__right {
   display: flex;
   align-items: center;
-  padding: 0;
-  transition: color var(--transition);
+  gap: var(--space-4);
+  margin-left: auto;
 }
 
-.navbar__search-btn:hover { color: var(--color-turquoise); }
+/* Acciones: carrito + CTA */
+.navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
 
-/* Nav links */
+/* Nav links — texto oscuro */
 .navbar__links {
   display: flex;
   align-items: center;
@@ -194,7 +189,7 @@ main { flex: 1; }
 }
 
 .navbar__link {
-  color: rgba(255, 255, 255, 0.75);
+  color: var(--color-text);
   font-size: 0.9rem;
   font-weight: 500;
   padding: var(--space-2) var(--space-3);
@@ -203,12 +198,12 @@ main { flex: 1; }
 }
 
 .navbar__link:hover {
-  color: var(--color-white);
-  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-navy);
+  background: rgba(11,42,69,.06);
 }
 
 .navbar__link--active {
-  color: var(--color-turquoise);
+  color: var(--color-turquoise-dark);
   font-weight: 600;
 }
 
@@ -217,28 +212,35 @@ main { flex: 1; }
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--color-white);
-  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  gap: 7px;
+  padding: 9px 16px;
+  border-radius: var(--radius-full);
+  background: var(--color-turquoise);
+  color: var(--color-navy);
+  border: 1.5px solid var(--color-turquoise);
+  font-size: 0.875rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: background var(--transition), border-color var(--transition);
+  transition: background var(--transition), border-color var(--transition), transform var(--transition);
+  white-space: nowrap;
 }
 
 .navbar__cart:hover {
-  background: rgba(57, 235, 225, 0.15);
-  border-color: var(--color-turquoise);
+  background: var(--color-turquoise-dark);
+  border-color: var(--color-turquoise-dark);
+  transform: translateY(-1px);
+}
+
+.navbar__cart-label {
+  font-family: var(--font-body);
 }
 
 .navbar__cart-badge {
   position: absolute;
-  top: -5px;
-  right: -5px;
-  background: var(--color-turquoise);
-  color: var(--color-navy);       /* marino sobre turquesa = legible y con carácter */
+  top: -6px;
+  right: -6px;
+  background: var(--color-navy);
+  color: #fff;
   font-size: 0.68rem;
   font-weight: 800;
   min-width: 18px;
@@ -250,12 +252,39 @@ main { flex: 1; }
   padding: 0 4px;
 }
 
+/* CTA pill principal (Comprar online) */
+.navbar__cta {
+  background: var(--color-navy);
+  color: #fff !important;
+  padding: 9px 18px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 700;
+  border: 1.5px solid transparent;
+  transition: background var(--transition), transform var(--transition);
+  white-space: nowrap;
+}
+.navbar__cta:hover { background: var(--color-navy-mid); transform: translateY(-1px); }
+
+/* Botón outline secundario (Panel / Ingresar) */
+.navbar__cta--outline {
+  background: transparent;
+  color: var(--color-navy) !important;
+  border-color: var(--color-border);
+}
+.navbar__cta--outline:hover {
+  background: rgba(11,42,69,.06);
+  border-color: var(--color-navy);
+  transform: translateY(-1px);
+}
+
 /* Hamburguesa (mobile) */
 .navbar__toggle {
   display: none;
   background: none;
   border: none;
-  color: white;
+  color: var(--color-navy);
   cursor: pointer;
   padding: var(--space-2);
 }
@@ -267,7 +296,6 @@ main { flex: 1; }
   background-color: var(--color-navy);
   color: rgba(255, 255, 255, 0.6);
   padding: var(--space-12) 0 var(--space-8);
-  margin-top: var(--space-16);
 }
 
 .footer__grid {
@@ -319,6 +347,19 @@ main { flex: 1; }
   align-items: center;
   justify-content: space-between;
   font-size: 0.8rem;
+}
+
+.footer__admin-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.3);
+  transition: color var(--transition);
+}
+
+.footer__admin-link:hover {
+  color: rgba(255,255,255,0.7);
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -531,7 +572,8 @@ main { flex: 1; }
 
 /* ── Responsive ──────────────────────────────────────────────*/
 @media (max-width: 768px) {
-  .navbar__search { display: none; }
+  .navbar__cart-label { display: none; }
+  .navbar__cart { padding: 9px 11px; }
 
   .navbar__links {
     display: none;
@@ -539,12 +581,12 @@ main { flex: 1; }
     top: 100%;
     left: 0;
     right: 0;
-    background: var(--color-navy);
+    background: rgba(255,255,255,.97);
     flex-direction: column;
     padding: var(--space-4);
     gap: 0;
     box-shadow: var(--shadow-lg);
-    border-top: 1px solid rgba(255,255,255,0.08);
+    border-top: 1px solid var(--color-border);
   }
 
   .navbar__links.is-open { display: flex; }
@@ -1681,3 +1723,102 @@ main { flex: 1; }
 }
 .badge-pos       { background: #d4f4e7; color: #1a7a4a; }
 .badge-whatsapp  { background: #d1f7d1; color: #1a6b1a; }
+
+/* ════════════════════════════════════════════════════════════
+   RESPONSIVE MOBILE-FIRST — zona pública (≤ 768px)
+   Solo se agregan overrides; el diseño desktop no se toca.
+════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* ── Layout general ─────────────────────────────────────── */
+  .container {
+    padding-inline: var(--space-4); /* 16px en vez de 24px */
+  }
+
+  .section    { padding: var(--space-10) 0; }
+  .section--sm { padding: var(--space-8) 0; }
+
+  /* ── Tipografía ─────────────────────────────────────────── */
+  h1 { font-size: clamp(1.5rem, 7vw, 2rem); }
+  h2 { font-size: clamp(1.25rem, 5vw, 1.6rem); }
+
+  /* ── Botones touch-friendly (≥ 44 px) ──────────────────── */
+  .btn          { min-height: 44px; }
+  .btn--sm      { min-height: 36px; }
+  .btn-buscar,
+  .btn-ver-producto,
+  .btn-carrito,
+  .btn-whatsapp { min-height: 44px; }
+
+  /* ── Formularios ────────────────────────────────────────── */
+  .form-input   { width: 100%; }
+
+  /* ── Catálogo — header ──────────────────────────────────── */
+  .catalogo-header {
+    padding: 1.5rem 0 1.25rem;
+  }
+  .catalogo-header h1 {
+    font-size: 1.5rem;
+  }
+
+  /* ── Catálogo — sticky offset ajustado para navbar mobile ─ */
+  .catalogo-filtros {
+    top: 56px;
+  }
+
+  /* ── Catálogo — buscador apilado ────────────────────────── */
+  .buscador-form {
+    flex-direction: column;
+  }
+  .buscador-input,
+  .btn-buscar {
+    width: 100%;
+  }
+
+  /* ── Catálogo — grid: 2 columnas en mobile ──────────────── */
+  .productos-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.875rem;
+  }
+
+  /* ── Detalle producto — precio dinámico apilado ─────────── */
+  .precio-dinamico {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+  }
+
+  /* ── Carrito — resumen sin sticky ───────────────────────── */
+  .carrito-resumen {
+    position: static;
+  }
+  .carrito-titulo {
+    font-size: 1.4rem;
+  }
+
+  /* ── Relacionados — 2 columnas ajustadas ────────────────── */
+  .relacionados-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  /* ── Reportes métricas — min-width más chico ────────────── */
+  .metrica-card {
+    min-width: 110px;
+    padding: 0.75rem 1rem;
+  }
+  .metrica-valor {
+    font-size: 1.3rem;
+  }
+}
+
+/* ── Catálogo — 1 sola columna en pantallas muy pequeñas ─── */
+@media (max-width: 420px) {
+  .productos-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .carrito-item {
+    grid-template-columns: 48px 1fr auto;
+  }
+}

@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}Confirmar pedido #{{ pedido.id }}{% endblock %}
+
+{% block content %}
+<div class="admin-section" style="max-width: 640px;">
+
+  <div class="admin-section-header">
+    <h2>✅ Confirmar pedido #{{ pedido.id }}</h2>
+    <a href="{{ url_for('admin.pedidos') }}" class="admin-btn admin-btn-secondary">← Volver</a>
+  </div>
+
+  {# Datos del cliente #}
+  <div style="background:#f4f9ff; border-radius:10px; padding:1rem 1.25rem; margin-bottom:1.5rem;">
+    <h3 style="margin-bottom:.75rem; font-size:1rem; color:#0C0C62;">👤 Cliente</h3>
+    <p><strong>Nombre:</strong> {{ pedido.nombre_cliente or '—' }}</p>
+    <p><strong>Teléfono:</strong> {{ pedido.telefono_cliente or '—' }}</p>
+    <p><strong>{{ pedido.notas or '' }}</strong></p>
+  </div>
+
+  {# Items del pedido #}
+  <h3 style="margin-bottom:.75rem; font-size:1rem; color:#0C0C62;">📦 Productos</h3>
+  <table class="admin-table" style="margin-bottom:1.5rem;">
+    <thead>
+      <tr>
+        <th>Producto</th>
+        <th>Cantidad</th>
+        <th>Precio unit.</th>
+        <th>Subtotal</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in pedido.items %}
+      <tr>
+        <td>{{ item.nombre_producto }}</td>
+        <td>{{ item.cantidad }}</td>
+        <td>${{ "%.2f"|format(item.precio_unitario|float) }}</td>
+        <td><strong>${{ "%.2f"|format(item.subtotal|float) }}</strong></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3" style="text-align:right; font-weight:600;">Total</td>
+        <td><strong style="color:#0C0C62; font-size:1.1rem;">${{ "%.2f"|format(pedido.total|float) }}</strong></td>
+      </tr>
+    </tfoot>
+  </table>
+
+  {# Formulario de confirmación #}
+  <form method="POST">
+    <div class="filter-group" style="margin-bottom:1.25rem;">
+      <label for="metodo_pago" style="font-weight:600; display:block; margin-bottom:.4rem;">
+        💳 Método de pago
+      </label>
+      <select name="metodo_pago" id="metodo_pago" class="admin-select" required>
+        <option value="">— Seleccioná —</option>
+        <option value="efectivo">Efectivo</option>
+        <option value="transferencia">Transferencia</option>
+        <option value="debito">Débito</option>
+        <option value="credito">Crédito</option>
+        <option value="billetera_virtual">Billetera virtual</option>
+      </select>
+    </div>
+
+    <div style="display:flex; gap:1rem;">
+      <button type="submit" class="admin-btn">✅ Confirmar y descontar stock</button>
+      <a href="{{ url_for('admin.pedidos') }}" class="admin-btn admin-btn-secondary">Cancelar</a>
+    </div>
+  </form>
+
+</div>
+{% endblock %}

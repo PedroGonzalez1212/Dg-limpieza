@@ -327,52 +327,65 @@
     document.getElementById('modal-pedido-overlay').style.display = 'none';
   }
 
-  // ── Modal: enviar pedido por WhatsApp ─────────────────────
-  function enviarPedido() {
-    const nombre   = document.getElementById('modal-nombre').value.trim();
-    const telefono = document.getElementById('modal-telefono').value.trim();
-    const horario  = document.getElementById('modal-horario').value.trim();
+  async function enviarPedido() {
+  const nombre   = document.getElementById('modal-nombre').value.trim();
+  const telefono = document.getElementById('modal-telefono').value.trim();
+  const horario  = document.getElementById('modal-horario').value.trim();
 
-    if (!nombre || !telefono || !horario) {
-      document.getElementById('modal-error').style.display = 'block';
-      return;
-    }
-
-    const items = document.querySelectorAll('.carrito-item');
-    let lineasProductos = [];
-    items.forEach(item => {
-      const nomProd  = item.querySelector('.item-nombre').textContent.trim();
-      const cantidad = item.querySelector('.item-cantidad').textContent.trim();
-      const subtotal = item.querySelector('[id^="subtotal-"]').textContent.trim();
-      lineasProductos.push(`- ${nomProd} x${cantidad} = ${subtotal}`);
-    });
-
-    const total = document.getElementById('total-precio').textContent.trim();
-
-    const mensaje = [
-      '🛒 *Nuevo pedido — DG Limpieza*',
-      '',
-      '👤 *Datos del cliente*',
-      `- Nombre: ${nombre}`,
-      `- Teléfono: ${telefono}`,
-      `- Horario para retirar: ${horario}`,
-      '',
-      '📦 *Productos*',
-      ...lineasProductos,
-      '',
-      `💰 *Total: ${total}*`,
-    ].join('\n');
-
-    const numeroWA = '5493515484676';
-    const textoEncoded = encodeURIComponent(mensaje).replace(/%F0%9F[\w%]{6}/gi, m =>
-      decodeURIComponent(m)
-    );
-    window.location.href = `https://wa.me/${numeroWA}?text=${textoEncoded}`;
+  if (!nombre || !telefono || !horario) {
+    document.getElementById('modal-error').style.display = 'block';
+    return;
   }
 
-  // Cerrar modal con Escape
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') document.getElementById('modal-pedido-overlay').style.display = 'none';
+  // Primero guardamos el pedido en la DB
+  // Si falla, no abrimos WhatsApp — el cliente se entera del error
+  const res = await fetch('/carrito/confirmar', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ nombre, telefono, horario })
   });
+
+  const data = await res.json();
+  if (!data.ok) {
+    document.getElementById('modal-error').textContent = 'Error al registrar el pedido. Intentá de nuevo.';
+    document.getElementById('modal-error').style.display = 'block';
+    return;
+  }
+
+  // Pedido guardado — ahora construimos el mensaje de WhatsApp
+  // (esta parte es igual que antes)
+  const items = document.querySelectorAll('.carrito-item');
+  let lineasProductos = [];
+  items.forEach(item => {
+    const nomProd  = item.querySelector('.item-nombre').textContent.trim();
+    const cantidad = item.querySelector('.item-cantidad').textContent.trim();
+    const subtotal = item.querySelector('[id^="subtotal-"]').textContent.trim();
+    lineasProductos.push(`- ${nomProd} x${cantidad} = ${subtotal}`);
+  });
+
+  const total = document.getElementById('total-precio').textContent.trim();
+
+  const mensaje = [
+    '🛒 *Nuevo pedido — DG Limpieza*',
+    '',
+    '👤 *Datos del cliente*',
+    `- Nombre: ${nombre}`,
+    `- Teléfono: ${telefono}`,
+    `- Horario para retirar: ${horario}`,
+    '',
+    '📦 *Productos*',
+    ...lineasProductos,
+    '',
+    `💰 *Total: ${total}*`,
+    `📋 *Pedido #${data.sale_id}*`,
+  ].join('\n');
+
+  // Vaciamos el carrito en el servidor antes de redirigir
+  await fetch('/carrito/vaciar', { method: 'POST' });
+
+  const numeroWA = '5493515484676';
+  const textoEncoded = encodeURIComponent(mensaje);
+  window.location.href = `https://wa.me/${numeroWA}?text=${textoEncoded}`;
+}
 </script>
 {% endblock extra_js %}

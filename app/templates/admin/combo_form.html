@@ -1,0 +1,272 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ 'Editar' if combo else 'Nuevo' }} Combo — Admin DG Limpieza{% endblock %}
+
+{% block content %}
+<div class="admin-page">
+
+  <div class="admin-header">
+    <div class="admin-header-left">
+      <h1>{{ 'Editar combo' if combo else 'Nuevo combo' }}</h1>
+      <p class="admin-subtitle">
+        <a href="{{ url_for('admin.combos') }}">← Volver a combos</a>
+      </p>
+    </div>
+  </div>
+
+  <div class="admin-form-wrap">
+    <form method="POST" class="admin-form">
+
+      <!-- Datos principales -->
+      <div class="form-section">
+        <h2 class="form-section-title">Datos del combo</h2>
+
+        <div class="form-group">
+          <label class="form-label">Nombre *</label>
+          <input type="text" name="nombre" class="admin-input"
+                value="{{ combo.nombre if combo else '' }}"
+                placeholder="Ej: Combo Limpieza Hogar" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Descripción</label>
+          <textarea name="descripcion" class="admin-input" rows="3"
+                    placeholder="Descripción breve del combo…">{{ combo.descripcion if combo else '' }}</textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Imagen del combo</label>
+
+          <input type="hidden" id="imagen_url" name="imagen_url"
+                value="{{ combo.imagen_url if combo else '' }}">
+
+          <div id="imgActual" class="img-actual"
+              style="{{ '' if (combo and combo.imagen_url) else 'display:none' }}">
+            <img id="imgPreviewEl"
+                src="{{ combo.imagen_url if combo and combo.imagen_url else '' }}"
+                alt="Imagen actual">
+            <button type="button" id="btnCambiarImg" class="btn-cambiar-img">
+              Cambiar imagen
+            </button>
+          </div>
+
+          <div id="uploadZone" class="upload-zone"
+              style="{{ 'display:none' if (combo and combo.imagen_url) else '' }}">
+            <input type="file" id="inputImagen" accept="image/*" style="display:none">
+            <div id="uploadLabel" class="upload-label" onclick="document.getElementById('inputImagen').click()">
+              <span class="upload-icon">📷</span>
+              <span class="upload-text">Tocá para subir una foto</span>
+              <span class="upload-hint">JPG, PNG o WEBP · Máx. 5MB</span>
+            </div>
+            <div id="uploadProgress" class="upload-progress" style="display:none">
+              <div class="upload-spinner"></div>
+              <span>Subiendo imagen…</span>
+            </div>
+            <div id="uploadError" class="upload-error" style="display:none"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Precios -->
+      <div class="form-section">
+        <h2 class="form-section-title">Precios</h2>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Precio original (sin descuento)</label>
+            <input type="number" name="precio_original" class="admin-input"
+                  step="0.01" min="0"
+                  value="{{ combo.precio_original if combo and combo.precio_original else '' }}"
+                  placeholder="Ej: 1500">
+            <small class="form-hint">Se muestra tachado como referencia</small>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Precio combo *</label>
+            <input type="number" name="precio_combo" class="admin-input"
+                  step="0.01" min="0"
+                  value="{{ combo.precio_combo if combo else '' }}"
+                  placeholder="Ej: 1200" required>
+            <small class="form-hint">El precio final que paga el cliente</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Texto de descuento</label>
+          <input type="text" name="descuento_texto" class="admin-input"
+                value="{{ combo.descuento_texto if combo else '' }}"
+                placeholder="Ej: Ahorrás $300, 20% OFF, 2x1…">
+          <small class="form-hint">Texto libre que aparece como badge en la tienda</small>
+        </div>
+      </div>
+
+      <!-- Productos del combo -->
+      <div class="form-section">
+        <h2 class="form-section-title">Productos incluidos</h2>
+        <p class="form-hint" style="margin-bottom:1rem">
+          Agregá los productos que forman este combo y la cantidad de cada uno.
+        </p>
+
+        <div id="items-container">
+          {% if combo and combo.items %}
+            {% for item in combo.items %}
+            <div class="combo-item-row">
+              <select name="item_producto_id" class="admin-select">
+                <option value="">— Elegir producto —</option>
+                {% for p in productos %}
+                  <option value="{{ p.id }}"
+                    {% if p.id == item.producto_id %}selected{% endif %}>
+                    {{ p.nombre }} — ${{ "%.0f"|format(p.precio_unidad) }}
+                  </option>
+                {% endfor %}
+              </select>
+              <input type="number" name="item_cantidad" class="admin-input input-cant"
+                    value="{{ item.cantidad }}" min="1" placeholder="Cant.">
+              <button type="button" class="btn btn-sm btn-danger" onclick="this.parentElement.remove()">✕</button>
+            </div>
+            {% endfor %}
+          {% else %}
+            <div class="combo-item-row">
+              <select name="item_producto_id" class="admin-select">
+                <option value="">— Elegir producto —</option>
+                {% for p in productos %}
+                  <option value="{{ p.id }}">{{ p.nombre }} — ${{ "%.0f"|format(p.precio_unidad) }}</option>
+                {% endfor %}
+              </select>
+              <input type="number" name="item_cantidad" class="admin-input input-cant"
+                    value="1" min="1" placeholder="Cant.">
+              <button type="button" class="btn btn-sm btn-danger" onclick="this.parentElement.remove()">✕</button>
+            </div>
+          {% endif %}
+        </div>
+
+        <button type="button" class="btn btn-ghost" id="btn-agregar-item" style="margin-top:.75rem">
+          + Agregar producto
+        </button>
+      </div>
+
+      <!-- Acciones -->
+      <div style="display:flex; gap:1rem; margin-top:1.5rem">
+        <button type="submit" class="btn btn-primary">
+          {{ 'Guardar cambios' if combo else 'Crear combo' }}
+        </button>
+        <a href="{{ url_for('admin.combos') }}" class="btn btn-secondary">Cancelar</a>
+      </div>
+
+    </form>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+.combo-item-row {
+  display: flex;
+  gap: .75rem;
+  align-items: center;
+  margin-bottom: .5rem;
+}
+.combo-item-row .admin-select { flex: 1; }
+.input-cant { width: 80px; flex-shrink: 0; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-section { margin-bottom: 2rem; }
+.form-section-title { font-size: 1rem; font-weight: 600; color: var(--color-navy); margin-bottom: 1rem; padding-bottom: .5rem; border-bottom: 1px solid #e5e7eb; }
+.form-hint { font-size: .82rem; color: #888; margin-top: .25rem; display: block; }
+@media (max-width: 768px) {
+  .form-row { grid-template-columns: 1fr; }
+  .combo-item-row { flex-wrap: wrap; }
+  .input-cant { width: 100%; }
+}
+.img-actual {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 0.75rem; background: #f9fafb;
+  border: 1.5px solid #e5e7eb; border-radius: 10px; margin-top: 0.5rem;
+}
+.img-actual img { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; border: 1px solid #e5e7eb; }
+.btn-cambiar-img { font-size: 0.8rem; color: var(--color-sky); background: none; border: 1.5px solid var(--color-sky); border-radius: 6px; padding: 0.35rem 0.75rem; cursor: pointer; }
+.btn-cambiar-img:hover { background: #f0fdfb; }
+.upload-zone { margin-top: 0.5rem; border: 2px dashed #d1d5db; border-radius: 10px; padding: 1.5rem; text-align: center; transition: border-color 0.2s, background 0.2s; }
+.upload-zone:hover { border-color: var(--color-sky); background: #f0fdfb; cursor: pointer; }
+.upload-label { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; cursor: pointer; }
+.upload-icon { font-size: 2rem; }
+.upload-text { font-weight: 600; color: var(--color-navy); font-size: 0.9rem; }
+.upload-hint { font-size: 0.78rem; color: #9ca3af; }
+.upload-progress { display: flex; align-items: center; justify-content: center; gap: 0.75rem; color: #6b7280; font-size: 0.9rem; }
+.upload-spinner { width: 20px; height: 20px; border: 2px solid #e5e7eb; border-top-color: var(--color-sky); border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.upload-error { margin-top: 0.5rem; color: #ef4444; font-size: 0.85rem; font-weight: 500; }
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// ── Upload de imagen ──────────────────────────────────────────────────────
+const inputImagen    = document.getElementById('inputImagen');
+const uploadZone     = document.getElementById('uploadZone');
+const uploadLabel    = document.getElementById('uploadLabel');
+const uploadProgress = document.getElementById('uploadProgress');
+const uploadError    = document.getElementById('uploadError');
+const imgActual      = document.getElementById('imgActual');
+const imgPreviewEl   = document.getElementById('imgPreviewEl');
+const campoUrl       = document.getElementById('imagen_url');
+
+inputImagen.addEventListener('change', async function() {
+  const archivo = this.files[0];
+  if (!archivo) return;
+  if (archivo.size > 5 * 1024 * 1024) {
+    mostrarError('La imagen es muy grande. El máximo es 5MB.');
+    return;
+  }
+  uploadLabel.style.display    = 'none';
+  uploadProgress.style.display = 'flex';
+  uploadError.style.display    = 'none';
+  try {
+    const formData = new FormData();
+    formData.append('imagen', archivo);
+    const res  = await fetch('/admin/upload-imagen', { method: 'POST', body: formData });
+    const data = await res.json();
+    if (!res.ok || data.error) throw new Error(data.error || 'Error al subir la imagen');
+    campoUrl.value             = data.url;
+    imgPreviewEl.src           = data.url;
+    imgActual.style.display    = 'flex';
+    uploadZone.style.display   = 'none';
+  } catch (err) {
+    mostrarError(err.message);
+    uploadLabel.style.display    = 'flex';
+    uploadProgress.style.display = 'none';
+  }
+});
+
+function mostrarError(msg) {
+  uploadError.textContent      = '⚠️ ' + msg;
+  uploadError.style.display    = 'block';
+  uploadProgress.style.display = 'none';
+}
+
+document.getElementById('btnCambiarImg').addEventListener('click', function() {
+  imgActual.style.display   = 'none';
+  uploadZone.style.display  = 'block';
+  uploadLabel.style.display = 'flex';
+  uploadError.style.display = 'none';
+  inputImagen.value = '';
+});
+
+// ── Agregar producto al combo ─────────────────────────────────────────────
+const productosOptions = `{% for p in productos %}<option value="{{ p.id }}">{{ p.nombre }} — ${{ "%.0f"|format(p.precio_unidad) }}</option>{% endfor %}`;
+
+document.getElementById('btn-agregar-item').addEventListener('click', () => {
+  const row = document.createElement('div');
+  row.className = 'combo-item-row';
+  row.innerHTML = `
+    <select name="item_producto_id" class="admin-select">
+      <option value="">— Elegir producto —</option>
+      ${productosOptions}
+    </select>
+    <input type="number" name="item_cantidad" class="admin-input input-cant" value="1" min="1" placeholder="Cant.">
+    <button type="button" class="btn btn-sm btn-danger" onclick="this.parentElement.remove()">✕</button>
+  `;
+  document.getElementById('items-container').appendChild(row);
+});
+</script>
+{% endblock %}

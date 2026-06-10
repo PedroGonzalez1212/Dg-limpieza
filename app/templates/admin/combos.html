@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block title %}Combos — Admin DG Limpieza{% endblock %}
+
+{% block content %}
+<div class="admin-page">
+
+  <div class="admin-header">
+    <div class="admin-header-left">
+      <h1>Combos y Descuentos</h1>
+      <p class="admin-subtitle">Ofertas semanales y promociones especiales</p>
+    </div>
+    <a href="{{ url_for('admin.combo_nuevo') }}" class="btn btn-primary">
+      + Nuevo combo
+    </a>
+  </div>
+
+  <div class="admin-stats-row">
+    <div class="admin-stat">
+      <span class="admin-stat-num">{{ combos|selectattr('activo')|list|length }}</span>
+      <span class="admin-stat-label">activos</span>
+    </div>
+    <div class="admin-stat admin-stat--muted">
+      <span class="admin-stat-num">{{ combos|rejectattr('activo')|list|length }}</span>
+      <span class="admin-stat-label">inactivos</span>
+    </div>
+  </div>
+
+  {% if combos %}
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Combo</th>
+          <th>Productos incluidos</th>
+          <th class="text-right">Precio original</th>
+          <th class="text-right">Precio combo</th>
+          <th class="text-center">Descuento</th>
+          <th class="text-center">Estado</th>
+          <th class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for c in combos %}
+        <tr class="{% if not c.activo %}row-inactivo{% endif %}">
+
+          <td>
+            <div class="prod-info">
+              {% if c.imagen_url %}
+                <img src="{{ c.imagen_url }}" alt="{{ c.nombre }}" class="prod-thumb">
+              {% else %}
+                <div class="prod-thumb prod-thumb--empty">🎁</div>
+              {% endif %}
+              <div>
+                <strong>{{ c.nombre }}</strong>
+                {% if c.descripcion %}
+                  <br><small class="text-muted">{{ c.descripcion[:60] }}{% if c.descripcion|length > 60 %}…{% endif %}</small>
+                {% endif %}
+              </div>
+            </div>
+          </td>
+
+          <td>
+            {% for item in c.items %}
+              <span class="badge badge-cat">{{ item.cantidad }}x {{ item.producto.nombre }}</span>
+            {% else %}
+              <span class="text-muted">—</span>
+            {% endfor %}
+          </td>
+
+          <td class="text-right">
+            {% if c.precio_original %}
+              <span class="text-muted"><s>${{ "%.0f"|format(c.precio_original) }}</s></span>
+            {% else %}—{% endif %}
+          </td>
+
+          <td class="text-right">
+            <strong>${{ "%.0f"|format(c.precio_combo) }}</strong>
+          </td>
+
+          <td class="text-center">
+            {% if c.descuento_texto %}
+              <span class="badge badge-warn">{{ c.descuento_texto }}</span>
+            {% else %}—{% endif %}
+          </td>
+
+          <td class="text-center">
+            {% if c.activo %}
+              <span class="badge badge-ok">Activo</span>
+            {% else %}
+              <span class="badge badge-muted">Inactivo</span>
+            {% endif %}
+          </td>
+
+          <td class="text-center">
+            <div class="action-btns">
+              <a href="{{ url_for('admin.combo_editar', id=c.id) }}"
+                 class="btn btn-sm btn-secondary" title="Editar">✏️</a>
+              <form method="POST"
+                    action="{{ url_for('admin.combo_toggle', id=c.id) }}"
+                    style="display:inline"
+                    onsubmit="return confirm('¿Confirmás {{ 'desactivar' if c.activo else 'activar' }} este combo?')">
+                <button type="submit"
+                        class="btn btn-sm {{ 'btn-danger' if c.activo else 'btn-ghost' }}"
+                        title="{{ 'Desactivar' if c.activo else 'Activar' }}">
+                  {{ '🚫' if c.activo else '✅' }}
+                </button>
+              </form>
+            </div>
+          </td>
+
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% else %}
+  <div class="admin-empty">
+    <p>Todavía no hay combos cargados.</p>
+    <a href="{{ url_for('admin.combo_nuevo') }}" class="btn btn-primary">
+      + Crear el primero
+    </a>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}

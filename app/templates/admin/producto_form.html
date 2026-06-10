@@ -54,14 +54,39 @@
 
       <div class="form-row">
         <div class="form-group form-group--wide">
-          <label for="imagen_url">URL de imagen</label>
-          <input type="url" id="imagen_url" name="imagen_url"
-                value="{{ producto.imagen_url if producto else '' }}"
-                class="form-input" placeholder="https://…">
-          <!-- Preview de imagen -->
-          <div id="imgPreview" class="img-preview" style="display:none">
-            <img id="imgPreviewEl" src="" alt="Preview">
+          <label>Imagen del producto</label>
+
+          <!-- Campo oculto que guarda la URL final — es lo que Flask lee -->
+          <input type="hidden" id="imagen_url" name="imagen_url"
+                value="{{ producto.imagen_url if producto else '' }}">
+
+          <!-- Preview: si ya tiene imagen la muestra, sino muestra el área de upload -->
+          <div id="imgActual" class="img-actual"
+              style="{{ '' if (producto and producto.imagen_url) else 'display:none' }}">
+            <img id="imgPreviewEl"
+                src="{{ producto.imagen_url if producto and producto.imagen_url else '' }}"
+                alt="Imagen actual">
+            <button type="button" id="btnCambiarImg" class="btn-cambiar-img">
+              Cambiar imagen
+            </button>
           </div>
+
+          <!-- Zona de upload (visible si no hay imagen o si toca "Cambiar") -->
+          <div id="uploadZone" class="upload-zone"
+              style="{{ 'display:none' if (producto and producto.imagen_url) else '' }}">
+            <input type="file" id="inputImagen" accept="image/*" style="display:none">
+            <div id="uploadLabel" class="upload-label" onclick="document.getElementById('inputImagen').click()">
+              <span class="upload-icon">📷</span>
+              <span class="upload-text">Tocá para subir una foto</span>
+              <span class="upload-hint">JPG, PNG o WEBP · Máx. 5MB</span>
+            </div>
+            <div id="uploadProgress" class="upload-progress" style="display:none">
+              <div class="upload-spinner"></div>
+              <span>Subiendo imagen…</span>
+            </div>
+            <div id="uploadError" class="upload-error" style="display:none"></div>
+          </div>
+
         </div>
       </div>
 
@@ -342,8 +367,73 @@ textarea.form-input { resize: vertical; }
 }
 
 /* ── Preview de imagen ────────────────────────────────────────── */
-.img-preview { margin-top: 0.75rem; }
-.img-preview img { max-width: 140px; max-height: 140px; border-radius: 8px; border: 1px solid #e5e7eb; object-fit: cover; }
+/* ── Imagen actual (modo editar con imagen existente) ─── */
+.img-actual {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  background: #f9fafb;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  margin-top: 0.5rem;
+}
+.img-actual img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+.btn-cambiar-img {
+  font-size: 0.8rem;
+  color: var(--color-sky);
+  background: none;
+  border: 1.5px solid var(--color-sky);
+  border-radius: 6px;
+  padding: 0.35rem 0.75rem;
+  cursor: pointer;
+}
+.btn-cambiar-img:hover { background: #f0fdfb; }
+
+/* ── Zona de upload ───────────────────────────────────── */
+.upload-zone {
+  margin-top: 0.5rem;
+  border: 2px dashed #d1d5db;
+  border-radius: 10px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: border-color 0.2s, background 0.2s;
+}
+.upload-zone:hover { border-color: var(--color-sky); background: #f0fdfb; cursor: pointer; }
+.upload-label { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; cursor: pointer; }
+.upload-icon { font-size: 2rem; }
+.upload-text { font-weight: 600; color: var(--color-navy); font-size: 0.9rem; }
+.upload-hint { font-size: 0.78rem; color: #9ca3af; }
+
+/* ── Progreso y error ─────────────────────────────────── */
+.upload-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+.upload-spinner {
+  width: 20px; height: 20px;
+  border: 2px solid #e5e7eb;
+  border-top-color: var(--color-sky);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.upload-error {
+  margin-top: 0.5rem;
+  color: #ef4444;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
 
 @media (max-width: 640px) {
   .variantes-header, .variante-row { grid-template-columns: 1fr 1fr; }
@@ -360,22 +450,75 @@ textarea.form-input { resize: vertical; }
 
 {% block scripts %}
 <script>
-// ── Preview de imagen ─────────────────────────────────────────────────────
-const imgInput   = document.getElementById('imagen_url');
-const imgPreview = document.getElementById('imgPreview');
-const imgEl      = document.getElementById('imgPreviewEl');
+  // ── Upload de imagen a Cloudinary ─────────────────────────────────────────
+const inputImagen    = document.getElementById('inputImagen');
+const uploadZone     = document.getElementById('uploadZone');
+const uploadLabel    = document.getElementById('uploadLabel');
+const uploadProgress = document.getElementById('uploadProgress');
+const uploadError    = document.getElementById('uploadError');
+const imgActual      = document.getElementById('imgActual');
+const imgPreviewEl   = document.getElementById('imgPreviewEl');
+const campoUrl       = document.getElementById('imagen_url');
 
-function actualizarPreview() {
-  const url = imgInput.value.trim();
-  if (url) {
-    imgEl.src = url;
-    imgPreview.style.display = 'block';
-  } else {
-    imgPreview.style.display = 'none';
+// Cuando el usuario elige una imagen
+inputImagen.addEventListener('change', async function() {
+  const archivo = this.files[0];
+  if (!archivo) return;
+
+  // Validar tamaño antes de subir (5MB máx)
+  if (archivo.size > 5 * 1024 * 1024) {
+    mostrarError('La imagen es muy grande. El máximo es 5MB.');
+    return;
   }
+
+  // Mostrar spinner, ocultar label
+  uploadLabel.style.display    = 'none';
+  uploadProgress.style.display = 'flex';
+  uploadError.style.display    = 'none';
+
+  try {
+    const formData = new FormData();
+    formData.append('imagen', archivo);
+
+    const res = await fetch('/admin/upload-imagen', {
+      method: 'POST',
+      body: formData
+    });
+
+    const data = await res.json();
+
+    if (!res.ok || data.error) {
+      throw new Error(data.error || 'Error al subir la imagen');
+    }
+
+    // Éxito: guardar URL y mostrar preview
+    campoUrl.value       = data.url;
+    imgPreviewEl.src     = data.url;
+    imgActual.style.display   = 'flex';
+    uploadZone.style.display  = 'none';
+
+  } catch (err) {
+    mostrarError(err.message);
+    uploadLabel.style.display    = 'flex';
+    uploadProgress.style.display = 'none';
+  }
+});
+
+function mostrarError(msg) {
+  uploadError.textContent      = '⚠️ ' + msg;
+  uploadError.style.display    = 'block';
+  uploadProgress.style.display = 'none';
 }
-imgInput.addEventListener('input', actualizarPreview);
-actualizarPreview(); // corre al cargar si ya tiene valor (modo editar)
+
+// Botón "Cambiar imagen" → vuelve a mostrar la zona de upload
+document.getElementById('btnCambiarImg').addEventListener('click', function() {
+  imgActual.style.display  = 'none';
+  uploadZone.style.display = 'block';
+  uploadLabel.style.display = 'flex';
+  uploadError.style.display = 'none';
+  inputImagen.value = '';  // resetea el input para poder elegir la misma imagen de nuevo
+});
+// corre al cargar si ya tiene valor (modo editar)
 
 // ── Toggle sección variantes ──────────────────────────────────────────────
 const chkVariantes     = document.getElementById('tieneVariantes');

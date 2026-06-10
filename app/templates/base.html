@@ -4,15 +4,38 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  {# ── Título dinámico: cada página define su propio título ── #}
-  <title>{% block title %}DG Limpieza{% endblock %} — Distribuidora</title>
+  <title>{% block seo_title %}DG Limpieza | Distribuidora de productos de limpieza en Córdoba{% endblock %}</title>
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="DG Limpieza - Distribuidora Gauss">
+  <meta name="geo.region" content="AR-X">
+  <meta name="geo.placename" content="Córdoba, Argentina">
+  {% block seo_meta %}
+  <meta name="description" content="{% block seo_description %}Distribuidora Gauss Limpieza en Córdoba. Productos de limpieza, perfumería, descartables, piscinas y bolsas. Venta minorista y mayorista. Pedí online por WhatsApp.{% endblock %}">
+  <link rel="canonical" href="{% block seo_canonical %}https://dglimpieza.com.ar{{ request.path }}{% endblock %}">
+  {% endblock %}
+  {% block open_graph %}
+  <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+  <meta property="og:site_name" content="DG Limpieza">
+  <meta property="og:title" content="{% block og_title %}DG Limpieza | Distribuidora en Córdoba{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}Distribuidora de limpieza, perfumería, descartables, piscinas y bolsas en Córdoba. Minorista y mayorista.{% endblock %}">
+  <meta property="og:url" content="{% block og_url %}https://dglimpieza.com.ar{{ request.path }}{% endblock %}">
+  <meta property="og:image" content="{% block og_image %}https://dglimpieza.com.ar{{ url_for('static', filename='img/og-image.jpg') }}{% endblock %}">
+  <meta property="og:locale" content="es_AR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{% block twitter_title %}DG Limpieza | Distribuidora en Córdoba{% endblock %}">
+  <meta name="twitter:description" content="{% block twitter_description %}Distribuidora de limpieza, perfumería, descartables, piscinas y bolsas en Córdoba.{% endblock %}">
+  <meta name="twitter:image" content="{% block twitter_image %}https://dglimpieza.com.ar{{ url_for('static', filename='img/og-image.jpg') }}{% endblock %}">
+  {% endblock %}
 
   {# ── Fuentes de Google Fonts ── #}
   {# Syne: display con personalidad geométrica (títulos)     #}
   {# DM Sans: cuerpo legible y moderno sin ser genérico       #}
+  <link rel="icon" type="image/webp" href="{{ url_for('static', filename='img/logo/logo-dg.webp') }}">
+  <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/logo/logo-dg.webp') }}">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   {# ── Iconos: Lucide (librería SVG inline liviana) ── #}
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
@@ -35,76 +58,53 @@
   <nav class="navbar">
     <div class="container navbar__inner">
 
-      {# Logo #}
+      {# Logo con imagen circular #}
       <a href="{{ url_for('public.home') }}" class="navbar__logo">
-        <span>DG</span> Limpieza
+        <img src="{{ url_for('static', filename='img/logo-dg.png') }}" alt="DG Limpieza" class="navbar__logo-img">
+        <span>DG Limpieza<small>Distribuidora Gauss</small></span>
       </a>
 
-      {# Buscador (oculto en mobile) #}
-      <form class="navbar__search" action="{{ url_for('public.catalogo') }}" method="get" role="search">
-        <input
-          type="search"
-          name="q"
-          placeholder="Buscar productos..."
-          value="{{ request.args.get('q', '') }}"
-          autocomplete="off"
-        >
-        <button type="submit" class="navbar__search-btn" aria-label="Buscar">
-          <i data-lucide="search" width="16" height="16"></i>
-        </button>
-      </form>
+      {# Links de navegación + acciones (alineados a la derecha) #}
+      <div class="navbar__right">
+        <ul class="navbar__links" id="navLinks">
+          <li>
+            <a href="{{ url_for('public.home') }}"
+              class="navbar__link {% if request.endpoint == 'public.home' %}navbar__link--active{% endif %}">
+              Inicio
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('public.catalogo') }}"
+              class="navbar__link {% if request.endpoint == 'public.catalogo' %}navbar__link--active{% endif %}">
+              Catálogo
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('public.home') }}#categorias" class="navbar__link">Categorías</a>
+          </li>
+          <li>
+            <a href="{{ url_for('public.home') }}#combos" class="navbar__link">Combos</a>
+          </li>
+          <li>
+            <a href="{{ url_for('public.home') }}#contacto" class="navbar__link">Contacto</a>
+          </li>
+        </ul>
 
-      {# Links de navegación #}
-      <ul class="navbar__links" id="navLinks">
-        <li>
-          <a href="{{ url_for('public.home') }}"
-            class="navbar__link {% if request.endpoint == 'public.home' %}navbar__link--active{% endif %}">
-            Inicio
-          </a>
-        </li>
-        <li>
-          <a href="{{ url_for('public.catalogo') }}"
-            class="navbar__link {% if request.endpoint == 'public.catalogo' %}navbar__link--active{% endif %}">
-            Catálogo
-          </a>
-        </li>
-        <li>
-          <a href="{{ url_for('public.home') }}#contacto"
-            class="navbar__link">
-            Contacto
-          </a>
-        </li>
-      </ul>
+        {# Acciones: carrito + CTA #}
+        <div class="navbar__actions">
 
-      {# Carrito + Login #}
-      <div style="display:flex; align-items:center; gap: 8px;">
-
-        {# Botón carrito con badge dinámico #}
-        <a href="{{ url_for('public.carrito') }}" class="navbar__cart" aria-label="Ver carrito">
-          <i data-lucide="shopping-cart" width="18" height="18"></i>
-          {# El badge se muestra solo si hay items — lo maneja JS #}
-          <span class="navbar__cart-badge" id="cartBadge" style="display:none">0</span>
-        </a>
-
-        {# Login / Panel según si hay sesión activa #}
-        {% if current_user.is_authenticated %}
-          <a href="{{ url_for('panel.dashboard') }}" class="btn btn--outline btn--sm"
-            style="border-color:rgba(255,255,255,0.3); color:white;">
-            <i data-lucide="layout-dashboard" width="14" height="14"></i>
-            Panel
+          {# Carrito con badge #}
+          <a href="{{ url_for('public.carrito') }}" class="navbar__cart" aria-label="Ver carrito">
+            <i data-lucide="shopping-cart" width="18" height="18"></i>
+            <span class="navbar__cart-label">Carrito</span>
+            <span class="navbar__cart-badge" id="cartBadge" style="display:none">0</span>
           </a>
-        {% else %}
-          <a href="{{ url_for('auth.login') }}" class="btn btn--outline btn--sm"
-            style="border-color:rgba(255,255,255,0.3); color:white;">
-            <i data-lucide="log-in" width="14" height="14"></i>
-            Ingresar
-          </a>
-        {% endif %}
 
-        {# Hamburguesa (mobile) #}
-        <button class="navbar__toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
-          <i data-lucide="menu" width="22" height="22"></i>
-        </button>
+          {# Hamburguesa (mobile) #}
+          <button class="navbar__toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+            <i data-lucide="menu" width="22" height="22"></i>
+          </button>
+        </div>
       </div>
 
     </div>
@@ -157,6 +157,13 @@
             <li><a href="{{ url_for('public.home') }}">Inicio</a></li>
             <li><a href="{{ url_for('public.catalogo') }}">Catálogo</a></li>
             <li><a href="{{ url_for('public.home') }}#contacto">Contacto</a></li>
+            <li>
+              {% if current_user.is_authenticated %}
+                <a href="{{ url_for('panel.dashboard') }}">Panel</a>
+              {% else %}
+                <a href="{{ url_for('auth.login') }}">Administradores</a>
+              {% endif %}
+            </li>
           </ul>
         </div>
 
@@ -223,6 +230,7 @@
   {# ── JS extra por página (opcional) ── #}
   {% block extra_js %}{% endblock %}
   {% block scripts %}{% endblock %}
+  {% block schema_org %}{% endblock %}
 
 </body>
 </html>

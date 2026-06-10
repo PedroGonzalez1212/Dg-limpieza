@@ -1,5 +1,5 @@
 /* ============================================================
-   DG LIMPIEZA — Admin panel — shared styles
+  DG LIMPIEZA — Admin panel — shared styles
    ============================================================ */
 
 /* --color-sky no está definida en styles.css — la definimos acá
@@ -396,5 +396,90 @@
   .admin-input,
   .admin-select {
     min-width: 100%;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   RESPONSIVE MOBILE-FIRST — panel admin (≤ 768px)
+════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* ── Contenedores: menos padding en mobile ──────────────── */
+  .admin-page,
+  .admin-container,
+  .admin-section {
+    padding: 1.25rem 1rem;
+  }
+
+  /* ── Títulos más compactos ──────────────────────────────── */
+  .admin-header h1,
+  .admin-title {
+    font-size: 1.35rem;
+  }
+  .admin-section-header h2 {
+    font-size: 1.35rem;
+  }
+
+  /* ── Filtros: cada grupo ocupa todo el ancho ────────────── */
+  .filter-group {
+    width: 100%;
+  }
+
+  /* ── Botones touch-friendly (≥ 44 px) ──────────────────── */
+  .admin-btn,
+  .admin-btn-primary {
+    min-height: 44px;
+    justify-content: center;
+  }
+  .btn {
+    min-height: 44px;
+  }
+  .btn-sm,
+  .admin-btn-sm {
+    min-height: 36px;
+  }
+
+  /* ── Botones de acción en tablas: apilados verticalmente ── */
+  .action-btns {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.3rem;
+  }
+
+  /* ── Stats row: flex-wrap ya existe, solo ajustar tamaño ── */
+  .admin-stat {
+    min-width: 80px;
+    flex: 1;
+  }
+  .admin-stat-num {
+    font-size: 1.25rem;
+  }
+
+  /* ── Producto info en tabla: permitir wrap ──────────────── */
+  .prod-info {
+    gap: 0.5rem;
+  }
+
+  /* ── Tablas: el wrapper ya tiene overflow-x: auto ────────
+     Asegurar que las celdas no rompan el layout            */
+  .admin-table {
+    min-width: 600px;
+  }
+
+  /* ── Cards admin: reducir padding ──────────────────────── */
+  .admin-card {
+    padding: 1rem;
+  }
+
+  /* ── Formularios admin: inputs y selects al 100% ─────────
+     form-row y form-section usan display flex/grid;
+     pasarlos a bloque en mobile                            */
+  .form-row {
+    flex-direction: column;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
   }
 }

@@ -19,11 +19,12 @@
     <a href="{{ url_for('auth.logout') }}" class="btn-logout">Cerrar sesión</a>
   </div>
 
-  {# Accesos rápidos según el rol #}
-  <div class="panel-grid">
+  {# ── Zona: Operaciones del día ── #}
+  <p class="zona-label">Operaciones del día</p>
+  <div class="ops-grid">
 
-    <a href="{{ url_for('panel.pos') }}" class="panel-card">
-      <div class="panel-card-icon">🛒</div>
+    <a href="{{ url_for('panel.pos') }}" class="card-op card-op--accent">
+      <div class="op-icon op-icon--blue">🛒</div>
       <div class="panel-card-info">
         <h3>Nueva venta (POS)</h3>
         <p>Registrá una venta presencial</p>
@@ -31,56 +32,82 @@
     </a>
 
     {% if current_user.es_admin() %}
-
-    <a href="{{ url_for('admin.productos') }}" class="panel-card">
-      <div class="panel-card-icon">📦</div>
+    <a href="{{ url_for('admin.pedidos') }}" class="card-op" style="position: relative;">
+      <div class="op-icon op-icon--amber">📬</div>
       <div class="panel-card-info">
-        <h3>Productos</h3>
-        <p>ABM de productos y stock</p>
+        <h3>Pedidos WhatsApp</h3>
+        <p>Pendientes de confirmar</p>
       </div>
+      {% if pedidos_pendientes > 0 %}
+      <span class="notif-badge">{{ pedidos_pendientes }}</span>
+      {% endif %}
     </a>
-
-    <a href="{{ url_for('admin.stock') }}" class="panel-card">
-      <div class="panel-card-icon">📊</div>
-      <div class="panel-card-info">
-        <h3>Stock</h3>
-        <p>Ajustes e historial de movimientos</p>
-      </div>
-    </a>
-    
-    <a href="{{ url_for('admin.ventas') }}" class="panel-card">
-      <div class="panel-card-icon">🧾</div>
-      <div class="panel-card-info">
-        <h3>Ventas</h3>
-        <p>Historial de pedidos y comprobantes</p>
-      </div>
-    </a>
-    
-    <a href="{{ url_for('admin.reportes') }}" class="panel-card">
-      <div class="panel-card-icon">📊</div>
-      <div class="panel-card-info">
-        <h3>Reportes</h3>
-        <p>Ventas, Excel y PDF</p>
-      </div>
-    </a>
-    
-    <a href="{{ url_for('admin.usuarios') }}" class="panel-card">
-      <div class="panel-card-icon">👥</div>
-      <div class="panel-card-info">
-        <h3>Usuarios</h3>
-        <p>Gestión de vendedores y admins</p>
-      </div>
-    </a>
-    
     {% endif %}
 
   </div>
+
+  {# ── Zona: Administración (solo admin) ── #}
+  {% if current_user.es_admin() %}
+  <p class="zona-label" style="margin-top: 2rem;">Administración</p>
+  <div class="admin-shortcuts">
+
+    <a href="{{ url_for('admin.productos') }}" class="card-shortcut">
+      <span class="shortcut-icon">📦</span>
+      <div>
+        <div class="shortcut-title">Productos</div>
+        <div class="shortcut-sub">ABM y catálogo</div>
+      </div>
+    </a>
+
+    <a href="{{ url_for('admin.stock') }}" class="card-shortcut">
+      <span class="shortcut-icon">🗃️</span>
+      <div>
+        <div class="shortcut-title">Stock</div>
+        <div class="shortcut-sub">Ajustes e historial</div>
+      </div>
+    </a>
+
+    <a href="{{ url_for('admin.ventas') }}" class="card-shortcut">
+      <span class="shortcut-icon">🧾</span>
+      <div>
+        <div class="shortcut-title">Ventas</div>
+        <div class="shortcut-sub">Historial completo</div>
+      </div>
+    </a>
+
+    <a href="{{ url_for('admin.reportes') }}" class="card-shortcut">
+      <span class="shortcut-icon">📊</span>
+      <div>
+        <div class="shortcut-title">Reportes</div>
+        <div class="shortcut-sub">Excel y PDF</div>
+      </div>
+    </a>
+
+    <a href="{{ url_for('admin.combos') }}" class="card-shortcut">
+      <span class="shortcut-icon">🎁</span>
+      <div>
+        <div class="shortcut-title">Combos</div>
+        <div class="shortcut-sub">Ofertas y descuentos</div>
+      </div>
+    </a>
+
+    <a href="{{ url_for('admin.usuarios') }}" class="card-shortcut">
+      <span class="shortcut-icon">👥</span>
+      <div>
+        <div class="shortcut-title">Usuarios</div>
+        <div class="shortcut-sub">Vendedores y admins</div>
+      </div>
+    </a>
+
+
+  </div>
+  {% endif %}
 
 </section>
 
 <style>
   .panel-section {
-    max-width: 900px;
+    max-width: 860px;
     margin: 0 auto;
     padding: 2.5rem 1.5rem;
   }
@@ -91,7 +118,7 @@
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 1rem;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
   }
 
   .panel-header h1 {
@@ -123,44 +150,134 @@
     color: #ef4444;
   }
 
-  .panel-grid {
+  .zona-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: #9ca3af;
+    margin: 0 0 0.75rem;
+  }
+
+  .ops-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1.25rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
   }
 
-  .panel-card {
+  .card-op {
     background: white;
-    border: 2px solid #e5e7eb;
+    border: 1.5px solid #e5e7eb;
     border-radius: 1.25rem;
-    padding: 1.5rem;
+    padding: 1.25rem 1.5rem;
     text-decoration: none;
-    transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
     display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+    align-items: center;
+    gap: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
   }
 
-  .panel-card:hover {
+  .card-op:hover {
     border-color: var(--color-sky);
-    box-shadow: 0 4px 20px rgba(57,235,225,0.15);
-    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(57,235,225,0.12);
   }
 
-  .panel-card-icon {
-    font-size: 2rem;
+  .card-op--accent {
+    border: 2px solid var(--color-navy);
   }
+
+  .card-op--accent:hover {
+    border-color: var(--color-sky);
+  }
+
+  .op-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+
+  .op-icon--blue  { background: #e0f2fe; }
+  .op-icon--amber { background: #fef3c7; }
 
   .panel-card-info h3 {
     font-size: 1rem;
     color: var(--color-navy);
-    margin: 0 0 0.2rem;
+    margin: 0 0 0.15rem;
   }
 
   .panel-card-info p {
     font-size: 0.825rem;
     color: #888;
     margin: 0;
+  }
+
+  .notif-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #ef4444;
+    color: white;
+    font-size: 0.72rem;
+    font-weight: 700;
+    min-width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 6px;
+    border: 2px solid white;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  }
+
+  .admin-shortcuts {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .card-shortcut {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.875rem;
+    padding: 0.9rem 1rem;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: background 0.15s, border-color 0.15s;
+  }
+
+  .card-shortcut:hover {
+    background: white;
+    border-color: var(--color-sky);
+  }
+
+  .shortcut-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+
+  .shortcut-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-navy);
+  }
+
+  .shortcut-sub {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    margin-top: 1px;
+  }
+
+  @media (max-width: 600px) {
+    .ops-grid { grid-template-columns: 1fr; }
+    .admin-shortcuts { grid-template-columns: 1fr 1fr; }
   }
 </style>
 {% endblock %}

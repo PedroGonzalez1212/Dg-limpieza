@@ -1,5 +1,27 @@
 {% extends "base.html" %}
 
+{% block seo_title %}{{ producto.nombre }} | DG Limpieza Córdoba{% endblock %}
+
+{% block seo_description %}
+  {% if producto.descripcion %}
+    {{ producto.descripcion[:155] }}...
+  {% else %}
+    Comprá {{ producto.nombre }} en DG Limpieza, distribuidora en Córdoba. Precio por unidad, mayor y caja cerrada. Pedido por WhatsApp.
+  {% endif %}
+{% endblock %}
+
+{% block og_type %}product{% endblock %}
+{% block og_title %}{{ producto.nombre }} | DG Limpieza{% endblock %}
+{% block og_description %}
+  {% if producto.descripcion %}
+    {{ producto.descripcion[:155] }}
+  {% else %}
+    Comprá {{ producto.nombre }} en DG Limpieza Córdoba.
+  {% endif %}
+{% endblock %}
+{% block og_image %}{{ producto.imagen_url or 'https://dglimpieza.com.ar' + url_for('static', filename='img/og-image.jpg') }}{% endblock %}
+{% block og_url %}https://dglimpieza.com.ar{{ request.path }}{% endblock %}
+
 {% block title %}{{ producto.nombre }} — DG Limpieza{% endblock %}
 
 {% block content %}
@@ -340,5 +362,31 @@
     actualizarPrecio();
 
   });
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "{{ producto.nombre }}",
+  {% if producto.descripcion %}
+  "description": "{{ producto.descripcion | replace('"', '\\"') | replace('\n', ' ') }}",
+  {% endif %}
+  "image": "{{ producto.imagen_url or '' }}",
+  "brand": {
+    "@type": "Brand",
+    "name": "DG Limpieza"
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": "https://dglimpieza.com.ar{{ request.path }}",
+    "priceCurrency": "ARS",
+    "price": "{{ producto.precio_unidad }}",
+    "availability": "{% if producto.sin_stock %}https://schema.org/OutOfStock{% else %}https://schema.org/InStock{% endif %}",
+    "seller": {
+      "@type": "Organization",
+      "name": "DG Limpieza - Distribuidora Gauss"
+    }
+  }
+}
 </script>
 {% endblock extra_js %}

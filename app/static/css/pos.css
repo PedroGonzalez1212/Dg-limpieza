@@ -519,3 +519,78 @@
     max-height: 60vh;
   }
 }
+
+/* ════════════════════════════════════════════════════════════
+   RESPONSIVE MOBILE-FIRST — POS (≤ 768px)
+════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* ── Wrapper: menos padding ─────────────────────────────── */
+  .pos-wrapper {
+    padding: 0.875rem;
+    gap: 0.875rem;
+  }
+
+  /* ── Header POS ─────────────────────────────────────────── */
+  .pos-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  .pos-header h1 {
+    font-size: 1.3rem;
+  }
+
+  /* ── Buscador ────────────────────────────────────────────── */
+  .pos-search-box {
+    padding: 0.6rem 0.75rem;
+  }
+
+  /* ── Card resultado: sección agregar apilada ─────────────── */
+  .resultado-agregar {
+    flex-wrap: wrap;
+  }
+  .input-cantidad {
+    width: 56px;
+  }
+  .btn-agregar {
+    min-height: 44px;
+    flex: 1 0 100%; /* ocupa todo el ancho si hay wrapping */
+  }
+
+  /* ── Tabla del carrito con scroll horizontal ─────────────── */
+  .carrito-tabla-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .carrito-tabla {
+    min-width: 300px;
+  }
+
+  /* ── Métodos de pago: 2 cols ya está bien en mobile ─────── */
+
+  /* ── Botón confirmar touch-friendly ─────────────────────── */
+  .btn-confirmar {
+    min-height: 48px;
+    font-size: 1.05rem;
+  }
+
+  /* ── Carrito: quitar sticky en mobile (layout lineal) ───── */
+  .pos-carrito {
+    position: static;
+    max-height: none;
+  }
+
+  /* ── Modal: padding reducido ────────────────────────────── */
+  .modal-box {
+    padding: 1.25rem;
+    width: calc(100vw - 2rem);
+  }
+  .modal-footer {
+    flex-direction: column;
+  }
+  .btn-wsp,
+  .btn-nueva-venta {
+    min-height: 44px;
+  }
+}
