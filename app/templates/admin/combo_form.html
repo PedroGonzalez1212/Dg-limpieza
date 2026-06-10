@@ -16,6 +16,7 @@
 
   <div class="admin-form-wrap">
     <form method="POST" class="admin-form">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
       <!-- Datos principales -->
       <div class="form-section">
