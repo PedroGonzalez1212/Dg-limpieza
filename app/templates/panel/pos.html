@@ -147,6 +147,15 @@
 // ── Estado local del comprobante (para armar el mensaje WhatsApp) ────────────
 let datosComprobante = null;
 
+function escHtml(str) {
+  return String(str ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 // ── Buscador con debounce ────────────────────────────────────────────────────
 // "Debounce" significa que esperamos 300ms después de que el usuario deja de
 // tipear antes de hacer el fetch. Sin esto, haríamos una llamada al servidor
@@ -193,7 +202,7 @@ function renderProductoCard(p) {
       <select class="select-variante" id="variante-${p.id}">
         <option value="">— Elegir variante —</option>
         ${p.variantes.map(v =>
-          `<option value="${v.id}">${v.valor} (stock: ${v.stock})</option>`
+          `<option value="${v.id}">${escHtml(v.valor)} (stock: ${v.stock})</option>`
         ).join('')}
       </select>`;
   }
@@ -210,7 +219,7 @@ function renderProductoCard(p) {
   return `
     <div class="resultado-card">
       <div class="resultado-info">
-        <span class="resultado-nombre">${p.nombre}</span>
+        <span class="resultado-nombre">${escHtml(p.nombre)}</span>
         <span class="resultado-stock">Stock: ${p.stock}</span>
       </div>
       <div class="resultado-precios">${preciosHtml}</div>
@@ -323,8 +332,8 @@ function actualizarTablaCarrito(carrito, total, claveQuitada = null) {
         return `
           <tr data-clave="${clave}">
             <td>
-              <span class="item-nombre">${item.nombre}</span>
-              <span class="item-tipo-precio badge-precio-${item.tipo_precio}">${item.tipo_precio}</span>
+              <span class="item-nombre">${escHtml(item.nombre)}</span>
+              <span class="item-tipo-precio badge-precio-${escHtml(item.tipo_precio)}">${escHtml(item.tipo_precio)}</span>
             </td>
             <td>${item.cantidad}</td>
             <td>$${item.precio_unitario.toFixed(2)}</td>
@@ -397,7 +406,7 @@ function mostrarComprobante(data) {
   document.getElementById('comprobante-items').innerHTML =
     data.items.map(i =>
       `<div class="comprobante-item">
-        <span>${i.nombre} x${i.cantidad}</span>
+        <span>${escHtml(i.nombre)} x${i.cantidad}</span>
         <span>$${i.subtotal.toFixed(2)}</span>
       </div>`
     ).join('');
