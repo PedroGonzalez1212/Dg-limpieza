@@ -29,6 +29,7 @@
     class="admin-form"
     id="productoForm"
   >
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
     <!-- ─── Sección: datos básicos ─────────────────────────────────── -->
     <div class="form-section">
@@ -435,14 +436,42 @@ textarea.form-input { resize: vertical; }
   font-weight: 500;
 }
 
+/* ── Acciones del formulario ─────────────────────────────── */
+.form-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
 @media (max-width: 640px) {
-  .variantes-header, .variante-row { grid-template-columns: 1fr 1fr; }
-  .variantes-header span:nth-child(3),
-  .variantes-header span:nth-child(4),
-  .variantes-header span:nth-child(5),
-  .variante-row input:nth-child(3),
-  .variante-row div:nth-child(4),
-  .variante-row button { display: none; }
+  /* Variantes: cabecera oculta, filas en grid 2×2 con botón full-width */
+  .variantes-header { display: none; }
+  .variante-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .variante-row button.remove-variante {
+    grid-column: 1 / -1;
+    width: auto;
+    align-self: center;
+    justify-self: end;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-actions {
+    flex-direction: column;
+  }
+  .form-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .admin-page { padding: 1rem 0.75rem; }
 }
 </style>
 {% endblock %}

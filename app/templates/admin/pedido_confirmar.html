@@ -2,6 +2,27 @@
 
 {% block title %}Confirmar pedido #{{ pedido.id }}{% endblock %}
 
+{% block styles %}
+<style>
+.confirmar-select { width: 100%; box-sizing: border-box; }
+.confirmar-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+@media (max-width: 480px) {
+  .confirmar-actions {
+    flex-direction: column;
+  }
+  .confirmar-actions .admin-btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 44px;
+  }
+}
+</style>
+{% endblock %}
+
 {% block content %}
 <div class="admin-section" style="max-width: 640px;">
 
@@ -20,40 +41,43 @@
 
   {# Items del pedido #}
   <h3 style="margin-bottom:.75rem; font-size:1rem; color:#0C0C62;">📦 Productos</h3>
-  <table class="admin-table" style="margin-bottom:1.5rem;">
-    <thead>
-      <tr>
-        <th>Producto</th>
-        <th>Cantidad</th>
-        <th>Precio unit.</th>
-        <th>Subtotal</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for item in pedido.items %}
-      <tr>
-        <td>{{ item.nombre_producto }}</td>
-        <td>{{ item.cantidad }}</td>
-        <td>${{ "%.2f"|format(item.precio_unitario|float) }}</td>
-        <td><strong>${{ "%.2f"|format(item.subtotal|float) }}</strong></td>
-      </tr>
-      {% endfor %}
-    </tbody>
-    <tfoot>
-      <tr>
-        <td colspan="3" style="text-align:right; font-weight:600;">Total</td>
-        <td><strong style="color:#0C0C62; font-size:1.1rem;">${{ "%.2f"|format(pedido.total|float) }}</strong></td>
-      </tr>
-    </tfoot>
-  </table>
+  <div class="admin-table-wrap" style="margin-bottom:1.5rem;">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Cantidad</th>
+          <th>Precio unit.</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in pedido.items %}
+        <tr>
+          <td>{{ item.nombre_producto }}</td>
+          <td>{{ item.cantidad }}</td>
+          <td>${{ "%.2f"|format(item.precio_unitario|float) }}</td>
+          <td><strong>${{ "%.2f"|format(item.subtotal|float) }}</strong></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3" style="text-align:right; font-weight:600;">Total</td>
+          <td><strong style="color:#0C0C62; font-size:1.1rem;">${{ "%.2f"|format(pedido.total|float) }}</strong></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
 
   {# Formulario de confirmación #}
   <form method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
     <div class="filter-group" style="margin-bottom:1.25rem;">
       <label for="metodo_pago" style="font-weight:600; display:block; margin-bottom:.4rem;">
         💳 Método de pago
       </label>
-      <select name="metodo_pago" id="metodo_pago" class="admin-select" required>
+      <select name="metodo_pago" id="metodo_pago" class="admin-select confirmar-select" required>
         <option value="">— Seleccioná —</option>
         <option value="efectivo">Efectivo</option>
         <option value="transferencia">Transferencia</option>
@@ -63,7 +87,7 @@
       </select>
     </div>
 
-    <div style="display:flex; gap:1rem;">
+    <div class="confirmar-actions">
       <button type="submit" class="admin-btn">✅ Confirmar y descontar stock</button>
       <a href="{{ url_for('admin.pedidos') }}" class="admin-btn admin-btn-secondary">Cancelar</a>
     </div>

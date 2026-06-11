@@ -53,6 +53,7 @@
 
               {% if u.id != current_user.id %}
               <form method="POST" action="{{ url_for('admin.usuario_toggle', id=u.id) }}" style="display:inline">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <button type="submit"
                   class="admin-btn admin-btn-sm {% if u.activo %}admin-btn-secondary{% endif %}"
                   onclick="return confirm('¿Seguro?')">
@@ -117,6 +118,7 @@
               action="{{ url_for('admin.usuario_toggle', id=u.id) }}"
               class="data-card__action-form"
               onsubmit="return confirm('¿Seguro?')">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
           <button type="submit"
                   class="data-card__action-btn {{ 'data-card__action-btn--danger' if u.activo else 'data-card__action-btn--success' }}">
             {{ 'Desactivar' if u.activo else '✅ Activar' }}

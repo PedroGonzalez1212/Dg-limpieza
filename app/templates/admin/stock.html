@@ -198,6 +198,7 @@
       </p>
 
       <form id="form-ajuste" method="POST" action="">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <div class="form-group">
           <label class="form-label">Tipo de movimiento</label>
           <div class="radio-group">

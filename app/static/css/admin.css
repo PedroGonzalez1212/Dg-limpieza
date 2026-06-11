@@ -587,6 +587,7 @@
     border: none;
     box-shadow: none;
     background: transparent;
+    max-width: 100%;
   }
 
   /* ── Botones de stock (Ajustar / Historial) ─────────────── */
@@ -652,6 +653,53 @@
 
   /* Scroll horizontal en modal body para tabla compacta */
   .modal-body { overflow-x: auto; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   RESPONSIVE XS — panel admin (≤ 480px)
+════════════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  .admin-page,
+  .admin-container,
+  .admin-section {
+    padding: 0.875rem 0.75rem;
+  }
+
+  .admin-header h1,
+  .admin-title,
+  .admin-section-header h2 {
+    font-size: 1.15rem;
+  }
+
+  /* Stats en 2 columnas */
+  .admin-stats-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+
+  /* Acciones de formulario apiladas */
+  .form-actions {
+    flex-direction: column;
+  }
+  .form-actions .btn,
+  .form-actions .admin-btn,
+  .form-actions .admin-btn-primary {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* Botones inline (confirmaciones, etc.) */
+  .admin-btn-group {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .admin-btn-group .admin-btn,
+  .admin-btn-group .btn {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 /* ════════════════════════════════════════════════════════════

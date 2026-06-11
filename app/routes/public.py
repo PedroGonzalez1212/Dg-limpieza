@@ -323,44 +323,44 @@ def carrito_confirmar():
     # no confiamos en el total que muestra el HTML)
     total = sum(item['subtotal'] for item in carrito.values())
 
-    # Usamos usuario_id=1 (admin) como responsable del pedido web.
-    # Los pedidos WhatsApp no tienen vendedor asignado — se asigna
-    # cuando el vendedor lo confirma desde el panel.
-    sale = Sale(
-        usuario_id       = 1,
-        tipo             = 'whatsapp',
-        estado           = 'pendiente',
-        total            = total,
-        metodo_pago      = None,
-        nombre_cliente   = nombre,
-        telefono_cliente = telefono,
-        notas            = f'Horario de retiro: {horario}',
-    )
-    db.session.add(sale)
-    db.session.flush()  # genera el sale.id sin hacer commit todavía
-
-    # Guardamos cada item del carrito como SaleItem
-    for key, item in carrito.items():
-        if item.get('es_combo'):
-            combo_id    = int(str(key).replace('combo_', ''))
-            producto_id = None
-        else:
-            combo_id    = None
-            producto_id = int(key)
-
-        sale_item = SaleItem(
-            venta_id        = sale.id,
-            producto_id     = producto_id,
-            combo_id        = combo_id,
-            nombre_producto = item['nombre'],
-            cantidad        = item['cantidad'],
-            tipo_precio     = 'unidad',
-            precio_unitario = item['precio'],
-            subtotal        = item['subtotal'],
+    try:
+        sale = Sale(
+            usuario_id       = 1,
+            tipo             = 'whatsapp',
+            estado           = 'pendiente',
+            total            = total,
+            metodo_pago      = None,
+            nombre_cliente   = nombre,
+            telefono_cliente = telefono,
+            notas            = f'Horario de retiro: {horario}',
         )
-        db.session.add(sale_item)
+        db.session.add(sale)
+        db.session.flush()  # genera el sale.id sin hacer commit todavía
 
-    db.session.commit()
+        for key, item in carrito.items():
+            if item.get('es_combo'):
+                combo_id    = int(str(key).replace('combo_', ''))
+                producto_id = None
+            else:
+                combo_id    = None
+                producto_id = int(key)
+
+            sale_item = SaleItem(
+                venta_id        = sale.id,
+                producto_id     = producto_id,
+                combo_id        = combo_id,
+                nombre_producto = item['nombre'],
+                cantidad        = item['cantidad'],
+                tipo_precio     = 'unidad',
+                precio_unitario = item['precio'],
+                subtotal        = item['subtotal'],
+            )
+            db.session.add(sale_item)
+
+        db.session.commit()
+    except Exception:
+        db.session.rollback()
+        return jsonify({'ok': False, 'error': 'Error al guardar el pedido. Intentá de nuevo.'}), 500
 
     return jsonify({'ok': True, 'sale_id': sale.id})
 
