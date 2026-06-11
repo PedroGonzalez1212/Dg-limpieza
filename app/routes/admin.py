@@ -850,6 +850,21 @@ def exportar_pdf():
     from fpdf import FPDF
     import io
 
+    def _safe(s, maxlen=None):
+        """Convierte a string Latin-1 seguro para fuentes core de fpdf2."""
+        if not s:
+            return '-'
+        s = str(s)
+        s = (s.replace('—', '-').replace('–', '-')
+              .replace('“', '"').replace('”', '"')
+              .replace('‘', "'").replace('’', "'")
+              .replace('…', '...').replace('•', '-'))
+        try:
+            s.encode('latin-1')
+        except UnicodeEncodeError:
+            s = s.encode('latin-1', 'replace').decode('latin-1')
+        return s[:maxlen] if maxlen else s
+
     desde_str   = request.args.get('desde', '')
     hasta_str   = request.args.get('hasta', '')
     metodo_pago = request.args.get('metodo_pago', '')
@@ -869,107 +884,113 @@ def exportar_pdf():
     if metodo_pago:
         query = query.filter(Sale.metodo_pago == metodo_pago)
     ventas = query.order_by(Sale.creado_en.asc()).all()
-    monto_total = sum(float(v.total) for v in ventas)
+    monto_total = sum(float(v.total or 0) for v in ventas)
     ticket_promedio = monto_total / len(ventas) if ventas else 0
     generado_en = datetime.now().strftime('%d/%m/%Y %H:%M')
 
-    pdf = FPDF()
-    pdf.set_margins(15, 15, 15)
-    pdf.add_page()
+    try:
+        pdf = FPDF()
+        pdf.set_margins(15, 15, 15)
+        pdf.add_page()
 
-    # ── Encabezado ────────────────────────────────────────────────
-    pdf.set_fill_color(12, 12, 98)   # #0C0C62
-    pdf.set_text_color(255, 255, 255)
-    pdf.set_font('Helvetica', 'B', 16)
-    pdf.cell(0, 10, 'DG Limpieza - Reporte de ventas', new_x='LMARGIN', new_y='NEXT', fill=True, padding=4)
+        # ── Encabezado ────────────────────────────────────────────────
+        pdf.set_fill_color(12, 12, 98)
+        pdf.set_text_color(255, 255, 255)
+        pdf.set_font('Helvetica', 'B', 16)
+        pdf.set_x(pdf.l_margin)
+        pdf.cell(0, 14, 'DG Limpieza - Reporte de ventas', new_x='LMARGIN', new_y='NEXT', fill=True, align='L')
 
-    pdf.set_font('Helvetica', '', 9)
-    pdf.set_text_color(80, 80, 80)
-    periodo = f"Periodo: {desde.strftime('%d/%m/%Y')} - {hasta.strftime('%d/%m/%Y')}"
-    if metodo_pago:
-        periodo += f"  |  Metodo de pago: {metodo_pago}"
-    pdf.cell(0, 6, periodo, new_x='LMARGIN', new_y='NEXT')
-    pdf.cell(0, 6, f'Generado: {generado_en}', new_x='LMARGIN', new_y='NEXT')
-    pdf.ln(4)
+        pdf.set_font('Helvetica', '', 9)
+        pdf.set_text_color(80, 80, 80)
+        periodo = f"Periodo: {desde.strftime('%d/%m/%Y')} - {hasta.strftime('%d/%m/%Y')}"
+        if metodo_pago:
+            periodo += f"  |  Metodo de pago: {_safe(metodo_pago)}"
+        pdf.cell(0, 6, periodo, new_x='LMARGIN', new_y='NEXT')
+        pdf.cell(0, 6, f'Generado: {generado_en}', new_x='LMARGIN', new_y='NEXT')
+        pdf.ln(4)
 
-    # ── Metricas ──────────────────────────────────────────────────
-    pdf.set_fill_color(234, 246, 255)   # #EAF6FF
-    pdf.set_draw_color(57, 235, 225)    # #39EBE1
-    pdf.set_line_width(0.8)
-    col_w = (pdf.w - pdf.l_margin - pdf.r_margin) / 3
+        # ── Metricas ──────────────────────────────────────────────────
+        pdf.set_fill_color(234, 246, 255)
+        pdf.set_draw_color(57, 235, 225)
+        pdf.set_line_width(0.8)
+        col_w = (pdf.w - pdf.l_margin - pdf.r_margin) / 3
 
-    metricas = [
-        (str(len(ventas)), 'Ventas'),
-        (f"${monto_total:,.2f}", 'Total facturado'),
-        (f"${ticket_promedio:,.2f}", 'Ticket promedio'),
-    ]
-    x_start = pdf.l_margin
-    y_start = pdf.get_y()
-    for valor, etiqueta in metricas:
-        pdf.set_xy(x_start, y_start)
-        pdf.set_font('Helvetica', 'B', 14)
-        pdf.set_text_color(12, 12, 98)
-        pdf.cell(col_w - 2, 8, valor, border='LTR', fill=True, align='C', new_x='RIGHT', new_y='TOP')
-        x_start += col_w
-
-    x_start = pdf.l_margin
-    for _, etiqueta in metricas:
-        pdf.set_xy(x_start, y_start + 8)
-        pdf.set_font('Helvetica', '', 8)
-        pdf.set_text_color(85, 85, 85)
-        pdf.cell(col_w - 2, 6, etiqueta, border='LBR', fill=True, align='C', new_x='RIGHT', new_y='TOP')
-        x_start += col_w
-
-    pdf.ln(20)
-
-    # ── Tabla ─────────────────────────────────────────────────────
-    headers = ['#', 'Fecha', 'Cliente', 'Canal', 'Metodo pago', 'Total']
-    widths  = [12, 36, 45, 22, 35, 30]
-
-    pdf.set_fill_color(12, 12, 98)
-    pdf.set_text_color(255, 255, 255)
-    pdf.set_font('Helvetica', 'B', 9)
-    pdf.set_line_width(0.3)
-    for h, w in zip(headers, widths):
-        pdf.cell(w, 7, h, border=1, fill=True, align='C')
-    pdf.ln()
-
-    pdf.set_font('Helvetica', '', 9)
-    for i, v in enumerate(ventas):
-        fill = i % 2 == 0
-        pdf.set_fill_color(234, 246, 255) if fill else pdf.set_fill_color(255, 255, 255)
-        pdf.set_text_color(26, 26, 46)
-        row = [
-            str(v.id),
-            v.creado_en.strftime('%d/%m/%Y %H:%M'),
-            (v.nombre_cliente or '-')[:25],
-            v.tipo.upper(),
-            (v.metodo_pago or '-'),
-            f"${float(v.total):,.2f}",
+        metricas = [
+            (str(len(ventas)), 'Ventas'),
+            (f"${monto_total:,.2f}", 'Total facturado'),
+            (f"${ticket_promedio:,.2f}", 'Ticket promedio'),
         ]
-        for val, w in zip(row, widths):
-            pdf.cell(w, 6, val, border=1, fill=fill)
+        x_start = pdf.l_margin
+        y_start = pdf.get_y()
+        for valor, etiqueta in metricas:
+            pdf.set_xy(x_start, y_start)
+            pdf.set_font('Helvetica', 'B', 14)
+            pdf.set_text_color(12, 12, 98)
+            pdf.cell(col_w - 2, 8, valor, border='LTR', fill=True, align='C', new_x='RIGHT', new_y='TOP')
+            x_start += col_w
+
+        x_start = pdf.l_margin
+        for _, etiqueta in metricas:
+            pdf.set_xy(x_start, y_start + 8)
+            pdf.set_font('Helvetica', '', 8)
+            pdf.set_text_color(85, 85, 85)
+            pdf.cell(col_w - 2, 6, etiqueta, border='LBR', fill=True, align='C', new_x='RIGHT', new_y='TOP')
+            x_start += col_w
+
+        pdf.ln(20)
+
+        # ── Tabla ─────────────────────────────────────────────────────
+        headers = ['#', 'Fecha', 'Cliente', 'Canal', 'Metodo pago', 'Total']
+        widths  = [12, 36, 45, 22, 35, 30]
+
+        pdf.set_fill_color(12, 12, 98)
+        pdf.set_text_color(255, 255, 255)
+        pdf.set_font('Helvetica', 'B', 9)
+        pdf.set_line_width(0.3)
+        for h, w in zip(headers, widths):
+            pdf.cell(w, 7, h, border=1, fill=True, align='C')
         pdf.ln()
 
-    # Fila totales
-    pdf.set_fill_color(12, 12, 98)
-    pdf.set_text_color(255, 255, 255)
-    pdf.set_font('Helvetica', 'B', 9)
-    total_label_w = sum(widths[:-1])
-    pdf.cell(total_label_w, 7, 'TOTAL', border=1, fill=True, align='R')
-    pdf.cell(widths[-1], 7, f"${monto_total:,.2f}", border=1, fill=True, align='C')
-    pdf.ln()
+        pdf.set_font('Helvetica', '', 9)
+        for i, v in enumerate(ventas):
+            fill = i % 2 == 0
+            pdf.set_fill_color(234, 246, 255) if fill else pdf.set_fill_color(255, 255, 255)
+            pdf.set_text_color(26, 26, 46)
+            row = [
+                str(v.id),
+                v.creado_en.strftime('%d/%m/%Y %H:%M') if v.creado_en else '-',
+                _safe(v.nombre_cliente, 25),
+                _safe(v.tipo or '').upper(),
+                _safe(v.metodo_pago),
+                f"${float(v.total or 0):,.2f}",
+            ]
+            for val, w in zip(row, widths):
+                pdf.cell(w, 6, val, border=1, fill=fill)
+            pdf.ln()
 
-    # ── Pie ───────────────────────────────────────────────────────
-    pdf.ln(6)
-    pdf.set_font('Helvetica', '', 8)
-    pdf.set_text_color(150, 150, 150)
-    pdf.cell(0, 5, 'DG Limpieza - Reporte generado automaticamente', align='C')
+        # Fila totales
+        pdf.set_fill_color(12, 12, 98)
+        pdf.set_text_color(255, 255, 255)
+        pdf.set_font('Helvetica', 'B', 9)
+        total_label_w = sum(widths[:-1])
+        pdf.cell(total_label_w, 7, 'TOTAL', border=1, fill=True, align='R')
+        pdf.cell(widths[-1], 7, f"${monto_total:,.2f}", border=1, fill=True, align='C')
+        pdf.ln()
 
-    buffer = io.BytesIO(bytes(pdf.output()))
-    nombre_archivo = f"reporte_{desde.isoformat()}_{hasta.isoformat()}.pdf"
-    return send_file(buffer, mimetype='application/pdf',
-                    as_attachment=True, download_name=nombre_archivo)
+        # ── Pie ───────────────────────────────────────────────────────
+        pdf.ln(6)
+        pdf.set_font('Helvetica', '', 8)
+        pdf.set_text_color(150, 150, 150)
+        pdf.cell(0, 5, 'DG Limpieza - Reporte generado automaticamente', align='C')
+
+        buffer = io.BytesIO(bytes(pdf.output()))
+        nombre_archivo = f"reporte_{desde.isoformat()}_{hasta.isoformat()}.pdf"
+        return send_file(buffer, mimetype='application/pdf',
+                        as_attachment=True, download_name=nombre_archivo)
+
+    except Exception as e:
+        import traceback
+        return jsonify({'error': str(e), 'detalle': traceback.format_exc()}), 500
 
 # ════════════════════════════════════════════════════════════════════════════
 # COMBOS
