@@ -847,9 +847,8 @@ def exportar_excel():
 @admin_required
 def exportar_pdf():
     """
-    Genera un PDF del reporte usando WeasyPrint.
-    WeasyPrint convierte HTML + CSS a PDF — misma tecnología que el navegador,
-    lo que significa que podés estilizar el PDF como una página web normal.
+    Genera un PDF del reporte usando xhtml2pdf.
+    xhtml2pdf convierte HTML + CSS a PDF sin dependencias nativas de sistema.
     """
     from flask import send_file, render_template_string
     from xhtml2pdf import pisa
@@ -875,9 +874,7 @@ def exportar_pdf():
     ventas = query.order_by(Sale.creado_en.asc()).all()
     monto_total = sum(float(v.total) for v in ventas)
 
-    # HTML del PDF — inline para no depender de archivos estáticos
-    # WeasyPrint no puede acceder fácilmente a los static files del servidor,
-    # así que los estilos van embebidos directamente en el HTML.
+    # Los estilos van embebidos en el template para no depender de archivos estáticos.
     html_pdf = render_template('admin/reporte_pdf.html',
         ventas=ventas,
         desde=desde,
