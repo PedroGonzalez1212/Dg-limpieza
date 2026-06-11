@@ -323,9 +323,14 @@ def carrito_confirmar():
     # no confiamos en el total que muestra el HTML)
     total = sum(item['subtotal'] for item in carrito.values())
 
+    from app.models import User
+    admin = User.query.filter_by(rol='admin', activo=True).first()
+    if not admin:
+        return jsonify({'ok': False, 'error': 'Error de configuración del servidor.'}), 500
+
     try:
         sale = Sale(
-            usuario_id       = 1,
+            usuario_id       = admin.id,
             tipo             = 'whatsapp',
             estado           = 'pendiente',
             total            = total,
