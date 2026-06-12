@@ -76,7 +76,7 @@
           <div id="uploadZone" class="upload-zone"
               style="{{ 'display:none' if (producto and producto.imagen_url) else '' }}">
             <input type="file" id="inputImagen" accept="image/*" style="display:none">
-            <div id="uploadLabel" class="upload-label" onclick="document.getElementById('inputImagen').click()">
+            <div id="uploadLabel" class="upload-label">
               <span class="upload-icon">📷</span>
               <span class="upload-text">Tocá para subir una foto</span>
               <span class="upload-hint">JPG, PNG o WEBP · Máx. 5MB</span>
@@ -538,6 +538,11 @@ function mostrarError(msg) {
   uploadError.style.display    = 'block';
   uploadProgress.style.display = 'none';
 }
+
+// Click en la zona de upload → abre el selector de archivo
+document.getElementById('uploadLabel').addEventListener('click', function() {
+  document.getElementById('inputImagen').click();
+});
 
 // Botón "Cambiar imagen" → vuelve a mostrar la zona de upload
 document.getElementById('btnCambiarImg').addEventListener('click', function() {

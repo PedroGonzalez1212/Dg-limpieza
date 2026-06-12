@@ -156,8 +156,8 @@
                   data-variante-id="{{ variante.id }}"
                   data-variante-stock="{{ variante.stock }}"
                   data-precio-extra="{{ variante.precio_extra or 0 }}"
+                  data-grupo="{{ nombre_atributo }}"
                   {% if variante.stock <= 0 %}disabled title="Sin stock"{% endif %}
-                  onclick="seleccionarVariante(this, '{{ nombre_atributo }}')"
                 >
                   {{ variante.valor }}
                 </button>
@@ -174,7 +174,7 @@
           <div class="cantidad-wrap">
             <label class="variante-label">Cantidad</label>
             <div class="cantidad-control">
-              <button type="button" class="cantidad-btn" onclick="cambiarCantidad(-1)">−</button>
+              <button type="button" class="cantidad-btn" id="btnMenos">−</button>
               <input
                 type="number"
                 id="cantidad"
@@ -185,7 +185,7 @@
                 class="cantidad-input"
                 {% if producto.sin_stock %}disabled{% endif %}
               >
-              <button type="button" class="cantidad-btn" onclick="cambiarCantidad(1)">+</button>
+              <button type="button" class="cantidad-btn" id="btnMas">+</button>
             </div>
           </div>
 
@@ -207,7 +207,6 @@
             type="button"
             class="btn-carrito"
             id="btnAgregar"
-            onclick="agregarAlCarrito()"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2">
@@ -306,8 +305,7 @@
       }, 2500);
     }
 
-    // Exponemos en window para que los onclick del HTML las encuentren
-    window.cambiarCantidad = function(delta) {
+    function cambiarCantidad(delta) {
       const input = document.getElementById('cantidad');
       const max   = parseInt(input.max) || 9999;
       const nueva = Math.min(Math.max(1, parseInt(input.value || 1) + delta), max);
@@ -315,7 +313,7 @@
       actualizarPrecio();
     }
 
-    window.seleccionarVariante = function(btn, grupo) {
+    function seleccionarVariante(btn, grupo) {
       btn.closest('.variante-opciones')
         .querySelectorAll('.variante-btn')
         .forEach(b => b.classList.remove('seleccionada'));
@@ -326,7 +324,7 @@
       actualizarPrecio();
     }
 
-    window.agregarAlCarrito = async function() {
+    async function agregarAlCarrito() {
       if (TIENE_VARIANTES && !varianteOk) {
         mostrarMensaje('Seleccioná una variante antes de continuar', 'error');
         return;
@@ -359,6 +357,12 @@
     }
 
     document.getElementById('cantidad')?.addEventListener('input', actualizarPrecio);
+    document.getElementById('btnMenos')?.addEventListener('click', () => cambiarCantidad(-1));
+    document.getElementById('btnMas')?.addEventListener('click', () => cambiarCantidad(1));
+    document.getElementById('btnAgregar')?.addEventListener('click', agregarAlCarrito);
+    document.querySelectorAll('.variante-btn').forEach(btn => {
+      btn.addEventListener('click', () => seleccionarVariante(btn, btn.dataset.grupo));
+    });
     actualizarPrecio();
 
   });

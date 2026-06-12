@@ -73,7 +73,7 @@
             <td>${{ "%.2f"|format(item.precio_unitario) }}</td>
             <td class="item-subtotal">${{ "%.2f"|format(item.subtotal) }}</td>
             <td>
-              <button class="btn-quitar" onclick="quitarItem('{{ clave }}')">✕</button>
+              <button class="btn-quitar">✕</button>
             </td>
           </tr>
           {% endfor %}
@@ -114,7 +114,7 @@
     </div>
 
     <!-- Botón confirmar -->
-    <button id="btn-confirmar" class="btn-confirmar" onclick="confirmarVenta()">
+    <button id="btn-confirmar" class="btn-confirmar">
       Confirmar venta
     </button>
 
@@ -134,10 +134,10 @@
       <p class="comprobante-metodo" id="comprobante-metodo"></p>
     </div>
     <div class="modal-footer">
-      <button class="btn-wsp" id="btn-wsp" onclick="abrirWhatsApp()">
+      <button class="btn-wsp" id="btn-wsp">
         📲 Enviar por WhatsApp
       </button>
-      <button class="btn-nueva-venta" onclick="nuevaVenta()">
+      <button class="btn-nueva-venta" id="btn-nueva-venta">
         + Nueva venta
       </button>
     </div>
@@ -231,7 +231,8 @@ function renderProductoCard(p) {
         <input type="number" class="input-cantidad" id="cant-${p.id}"
               value="1" min="1" max="${p.stock}">
         <button class="btn-agregar"
-                onclick="agregarAlCarrito(${p.id}, ${p.tiene_variantes}, this)">
+                data-producto-id="${p.id}"
+                data-tiene-variantes="${p.tiene_variantes ? 1 : 0}">
           Agregar
         </button>
       </div>
@@ -341,7 +342,7 @@ function actualizarTablaCarrito(carrito, total, claveQuitada = null) {
             <td>${item.cantidad}</td>
             <td>$${item.precio_unitario.toFixed(2)}</td>
             <td class="item-subtotal">$${item.subtotal.toFixed(2)}</td>
-            <td><button class="btn-quitar" onclick="quitarItem('${clave}')">✕</button></td>
+            <td><button class="btn-quitar" data-clave="${clave}">✕</button></td>
           </tr>`;
       }).join('');
     }
@@ -451,8 +452,31 @@ function abrirWhatsApp() {
 
 // ── Nueva venta ───────────────────────────────────────────────────────────────
 function nuevaVenta() {
-  // Recargamos la página para limpiar todo y empezar una venta nueva
   window.location.reload();
 }
+
+// ── Event listeners ───────────────────────────────────────────────────────────
+document.getElementById('btn-confirmar').addEventListener('click', confirmarVenta);
+document.getElementById('btn-wsp').addEventListener('click', abrirWhatsApp);
+document.getElementById('btn-nueva-venta').addEventListener('click', nuevaVenta);
+
+// Delegación para btn-quitar (Jinja-rendered y JS-generados)
+document.querySelector('.carrito-tabla-wrapper').addEventListener('click', function(e) {
+  const btn = e.target.closest('.btn-quitar');
+  if (!btn) return;
+  const clave = btn.dataset.clave || btn.closest('tr')?.dataset.clave;
+  if (clave) quitarItem(clave);
+});
+
+// Delegación para btn-agregar (generados por renderProductoCard)
+document.getElementById('resultados').addEventListener('click', function(e) {
+  const btn = e.target.closest('.btn-agregar');
+  if (!btn) return;
+  agregarAlCarrito(
+    parseInt(btn.dataset.productoId),
+    btn.dataset.tieneVariantes === '1',
+    btn
+  );
+});
 </script>
 {% endblock %}

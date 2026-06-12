@@ -31,6 +31,7 @@ def create_app(config_name='default'):
         'default-src': ["'self'"],
         'script-src': [
             "'self'",
+            "'unsafe-inline'",
             "https://unpkg.com",
             "https://fonts.googleapis.com",
             "https://cdn.jsdelivr.net",

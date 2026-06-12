@@ -142,7 +142,7 @@
               <form method="POST"
                     action="{{ url_for('admin.producto_toggle', id=p.id) }}"
                     style="display:inline"
-                    onsubmit="return confirm('¿Confirmás {{ 'desactivar' if p.activo else 'activar' }} este producto?')">
+                    data-confirm="¿Confirmás {{ 'desactivar' if p.activo else 'activar' }} este producto?">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <button type="submit"
                         class="btn btn-sm {{ 'btn-danger' if p.activo else 'btn-ghost' }}"
@@ -231,7 +231,7 @@
         <form method="POST"
               action="{{ url_for('admin.producto_toggle', id=p.id) }}"
               class="prod-card__action-form"
-              onsubmit="return confirm('¿Confirmás {{ 'desactivar' if p.activo else 'activar' }} este producto?')">
+              data-confirm="¿Confirmás {{ 'desactivar' if p.activo else 'activar' }} este producto?">
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
           <button type="submit"
                   class="prod-card__action-btn {{ 'prod-card__action-deactivate' if p.activo else 'prod-card__action-activate' }}">

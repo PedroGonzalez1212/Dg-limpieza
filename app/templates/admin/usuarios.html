@@ -55,11 +55,10 @@
               <a href="{{ url_for('admin.usuario_editar', id=u.id) }}" class="admin-btn admin-btn-sm">Editar</a>
 
               {% if u.id != current_user.id %}
-              <form method="POST" action="{{ url_for('admin.usuario_toggle', id=u.id) }}" style="display:inline">
+              <form method="POST" action="{{ url_for('admin.usuario_toggle', id=u.id) }}" style="display:inline" class="form-toggle-usuario">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <button type="submit"
-                  class="admin-btn admin-btn-sm {% if u.activo %}admin-btn-secondary{% endif %}"
-                  onclick="return confirm('¿Seguro?')">
+                  class="admin-btn admin-btn-sm {% if u.activo %}admin-btn-secondary{% endif %}">
                   {{ 'Desactivar' if u.activo else 'Activar' }}
                 </button>
               </form>
@@ -119,8 +118,7 @@
         {% if u.id != current_user.id %}
         <form method="POST"
               action="{{ url_for('admin.usuario_toggle', id=u.id) }}"
-              class="data-card__action-form"
-              onsubmit="return confirm('¿Seguro?')">
+              class="data-card__action-form form-toggle-usuario">
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
           <button type="submit"
                   class="data-card__action-btn {{ 'data-card__action-btn--danger' if u.activo else 'data-card__action-btn--success' }}">
@@ -141,4 +139,14 @@
   </div>
 
 </div>
+
+{% block scripts %}
+<script>
+  document.querySelectorAll('.form-toggle-usuario').forEach(function(form) {
+    form.addEventListener('submit', function(e) {
+      if (!confirm('¿Seguro?')) e.preventDefault();
+    });
+  });
+</script>
+{% endblock %}
 {% endblock %}

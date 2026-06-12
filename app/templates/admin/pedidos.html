@@ -254,7 +254,7 @@
                 ✅ Confirmar
               </a>
               <form method="POST" action="{{ url_for('admin.pedido_cancelar', id=p.id) }}"
-                    onsubmit="return confirm('¿Cancelar el pedido #{{ p.id }}?')">
+                    data-confirm="¿Cancelar el pedido #{{ p.id }}?">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <button type="submit" class="admin-btn admin-btn-sm admin-btn-secondary">
                   ✖ Cancelar
@@ -335,7 +335,7 @@
           ✅ Confirmar
         </a>
         <form method="POST" action="{{ url_for('admin.pedido_cancelar', id=p.id) }}"
-              onsubmit="return confirm('¿Cancelar el pedido #{{ p.id }}?')"
+              data-confirm="¿Cancelar el pedido #{{ p.id }}?"
               style="display:contents;">
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
           <button type="submit" class="pedido-btn-cancel">

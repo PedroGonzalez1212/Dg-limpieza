@@ -18,6 +18,12 @@
   };
 })();
 
+// Confirmación declarativa: <form data-confirm="¿Seguro?"> sin onclick
+document.addEventListener('submit', function (e) {
+  var msg = e.target.dataset.confirm;
+  if (msg && !confirm(msg)) e.preventDefault();
+});
+
 document.addEventListener('DOMContentLoaded', function () {
   // Inicializar iconos Lucide
   if (window.lucide) lucide.createIcons();

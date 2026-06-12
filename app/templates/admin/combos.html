@@ -102,7 +102,7 @@
               <form method="POST"
                     action="{{ url_for('admin.combo_toggle', id=c.id) }}"
                     style="display:inline"
-                    onsubmit="return confirm('¿Confirmás {{ 'desactivar' if c.activo else 'activar' }} este combo?')">
+                    data-confirm="¿Confirmás {{ 'desactivar' if c.activo else 'activar' }} este combo?">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <button type="submit"
                         class="btn btn-sm {{ 'btn-danger' if c.activo else 'btn-ghost' }}"
@@ -198,7 +198,7 @@
         <form method="POST"
               action="{{ url_for('admin.combo_toggle', id=c.id) }}"
               class="data-card__action-form"
-              onsubmit="return confirm('¿Confirmás {{ 'desactivar' if c.activo else 'activar' }} este combo?')">
+              data-confirm="¿Confirmás {{ 'desactivar' if c.activo else 'activar' }} este combo?">
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
           <button type="submit"
                   class="data-card__action-btn {{ 'data-card__action-btn--danger' if c.activo else 'data-card__action-btn--success' }}">

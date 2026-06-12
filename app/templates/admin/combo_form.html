@@ -54,7 +54,7 @@
           <div id="uploadZone" class="upload-zone"
               style="{{ 'display:none' if (combo and combo.imagen_url) else '' }}">
             <input type="file" id="inputImagen" accept="image/*" style="display:none">
-            <div id="uploadLabel" class="upload-label" onclick="document.getElementById('inputImagen').click()">
+            <div id="uploadLabel" class="upload-label">
               <span class="upload-icon">📷</span>
               <span class="upload-text">Tocá para subir una foto</span>
               <span class="upload-hint">JPG, PNG o WEBP · Máx. 5MB</span>
@@ -123,7 +123,7 @@
               </select>
               <input type="number" name="item_cantidad" class="admin-input input-cant"
                     value="{{ item.cantidad }}" min="1" placeholder="Cant.">
-              <button type="button" class="btn btn-sm btn-danger" onclick="this.parentElement.remove()">✕</button>
+              <button type="button" class="btn btn-sm btn-danger btn-quitar-item">✕</button>
             </div>
             {% endfor %}
           {% else %}
@@ -136,7 +136,7 @@
               </select>
               <input type="number" name="item_cantidad" class="admin-input input-cant"
                     value="1" min="1" placeholder="Cant.">
-              <button type="button" class="btn btn-sm btn-danger" onclick="this.parentElement.remove()">✕</button>
+              <button type="button" class="btn btn-sm btn-danger btn-quitar-item">✕</button>
             </div>
           {% endif %}
         </div>
@@ -212,6 +212,10 @@ const imgActual      = document.getElementById('imgActual');
 const imgPreviewEl   = document.getElementById('imgPreviewEl');
 const campoUrl       = document.getElementById('imagen_url');
 
+uploadLabel.addEventListener('click', function() {
+  inputImagen.click();
+});
+
 inputImagen.addEventListener('change', async function() {
   const archivo = this.files[0];
   if (!archivo) return;
@@ -256,6 +260,12 @@ document.getElementById('btnCambiarImg').addEventListener('click', function() {
 // ── Agregar producto al combo ─────────────────────────────────────────────
 const productosOptions = `{% for p in productos %}<option value="{{ p.id }}">{{ p.nombre }} — ${{ "%.0f"|format(p.precio_unidad) }}</option>{% endfor %}`;
 
+document.getElementById('items-container').addEventListener('click', function(e) {
+  if (e.target.classList.contains('btn-quitar-item')) {
+    e.target.closest('.combo-item-row').remove();
+  }
+});
+
 document.getElementById('btn-agregar-item').addEventListener('click', () => {
   const row = document.createElement('div');
   row.className = 'combo-item-row';
@@ -265,7 +275,7 @@ document.getElementById('btn-agregar-item').addEventListener('click', () => {
       ${productosOptions}
     </select>
     <input type="number" name="item_cantidad" class="admin-input input-cant" value="1" min="1" placeholder="Cant.">
-    <button type="button" class="btn btn-sm btn-danger" onclick="this.parentElement.remove()">✕</button>
+    <button type="button" class="btn btn-sm btn-danger btn-quitar-item">✕</button>
   `;
   document.getElementById('items-container').appendChild(row);
 });

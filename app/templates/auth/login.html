@@ -48,7 +48,7 @@
             autocomplete="current-password"
           >
           {# Botón para mostrar/ocultar contraseña #}
-          <button type="button" class="toggle-password" onclick="togglePassword()" aria-label="Mostrar contraseña">
+          <button type="button" class="toggle-password" id="btnTogglePassword" aria-label="Mostrar contraseña">
             <span id="eye-icon">👁</span>
           </button>
         </div>
@@ -224,10 +224,9 @@
 </style>
 
 <script>
-  function togglePassword() {
+  document.getElementById('btnTogglePassword').addEventListener('click', function() {
     const input = document.getElementById('password');
     const icon  = document.getElementById('eye-icon');
-
     if (input.type === 'password') {
       input.type = 'text';
       icon.textContent = '🙈';
@@ -235,6 +234,6 @@
       input.type = 'password';
       icon.textContent = '👁';
     }
-  }
+  });
 </script>
 {% endblock %}
