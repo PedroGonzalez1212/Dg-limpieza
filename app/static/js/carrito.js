@@ -121,10 +121,8 @@ async function enviarPedido() {
 
     const total = document.getElementById('total-precio').textContent.trim();
 
-    const emojiPedido = String.fromCodePoint(0x1F9F4);
-    const emojiTotal  = String.fromCodePoint(0x1F4B0);
     const mensaje = [
-      emojiPedido + ' *Nuevo pedido — DG Limpieza*',
+      '*Nuevo pedido — DG Limpieza*',
       '',
       '*Datos del cliente*',
       `- Nombre: ${nombre}`,
@@ -134,7 +132,7 @@ async function enviarPedido() {
       '*Productos*',
       ...lineasProductos,
       '',
-      emojiTotal + ` *Total: ${total}*`,
+      `*Total: ${total}*`,
     ].join('\n');
 
     await fetch('/carrito/vaciar', { method: 'POST' });
