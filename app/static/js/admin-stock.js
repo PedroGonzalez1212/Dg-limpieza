@@ -81,12 +81,12 @@ async function verHistorial(id, nombre) {
       const signo = m.tipo === 'salida' ? '-' : '+';
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td class="text-center text-muted" style="font-size:0.8rem">${idx + 1}</td>
-        <td>${escHtml(m.fecha)}</td>
-        <td><span class="tipo-${escHtml(m.tipo)}">${escHtml(m.tipo)}</span></td>
-        <td class="text-center"><strong>${signo}${m.cantidad}</strong></td>
-        <td>${escHtml(m.motivo)}</td>
-        <td>${escHtml(m.usuario)}</td>
+        <td class="text-center text-muted historial-col-num" style="font-size:0.8rem">${idx + 1}</td>
+        <td data-label="Fecha">${escHtml(m.fecha)}</td>
+        <td data-label="Tipo"><span class="tipo-${escHtml(m.tipo)}">${escHtml(m.tipo)}</span></td>
+        <td data-label="Cantidad" class="text-center"><strong>${signo}${m.cantidad}</strong></td>
+        <td data-label="Motivo">${escHtml(m.motivo) || '<span class="text-muted">—</span>'}</td>
+        <td data-label="Usuario">${escHtml(m.usuario)}</td>
       `;
       tbody.appendChild(tr);
     });
@@ -124,13 +124,13 @@ async function verHistorialGlobal() {
       const signo = m.tipo === 'salida' ? '-' : '+';
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td class="text-center text-muted" style="font-size:0.8rem">${idx + 1}</td>
-        <td style="white-space:nowrap">${escHtml(m.fecha)}</td>
-        <td><strong>${escHtml(m.producto)}</strong></td>
-        <td><span class="tipo-${escHtml(m.tipo)}">${escHtml(m.tipo)}</span></td>
-        <td class="text-center"><strong>${signo}${m.cantidad}</strong></td>
-        <td>${escHtml(m.motivo)}</td>
-        <td>${escHtml(m.usuario)}</td>
+        <td class="text-center text-muted historial-col-num" style="font-size:0.8rem">${idx + 1}</td>
+        <td data-label="Fecha" style="white-space:nowrap">${escHtml(m.fecha)}</td>
+        <td data-label="Producto"><strong>${escHtml(m.producto)}</strong></td>
+        <td data-label="Tipo"><span class="tipo-${escHtml(m.tipo)}">${escHtml(m.tipo)}</span></td>
+        <td data-label="Cantidad" class="text-center"><strong>${signo}${m.cantidad}</strong></td>
+        <td data-label="Motivo">${escHtml(m.motivo) || '<span class="text-muted">—</span>'}</td>
+        <td data-label="Usuario">${escHtml(m.usuario)}</td>
       `;
       tbody.appendChild(tr);
     });

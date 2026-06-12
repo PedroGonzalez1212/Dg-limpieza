@@ -33,6 +33,7 @@ def create_app(config_name='default'):
             "'self'",
             "https://unpkg.com",
             "https://fonts.googleapis.com",
+            "https://cdn.jsdelivr.net",
         ],
         'style-src': [
             "'self'",

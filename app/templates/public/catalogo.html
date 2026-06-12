@@ -511,7 +511,9 @@
               <span class="combo-precio-final">${{ "%.0f"|format(combo.precio_combo) }}</span>
             </div>
             <button class="producto-card__btn"
-                    onclick="agregarComboAlCarrito({{ combo.id }}, '{{ combo.nombre }}', {{ combo.precio_combo }})">
+                    data-combo-id="{{ combo.id }}"
+                    data-combo-nombre="{{ combo.nombre }}"
+                    data-combo-precio="{{ combo.precio_combo }}">
               Agregar combo
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
             </button>
@@ -583,7 +585,7 @@
                   {% else %}
                     <div style="display:flex;gap:8px;align-items:stretch;">
                       <button class="producto-card__btn" style="flex:1;margin-top:0;"
-                              onclick="mostrarStepper({{ producto.id }}, {{ producto.stock }}, this.parentElement)">
+                              data-agregar-producto data-producto-id="{{ producto.id }}" data-stock="{{ producto.stock }}">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
                         Agregar
                       </button>
@@ -616,75 +618,6 @@
 {% endblock %} {# cierra block content #}
 
 {% block scripts %}
-<script>
-const _stepperMap = new Map();
-
-function mostrarStepper(productoId, stock, wrap) {
-  _stepperMap.set(productoId, wrap.innerHTML);
-  wrap.innerHTML = `
-    <div style="flex:1;display:flex;align-items:stretch;border:1.5px solid var(--line);border-radius:10px;overflow:hidden;background:#f0f4f8;">
-      <button type="button"
-        style="flex:1;background:transparent;border:none;font-size:17px;font-weight:700;color:var(--navy);cursor:pointer;padding:0 4px;"
-        onclick="_stepperDelta(this,-1)">−</button>
-      <span style="flex:0 0 36px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:15px;font-weight:700;color:var(--navy);border-left:1px solid var(--line);border-right:1px solid var(--line);" data-max="${stock}">1</span>
-      <button type="button"
-        style="flex:1;background:transparent;border:none;font-size:17px;font-weight:700;color:var(--navy);cursor:pointer;padding:0 4px;"
-        onclick="_stepperDelta(this,1)">+</button>
-    </div>
-    <button class="producto-card__btn" type="button"
-      style="flex:0 0 auto;width:42px;padding:12px;margin-top:0;"
-      onclick="_stepperConfirmar(${productoId},this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-    </button>`;
-}
-
-function _stepperDelta(btn, delta) {
-  const span = btn.parentElement.querySelector('span');
-  const max = parseInt(span.dataset.max) || 999;
-  span.textContent = Math.max(1, Math.min(max, parseInt(span.textContent) + delta));
-}
-
-function _stepperConfirmar(productoId, btn) {
-  const wrap = btn.parentElement;
-  const cantidad = parseInt(wrap.querySelector('span').textContent);
-  wrap.querySelectorAll('button').forEach(b => b.disabled = true);
-
-  fetch('/carrito/agregar', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ producto_id: productoId, cantidad, es_combo: false })
-  })
-  .then(r => r.json())
-  .then(data => {
-    if (data.ok) {
-      const badge = document.getElementById('cartBadge');
-      if (badge) { badge.textContent = data.total_items > 99 ? '99+' : data.total_items; badge.style.display = 'flex'; }
-    }
-    wrap.innerHTML = _stepperMap.get(productoId);
-    _stepperMap.delete(productoId);
-  })
-  .catch(() => { wrap.innerHTML = _stepperMap.get(productoId); _stepperMap.delete(productoId); });
-}
-
-function agregarComboAlCarrito(comboId, nombre, precio) {
-  fetch('/carrito/agregar', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      producto_id: 'combo_' + comboId,
-      nombre: nombre,
-      precio: precio,
-      cantidad: 1,
-      es_combo: true
-    })
-  })
-  .then(r => r.json())
-  .then(data => {
-    if (data.ok) {
-      alert('✅ ' + nombre + ' agregado al carrito');
-    }
-  });
-}
-</script>
+<script src="{{ url_for('static', filename='js/catalogo.js') }}"></script>
 {% endblock %}
 

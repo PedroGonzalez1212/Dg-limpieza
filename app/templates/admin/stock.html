@@ -565,10 +565,88 @@
     .admin-select  { width: 100%; }
 
     /* Modal ocupa casi toda la pantalla */
-    .modal-overlay { padding: 0.5rem; }
-    .modal-box     { max-height: 95vh; border-radius: 12px; }
+    .modal-overlay { padding: 0.5rem; align-items: flex-end; }
+    .modal-box     { max-height: 95vh; border-radius: 16px 16px 0 0; }
+    .modal-box--wide,
+    .modal-box--full { max-width: 100%; border-radius: 16px 16px 0 0; }
     .modal-header  { padding: 1rem 1rem 0; }
     .modal-body    { padding: 1rem; }
+  }
+
+  /* ── Historial table → cards en mobile ───────────────────── */
+  @media (max-width: 600px) {
+    /* Ocultar la tabla de escritorio dentro del modal historial */
+    .historial-table-scroll { overflow-x: visible; }
+
+    .historial-table-scroll .admin-table--compact,
+    .historial-table-scroll .admin-table--compact tbody,
+    .historial-table-scroll .admin-table--compact tr,
+    .historial-table-scroll .admin-table--compact td {
+      display: block;
+    }
+
+    /* Ocultar cabecera de la tabla */
+    .historial-table-scroll .admin-table--compact thead {
+      display: none;
+    }
+
+    /* Cada fila como tarjeta */
+    .historial-table-scroll .admin-table--compact tbody tr {
+      background: white;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 10px;
+      margin-bottom: 0.65rem;
+      padding: 0.65rem 0.75rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+
+    /* Cada celda: label a la izquierda, valor a la derecha */
+    .historial-table-scroll .admin-table--compact tbody td {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.28rem 0;
+      font-size: 0.85rem;
+      border: none;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    .historial-table-scroll .admin-table--compact tbody td:last-child {
+      border-bottom: none;
+    }
+
+    /* Etiqueta generada desde data-label */
+    .historial-table-scroll .admin-table--compact tbody td[data-label]::before {
+      content: attr(data-label);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #9ca3af;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      flex-shrink: 0;
+      margin-right: 0.5rem;
+    }
+
+    /* Ocultar columna # en mobile */
+    .historial-table-scroll .admin-table--compact tbody td.historial-col-num {
+      display: none;
+    }
+
+    /* Fecha en negrita, tipo con buen contraste */
+    .historial-table-scroll .admin-table--compact tbody td[data-label="Fecha"] {
+      font-weight: 600;
+      color: #374151;
+      white-space: nowrap;
+    }
+
+    /* Cantidad destacada */
+    .historial-table-scroll .admin-table--compact tbody td[data-label="Cantidad"] strong {
+      font-size: 1rem;
+    }
+
+    /* Motivo en gris si está vacío */
+    .historial-table-scroll .admin-table--compact tbody td[data-label="Motivo"] {
+      color: #6b7280;
+    }
   }
 </style>
 {% endblock %}

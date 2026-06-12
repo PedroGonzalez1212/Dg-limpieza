@@ -58,7 +58,9 @@
   {% if por_metodo %}
   <div class="reporte-grafico-wrap">
     <h3>Facturación por método de pago</h3>
-    <canvas id="graficoMetodos" height="100"></canvas>
+    <canvas id="graficoMetodos" height="100"
+      data-labels="{{ por_metodo.keys()|list|tojson }}"
+      data-values="{{ por_metodo.values()|list|tojson }}"></canvas>
   </div>
   {% endif %}
 
@@ -158,28 +160,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-{% if por_metodo %}
-const ctx = document.getElementById('graficoMetodos').getContext('2d');
-new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: {{ por_metodo.keys()|list|tojson }},
-    datasets: [{
-      label: 'Total ($)',
-      data: {{ por_metodo.values()|list|tojson }},
-      backgroundColor: ['#39EBE1','#0C0C62','#27ae60','#f39c12','#8e44ad'],
-      borderRadius: 6,
-    }]
-  },
-  options: {
-    responsive: true,
-    plugins: { legend: { display: false } },
-    scales: { y: { beginAtZero: true } }
-  }
-});
-{% endif %}
-</script>
+<script src="{{ url_for('static', filename='js/admin-reportes-chart.js') }}"></script>
 {% endblock %}
 
 {% block styles %}

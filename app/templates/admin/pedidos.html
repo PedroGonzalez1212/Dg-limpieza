@@ -200,9 +200,14 @@
 {% block content %}
 <div class="admin-section">
 
-  <div class="admin-section-header">
-    <h2>📬 Pedidos WhatsApp pendientes</h2>
-    <span class="badge-pendiente">{{ pedidos|length }} pendiente{% if pedidos|length != 1 %}s{% endif %}</span>
+  <div class="admin-header" style="margin-bottom:1.5rem">
+    <div>
+      <h2 style="font-size:1.75rem;color:var(--color-navy);margin:0">📬 Pedidos WhatsApp pendientes</h2>
+    </div>
+    <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+      <span class="badge-pendiente">{{ pedidos|length }} pendiente{% if pedidos|length != 1 %}s{% endif %}</span>
+      <a href="{{ url_for('panel.dashboard') }}" class="admin-btn admin-btn-secondary">← Panel</a>
+    </div>
   </div>
 
   {% with messages = get_flashed_messages(with_categories=true) %}

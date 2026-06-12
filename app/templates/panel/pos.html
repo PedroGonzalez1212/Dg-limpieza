@@ -14,7 +14,10 @@
 
     <div class="pos-header">
       <h1>Punto de Venta</h1>
-      <span class="pos-vendedor">{{ current_user.nombre }}</span>
+      <div style="display:flex;gap:0.5rem;align-items:center">
+        <span class="pos-vendedor">{{ current_user.nombre }}</span>
+        <a href="{{ url_for('panel.dashboard') }}" class="admin-btn admin-btn-secondary" style="font-size:0.82rem;padding:0.3rem 0.75rem">← Panel</a>
+      </div>
     </div>
 
     <div class="pos-search-box">
