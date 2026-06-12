@@ -59,8 +59,8 @@
   <div class="reporte-grafico-wrap">
     <h3>Facturación por método de pago</h3>
     <canvas id="graficoMetodos" height="100"
-      data-labels="{{ por_metodo.keys()|list|tojson }}"
-      data-values="{{ por_metodo.values()|list|tojson }}"></canvas>
+      data-labels='{{ por_metodo.keys()|list|tojson }}'
+      data-values='{{ por_metodo.values()|list|tojson }}'></canvas>
   </div>
   {% endif %}
 
