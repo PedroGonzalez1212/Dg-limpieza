@@ -51,6 +51,17 @@
   margin: 0;
 }
 
+/* ── Header total (venta_detalle) ───────────────────────── */
+.admin-header-total {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.admin-header-total__amount {
+  font-size: 2rem;
+  color: var(--color-navy, #0C0C62);
+}
+
 /* ── Filters ─────────────────────────────────────────────── */
 .admin-filters {
   display: flex;
@@ -418,6 +429,13 @@
     font-size: 1.35rem;
   }
 
+  /* ── Header total: alineado a la izquierda cuando se apila ─ */
+  .admin-header-total {
+    text-align: left;
+    width: 100%;
+  }
+  .admin-header-total__amount { font-size: 1.6rem; }
+
   /* ── Filtros: apilados verticalmente, items full-width ──── */
   .admin-filters {
     flex-direction: column;
@@ -489,6 +507,12 @@
     width: 100%;
     box-sizing: border-box;
   }
+
+  /* Anular el min-width del breakpoint 768px para que las tarjetas no excedan el ancho de pantalla */
+  .admin-table { min-width: 0; }
+
+  /* Header total: tamaño compacto en mobile */
+  .admin-header-total__amount { font-size: 1.4rem; }
 
   /* Ocultar la fila de encabezados (los labels vienen de data-label) */
   .admin-table thead tr {
@@ -564,19 +588,27 @@
     gap: 0.35rem;
   }
 
-  /* ── tfoot (filas de totales) ───────────────────────────── */
+  /* ── tfoot (filas de totales): una sola línea en modo tarjeta ── */
   .admin-table tfoot tr {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background: #f9fafb;
     border-top: 2px solid #e5e7eb;
     border-radius: 0;
     box-shadow: none;
     margin-bottom: 0;
     overflow: visible;
+    padding: 0.75rem 1rem;
   }
   .admin-table tfoot td {
-    border-bottom: 1px solid #ebebeb;
+    display: flex;
+    align-items: center;
+    width: auto;
+    border-bottom: none;
     min-height: auto;
-    padding: 0.6rem 1rem;
+    padding: 0;
+    background: transparent;
   }
   .admin-table tfoot td:last-child { border-bottom: none; }
   .admin-table tfoot td::before { display: none; }
@@ -676,6 +708,20 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0.5rem;
+  }
+
+  /* Evitar overflow de texto largo (ej: email del vendedor) */
+  .admin-stat {
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .admin-stat-num,
+  .admin-stat-label {
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    text-align: center;
   }
 
   /* Acciones de formulario apiladas */
