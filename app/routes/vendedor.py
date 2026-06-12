@@ -266,13 +266,13 @@ def pos_confirmar():
             )
             db.session.add(sale_item)
 
-            # 3. Descontar stock
+            # 3. Descontar stock (mínimo 0 — nunca negativo)
             if item.get('variante_id'):
                 variante = ProductVariant.query.get(item['variante_id'])
                 if variante:
-                    variante.stock -= item['cantidad']
+                    variante.stock = max(0, variante.stock - item['cantidad'])
             else:
-                producto.stock -= item['cantidad']
+                producto.stock = max(0, producto.stock - item['cantidad'])
 
             # 4. Registrar movimiento de stock (auditoría)
             movimiento = StockMovement(
@@ -311,6 +311,8 @@ def pos_confirmar():
             'items': items_comprobante
         })
 
-    except Exception as e:
+    except Exception:
+        import logging
+        logging.exception("Error al confirmar venta POS")
         db.session.rollback()
-        return jsonify({'ok': False, 'error': str(e)}), 500
+        return jsonify({'ok': False, 'error': 'Error al procesar la venta. Intentá de nuevo.'}), 500

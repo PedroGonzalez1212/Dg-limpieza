@@ -24,15 +24,33 @@ def create_app(config_name='default'):
     limiter.init_app(app)
     csrf.init_app(app)
 
-    # Headers de seguridad HTTP. force_https=False en dev para no romper localhost.
-    # Content Security Policy permisiva por ahora para no romper Cloudinary, Chart.js, etc.
     import os
     is_production = os.environ.get('FLASK_ENV') == 'production'
+
+    csp = {
+        'default-src': ["'self'"],
+        'script-src': [
+            "'self'",
+            "https://unpkg.com",
+            "https://fonts.googleapis.com",
+        ],
+        'style-src': [
+            "'self'",
+            "'unsafe-inline'",
+            "https://fonts.googleapis.com",
+        ],
+        'font-src': ["'self'", "https://fonts.gstatic.com"],
+        'img-src': ["'self'", "https://res.cloudinary.com", "data:", "https://www.google.com"],
+        'frame-src': ["https://www.google.com"],
+        'connect-src': ["'self'"],
+    }
+
     Talisman(
         app,
         force_https=is_production,
         strict_transport_security=is_production,
-        content_security_policy=False  # Lo activamos en una iteración futura
+        content_security_policy=csp,
+        content_security_policy_report_only=not is_production,
     )
 
     login_manager.login_view = 'auth.login'
@@ -53,5 +71,15 @@ def create_app(config_name='default'):
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(int(user_id))
+
+    @app.errorhandler(404)
+    def not_found(e):
+        from flask import render_template
+        return render_template('errors/404.html'), 404
+
+    @app.errorhandler(500)
+    def server_error(e):
+        from flask import render_template
+        return render_template('errors/500.html'), 500
 
     return app

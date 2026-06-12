@@ -9,13 +9,6 @@ import cloudinary
 import cloudinary.uploader
 import os
 
-cloudinary.config(
-    cloud_name = os.environ.get('CLOUDINARY_CLOUD_NAME'),
-    api_key    = os.environ.get('CLOUDINARY_API_KEY'),
-    api_secret = os.environ.get('CLOUDINARY_API_SECRET'),
-    secure     = True
-)
-
 admin_bp = Blueprint('admin', __name__)
 
 
@@ -302,41 +295,48 @@ def producto_json(id):
 @login_required
 @admin_required
 def stock():
-    """
-    Pantalla principal de gestión de stock.
-    Muestra todos los productos activos con su nivel de stock actual.
-    Permite filtrar por estado de stock para trabajar por prioridad.
-    """
-    filtro = request.args.get('filtro', 'todos')  # 'todos', 'criticos', 'sin_stock'
+    filtro        = request.args.get('filtro', 'todos')
+    busqueda      = request.args.get('q', '').strip()
+    categoria_sel = request.args.get('categoria', '').strip()
 
     query = Product.query.filter_by(activo=True)
 
     if filtro == 'sin_stock':
         query = query.filter(Product.stock == 0)
     elif filtro == 'criticos':
-        # Stock bajo: mayor que 0 pero igual o menor al mínimo
         query = query.filter(
             Product.stock > 0,
             Product.stock <= Product.stock_minimo
         )
 
+    if busqueda:
+        query = query.filter(Product.nombre.ilike(f'%{busqueda}%'))
+
+    if categoria_sel:
+        query = query.join(Product.categorias).filter(Category.slug == categoria_sel)
+
     productos_list = query.order_by(Product.stock.asc(), Product.nombre).all()
 
-    # Contadores para los tabs del filtro
-    total      = Product.query.filter_by(activo=True).count()
-    sin_stock  = Product.query.filter(Product.activo == True, Product.stock == 0).count()
-    criticos   = Product.query.filter(
+    # Contadores para los tabs (sin filtros de búsqueda/categoría)
+    total     = Product.query.filter_by(activo=True).count()
+    sin_stock = Product.query.filter(Product.activo == True, Product.stock == 0).count()
+    criticos  = Product.query.filter(
         Product.activo == True,
         Product.stock > 0,
         Product.stock <= Product.stock_minimo
     ).count()
+
+    categorias = Category.query.filter_by(activa=True).order_by(Category.nombre).all()
 
     return render_template('admin/stock.html',
         productos=productos_list,
         filtro=filtro,
         total=total,
         sin_stock=sin_stock,
-        criticos=criticos
+        criticos=criticos,
+        busqueda=busqueda,
+        categoria_sel=categoria_sel,
+        categorias=categorias
     )
 
 
@@ -432,7 +432,7 @@ def stock_historial(id):
         StockMovement.query
         .filter_by(producto_id=id)
         .order_by(StockMovement.creado_en.desc())
-        .limit(30)
+        .limit(50)
         .all()
     )
 
@@ -461,6 +461,40 @@ def stock_historial(id):
 
     return jsonify(data)
 
+
+@admin_bp.route('/stock/historial-global')
+@login_required
+@admin_required
+def stock_historial_global():
+    """Devuelve todos los movimientos de stock de todos los productos en JSON, del más antiguo al más nuevo."""
+    movimientos = (
+        StockMovement.query
+        .order_by(StockMovement.creado_en.desc())
+        .all()
+    )
+
+    # Resolver productos y usuarios en bulk
+    from app.models import User
+    prod_ids = {m.producto_id for m in movimientos}
+    user_ids = {m.usuario_id for m in movimientos}
+    productos_map = {p.id: p.nombre for p in Product.query.filter(Product.id.in_(prod_ids)).all()}
+    usuarios_map  = {u.id: u.nombre for u in User.query.filter(User.id.in_(user_ids)).all()}
+
+    data = {
+        'movimientos': [
+            {
+                'producto': productos_map.get(m.producto_id, '—'),
+                'tipo':     m.tipo,
+                'cantidad': m.cantidad,
+                'motivo':   m.motivo or '—',
+                'usuario':  usuarios_map.get(m.usuario_id, 'Sistema'),
+                'fecha':    m.creado_en.strftime('%d/%m/%Y %H:%M'),
+            }
+            for m in movimientos
+        ]
+    }
+    return jsonify(data)
+
 # ════════════════════════════════════════════════════════════════════════════
 # HISTORIAL DE VENTAS — agregá estas rutas al final de app/routes/admin.py
 # ════════════════════════════════════════════════════════════════════════════
@@ -470,7 +504,6 @@ def stock_historial(id):
 #
 # ════════════════════════════════════════════════════════════════════════════
 
-from datetime import date, timedelta  # solo si no lo tenés importado ya
 
 
 @admin_bp.route('/ventas')
@@ -988,15 +1021,14 @@ def exportar_pdf():
         return send_file(buffer, mimetype='application/pdf',
                         as_attachment=True, download_name=nombre_archivo)
 
-    except Exception as e:
-        import traceback
-        return jsonify({'error': str(e), 'detalle': traceback.format_exc()}), 500
+    except Exception:
+        import logging
+        logging.exception("Error generando PDF de reporte")
+        return jsonify({'error': 'Error al generar el PDF. Intentá de nuevo.'}), 500
 
 # ════════════════════════════════════════════════════════════════════════════
 # COMBOS
 # ════════════════════════════════════════════════════════════════════════════
-from app.models import Combo, ComboItem
-
 @admin_bp.route('/combos')
 @login_required
 @admin_required
@@ -1245,11 +1277,20 @@ def upload_imagen():
     if archivo.filename == '':
         return jsonify({'error': 'Archivo vacío'}), 400
 
-    # Validar que sea una imagen
     extensiones_permitidas = {'jpg', 'jpeg', 'png', 'webp', 'gif'}
-    extension = archivo.filename.rsplit('.', 1)[-1].lower()
+    extension = archivo.filename.rsplit('.', 1)[-1].lower() if '.' in archivo.filename else ''
     if extension not in extensiones_permitidas:
         return jsonify({'error': 'Formato no permitido. Usá JPG, PNG o WEBP'}), 400
+
+    try:
+        from PIL import Image
+        import io as _io
+        archivo.seek(0)
+        img = Image.open(archivo)
+        img.verify()
+        archivo.seek(0)
+    except Exception:
+        return jsonify({'error': 'El archivo no es una imagen válida'}), 400
 
     try:
         resultado = cloudinary.uploader.upload(

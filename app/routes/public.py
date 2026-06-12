@@ -102,15 +102,13 @@ from app.models import Product
 
 
 # ── HELPER ────────────────────────────────────────────────────
-def _get_precio(producto, variante=None):
-    """
-    Devuelve el precio unitario del producto.
-    
-    Por ahora usamos precio_unidad siempre.
-    El descuento por cantidad (mayor/caja) se calcula en el frontend
-    del detalle, pero al carrito le mandamos precio base. El resumen
-    del carrito puede recalcular si querés en el futuro.
-    """
+def _get_precio(producto, cantidad=1):
+    if (producto.unidades_por_caja and cantidad >= producto.unidades_por_caja
+            and producto.precio_caja):
+        return float(producto.precio_caja)
+    if (producto.cantidad_mayor and cantidad >= producto.cantidad_mayor
+            and producto.precio_mayor):
+        return float(producto.precio_mayor)
     return float(producto.precio_unidad or 0)
 
 
@@ -167,11 +165,14 @@ def carrito_agregar():
     if producto.stock is not None and producto.stock <= 0:
         return jsonify({'error': 'Producto sin stock'}), 400
 
-    key   = str(producto_id)
-    precio = _get_precio(producto)
+    key = str(producto_id)
+    cantidad_existente = session['carrito'].get(key, {}).get('cantidad', 0)
+    cantidad_total = cantidad_existente + cantidad
+    precio = _get_precio(producto, cantidad=cantidad_total)
 
     if key in session['carrito']:
         session['carrito'][key]['cantidad'] += cantidad
+        session['carrito'][key]['precio']    = precio
         session['carrito'][key]['subtotal']  = session['carrito'][key]['cantidad'] * precio
     else:
         session['carrito'][key] = {
@@ -364,6 +365,8 @@ def carrito_confirmar():
 
         db.session.commit()
     except Exception:
+        import logging
+        logging.exception("Error al confirmar pedido del carrito")
         db.session.rollback()
         return jsonify({'ok': False, 'error': 'Error al guardar el pedido. Intentá de nuevo.'}), 500
 

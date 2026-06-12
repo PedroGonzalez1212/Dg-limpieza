@@ -20,7 +20,8 @@ def login():
         user = User.query.filter_by(email=email, activo=True).first()
 
         if user and user.check_password(password):
-            login_user(user, remember=True)
+            remember = 'remember' in request.form
+            login_user(user, remember=remember)
 
             next_page = request.args.get('next')
             # Validamos que el redirect sea interno (no a otro dominio)
@@ -36,7 +37,7 @@ def login():
     return render_template('auth/login.html')
 
 
-@auth_bp.route('/logout')
+@auth_bp.route('/logout', methods=['POST'])
 @login_required
 def logout():
     logout_user()

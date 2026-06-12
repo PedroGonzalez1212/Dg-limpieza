@@ -5,6 +5,7 @@ load_dotenv()
 
 import cloudinary
 import cloudinary.uploader
+from datetime import timedelta
 
 cloudinary.config(
     cloud_name = os.environ.get('CLOUDINARY_CLOUD_NAME'),
@@ -19,10 +20,13 @@ class Config:
         raise ValueError("SECRET_KEY no está definida en las variables de entorno")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     WTF_CSRF_ENABLED = True
-    # La cookie de sesión solo viaja por HTTPS en producción
     SESSION_COOKIE_SECURE = os.environ.get('FLASK_ENV') == 'production'
-    SESSION_COOKIE_HTTPONLY = True   # JS no puede leer la cookie de sesión
-    SESSION_COOKIE_SAMESITE = 'Lax' # Protección CSRF adicional
+    SESSION_COOKIE_HTTPONLY = True
+    SESSION_COOKIE_SAMESITE = 'Lax'
+    PERMANENT_SESSION_LIFETIME = timedelta(hours=12)
+    REMEMBER_COOKIE_DURATION   = timedelta(days=7)
+    REMEMBER_COOKIE_HTTPONLY   = True
+    REMEMBER_COOKIE_SECURE     = os.environ.get('FLASK_ENV') == 'production'
 
 class DevelopmentConfig(Config):
     DEBUG = True

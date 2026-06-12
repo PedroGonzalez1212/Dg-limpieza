@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'admin_base.html' %}
 {% block title %}Gestión de Stock — DG Limpieza{% endblock %}
 
 {% block content %}
@@ -26,22 +26,51 @@
 
   <!-- ── Tabs de filtro ──────────────────────────────────────────────── -->
   <div class="stock-tabs">
-    <a href="{{ url_for('admin.stock', filtro='todos') }}"
+    <a href="{{ url_for('admin.stock', filtro='todos', q=busqueda, categoria=categoria_sel) }}"
       class="stock-tab {% if filtro == 'todos' %}active{% endif %}">
       Todos
       <span class="tab-badge">{{ total }}</span>
     </a>
-    <a href="{{ url_for('admin.stock', filtro='criticos') }}"
+    <a href="{{ url_for('admin.stock', filtro='criticos', q=busqueda, categoria=categoria_sel) }}"
       class="stock-tab {% if filtro == 'criticos' %}active{% endif %}">
       ⚠️ Stock bajo
       <span class="tab-badge tab-badge--warn">{{ criticos }}</span>
     </a>
-    <a href="{{ url_for('admin.stock', filtro='sin_stock') }}"
+    <a href="{{ url_for('admin.stock', filtro='sin_stock', q=busqueda, categoria=categoria_sel) }}"
       class="stock-tab {% if filtro == 'sin_stock' %}active{% endif %}">
       🚫 Sin stock
       <span class="tab-badge tab-badge--danger">{{ sin_stock }}</span>
     </a>
   </div>
+
+  <!-- ── Botón historial global ────────────────────────────────────── -->
+  <button class="btn-historial-global" onclick="verHistorialGlobal()">
+    📋 Ver historial de movimientos
+  </button>
+
+  <!-- ── Buscador y filtros ──────────────────────────────────────────── -->
+  <form method="GET" class="stock-filters">
+    <input type="hidden" name="filtro" value="{{ filtro }}">
+    <input
+      type="text"
+      name="q"
+      value="{{ busqueda }}"
+      placeholder="Buscar por nombre…"
+      class="admin-input stock-search"
+    >
+    <select name="categoria" class="admin-select">
+      <option value="">Todas las categorías</option>
+      {% for cat in categorias %}
+        <option value="{{ cat.slug }}" {% if cat.slug == categoria_sel %}selected{% endif %}>
+          {{ cat.nombre }}
+        </option>
+      {% endfor %}
+    </select>
+    <button type="submit" class="admin-btn admin-btn-secondary">Filtrar</button>
+    {% if busqueda or categoria_sel %}
+      <a href="{{ url_for('admin.stock', filtro=filtro) }}" class="btn-limpiar">Limpiar</a>
+    {% endif %}
+  </form>
 
   {% if productos %}
 
@@ -174,11 +203,58 @@
 
   {% else %}
   <div class="empty-state">
-    <p>🎉 No hay productos con este estado de stock.</p>
+    {% if busqueda or categoria_sel %}
+      <p>No se encontraron productos con esos filtros.</p>
+      <a href="{{ url_for('admin.stock', filtro=filtro) }}" class="btn-limpiar btn-limpiar--center">Limpiar filtros</a>
+    {% else %}
+      <p>🎉 No hay productos con este estado de stock.</p>
+    {% endif %}
   </div>
   {% endif %}
 
 </div><!-- /admin-container -->
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+    MODAL — Historial global de movimientos
+    ══════════════════════════════════════════════════════════════════════ -->
+<div id="modal-historial-global" class="modal-overlay" style="display:none">
+  <div class="modal-box modal-box--full">
+    <div class="modal-header">
+      <div>
+        <h2 class="modal-title">Historial de movimientos</h2>
+        <p class="modal-subtitle">Todos los cambios de stock, del más reciente al más antiguo</p>
+      </div>
+      <button class="modal-close" onclick="cerrarModal('modal-historial-global')">✕</button>
+    </div>
+
+    <div class="modal-body">
+      <div id="hg-loading" class="historial-loading">Cargando...</div>
+      <div id="hg-content" style="display:none">
+        <p id="hg-count" class="historial-stock-actual" style="margin-bottom:1rem"></p>
+        <div class="historial-table-scroll">
+          <table class="admin-table admin-table--compact">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Fecha</th>
+                <th>Producto</th>
+                <th>Tipo</th>
+                <th class="text-center">Cantidad</th>
+                <th>Motivo</th>
+                <th>Usuario</th>
+              </tr>
+            </thead>
+            <tbody id="hg-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div id="hg-empty" style="display:none" class="empty-state">
+        <p>Sin movimientos registrados todavía.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <!-- ══════════════════════════════════════════════════════════════════════
@@ -269,21 +345,27 @@
     <div class="modal-body">
       <div id="historial-loading" class="historial-loading">Cargando...</div>
       <div id="historial-content" style="display:none">
-        <p class="historial-stock-actual">
-          Stock actual: <strong id="historial-stock"></strong> unidades
-        </p>
-        <table class="admin-table admin-table--compact">
-          <thead>
-            <tr>
-              <th>Fecha</th>
-              <th>Tipo</th>
-              <th class="text-center">Cantidad</th>
-              <th>Motivo</th>
-              <th>Usuario</th>
-            </tr>
-          </thead>
-          <tbody id="historial-tbody"></tbody>
-        </table>
+        <div class="historial-meta">
+          <p class="historial-stock-actual">
+            Stock actual: <strong id="historial-stock"></strong> unidades
+          </p>
+          <span class="historial-orden-label">del primero al último</span>
+        </div>
+        <div class="historial-table-scroll">
+          <table class="admin-table admin-table--compact">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Fecha</th>
+                <th>Tipo</th>
+                <th class="text-center">Cantidad</th>
+                <th>Motivo</th>
+                <th>Usuario</th>
+              </tr>
+            </thead>
+            <tbody id="historial-tbody"></tbody>
+          </table>
+        </div>
       </div>
       <div id="historial-empty" style="display:none" class="empty-state">
         <p>Sin movimientos registrados todavía.</p>
@@ -385,10 +467,11 @@
         return;
       }
 
-      data.movimientos.forEach(m => {
+      data.movimientos.forEach((m, idx) => {
         const signo = m.tipo === 'salida' ? '-' : '+';
         tbody.innerHTML += `
           <tr>
+            <td class="text-center text-muted" style="font-size:0.8rem">${idx + 1}</td>
             <td>${escHtml(m.fecha)}</td>
             <td><span class="tipo-${escHtml(m.tipo)}">${escHtml(m.tipo)}</span></td>
             <td class="text-center"><strong>${signo}${m.cantidad}</strong></td>
@@ -403,6 +486,50 @@
 
     } catch (err) {
       document.getElementById('historial-loading').textContent = 'Error al cargar el historial.';
+    }
+  }
+
+  window.verHistorialGlobal = async function() {
+    document.getElementById('hg-loading').style.display = 'block';
+    document.getElementById('hg-content').style.display = 'none';
+    document.getElementById('hg-empty').style.display   = 'none';
+    document.getElementById('modal-historial-global').style.display = 'flex';
+
+    try {
+      const res  = await fetch('/admin/stock/historial-global');
+      const data = await res.json();
+      const tbody = document.getElementById('hg-tbody');
+      tbody.innerHTML = '';
+
+      if (!data.movimientos.length) {
+        document.getElementById('hg-loading').style.display = 'none';
+        document.getElementById('hg-empty').style.display   = 'block';
+        return;
+      }
+
+      document.getElementById('hg-count').textContent =
+        `${data.movimientos.length} movimiento${data.movimientos.length !== 1 ? 's' : ''} registrado${data.movimientos.length !== 1 ? 's' : ''}`;
+
+      data.movimientos.forEach((m, idx) => {
+        const signo = m.tipo === 'salida' ? '-' : '+';
+        tbody.innerHTML += `
+          <tr>
+            <td class="text-center text-muted" style="font-size:0.8rem">${idx + 1}</td>
+            <td style="white-space:nowrap">${escHtml(m.fecha)}</td>
+            <td><strong>${escHtml(m.producto)}</strong></td>
+            <td><span class="tipo-${escHtml(m.tipo)}">${escHtml(m.tipo)}</span></td>
+            <td class="text-center"><strong>${signo}${m.cantidad}</strong></td>
+            <td>${escHtml(m.motivo)}</td>
+            <td>${escHtml(m.usuario)}</td>
+          </tr>
+        `;
+      });
+
+      document.getElementById('hg-loading').style.display = 'none';
+      document.getElementById('hg-content').style.display = 'block';
+
+    } catch(err) {
+      document.getElementById('hg-loading').textContent = 'Error al cargar el historial.';
     }
   }
 
@@ -531,9 +658,57 @@
 
   .ajuste-preview { background: #f0fdfc; border: 2px solid var(--color-sky); border-radius: 8px; padding: 0.75rem 1rem; font-size: 0.9rem; color: var(--color-navy); font-weight: 600; margin-top: 0.5rem; text-align: center; }
 
+  /* ── Botón historial global ─────────────────────────────── */
+  .btn-historial-global {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 1.1rem;
+    background: white;
+    border: 1.5px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #374151;
+    cursor: pointer;
+    transition: all 0.15s;
+    margin-bottom: 0.85rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .btn-historial-global:hover {
+    background: #f0f4ff;
+    border-color: var(--color-sky);
+    color: var(--color-navy);
+  }
+
+  /* ── Modal full-width para historial global ──────────────── */
+  .modal-box--full { max-width: 900px; }
+
+  /* ── Buscador y filtros de stock ────────────────────────── */
+  .stock-filters {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+    background: white;
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+  }
+  .stock-search { flex: 1; min-width: 180px; }
+  .admin-select { padding: 0.5rem 0.75rem; border: 1.5px solid #d1d5db; border-radius: 8px; font-size: 0.9rem; color: #374151; background: white; cursor: pointer; }
+  .admin-select:focus { outline: none; border-color: var(--color-sky); }
+  .btn-limpiar { font-size: 0.85rem; color: #6b7280; text-decoration: underline; cursor: pointer; background: none; border: none; padding: 0.25rem 0.5rem; white-space: nowrap; }
+  .btn-limpiar:hover { color: var(--color-navy); }
+  .btn-limpiar--center { display: block; margin: 0.75rem auto 0; }
+
   /* ── Historial ───────────────────────────────────────────── */
   .historial-loading { padding: 2rem; text-align: center; color: #888; }
-  .historial-stock-actual { color: #555; font-size: 0.9rem; margin-bottom: 1rem; }
+  .historial-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.4rem; }
+  .historial-stock-actual { color: #555; font-size: 0.9rem; margin: 0; }
+  .historial-orden-label { font-size: 0.75rem; color: #9ca3af; background: #f3f4f6; padding: 0.2rem 0.6rem; border-radius: 99px; }
+  .historial-table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .tipo-entrada { color: #2d9e5a; font-weight: 700; }
   .tipo-ajuste  { color: #c77c00; font-weight: 700; }
   .tipo-salida  { color: #d32f2f; font-weight: 700; }
@@ -545,6 +720,10 @@
   @media (max-width: 768px) {
     .stock-tabs { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 0.25rem; -webkit-overflow-scrolling: touch; }
     .stock-tab  { white-space: nowrap; flex-shrink: 0; }
+
+    .stock-filters { flex-direction: column; align-items: stretch; }
+    .stock-search  { min-width: 0; }
+    .admin-select  { width: 100%; }
 
     /* Modal ocupa casi toda la pantalla */
     .modal-overlay { padding: 0.5rem; }

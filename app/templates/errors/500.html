@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block seo_title %}Error del servidor — DG Limpieza{% endblock %}
+
+{% block content %}
+<section style="text-align:center; padding: 80px 24px;">
+  <h1 style="font-size:4rem; margin-bottom:8px;">500</h1>
+  <p style="font-size:1.2rem; margin-bottom:24px;">Hubo un error interno. Intentá de nuevo en unos minutos.</p>
+  <a href="{{ url_for('public.home') }}" class="btn btn--primary">Volver al inicio</a>
+</section>
+{% endblock %}
