@@ -31,12 +31,13 @@
   {# Syne: display con personalidad geométrica (títulos)     #}
   {# DM Sans: cuerpo legible y moderno sin ser genérico       #}
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <link rel="icon" type="image/webp" href="{{ url_for('static', filename='img/logo/logo-dg.webp') }}">
-  <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/logo/logo-dg.webp') }}">
+  <link rel="icon" type="image/jpeg" href="{{ url_for('static', filename='img/logo/logo-favicon.jpg') }}">
+  <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/logo/logo-favicon.jpg') }}">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"></noscript>
 
   {# ── Iconos: Lucide (librería SVG inline liviana) ── #}
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
