@@ -36,8 +36,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"></noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
 
   {# ── Iconos: Lucide (librería SVG inline liviana) ── #}
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
@@ -191,65 +190,7 @@
     </div>
   </footer>
 
-  {# ── JS: inicializar iconos Lucide ── #}
-  <script>
-    // Lucide carga los íconos SVG en todos los elementos con data-lucide
-    document.addEventListener('DOMContentLoaded', function () {
-      lucide.createIcons();
-    });
-  </script>
-
-  {# ── JS: menú hamburguesa ── #}
-  <script>
-    const navToggle = document.getElementById('navToggle');
-    const navLinks  = document.getElementById('navLinks');
-
-    navToggle.addEventListener('click', function () {
-      const isOpen = navLinks.classList.toggle('is-open');
-      navToggle.setAttribute('aria-expanded', isOpen);
-    });
-  </script>
-
-  {# ── JS: badge del carrito (desde localStorage) ──
-    El carrito vive en localStorage mientras no hay sesión.
-    Al cargar la página, leemos cuántos items hay y
-    actualizamos el badge. #}
-  <script>
-    (function updateCartBadge() {
-      fetch('/carrito/total')
-        .then(r => r.json())
-        .then(data => {
-          const badge = document.getElementById('cartBadge');
-          if (data.total_items > 0) {
-            badge.textContent = data.total_items > 99 ? '99+' : data.total_items;
-            badge.style.display = 'flex';
-          }
-        })
-        .catch(() => {});
-    })();
-  </script>
-
-  {# ── CSRF: inyectar token en todos los fetch POST automáticamente ── #}
-  <script>
-    (function () {
-      var _fetch = window.fetch;
-      window.fetch = function (url, opts) {
-        opts = opts || {};
-        if (opts.method && opts.method.toUpperCase() === 'POST') {
-          var meta = document.querySelector('meta[name="csrf-token"]');
-          if (meta) {
-            var token = meta.getAttribute('content');
-            if (opts.headers instanceof Headers) {
-              opts.headers.set('X-CSRFToken', token);
-            } else {
-              opts.headers = Object.assign({ 'X-CSRFToken': token }, opts.headers || {});
-            }
-          }
-        }
-        return _fetch.apply(this, arguments);
-      };
-    })();
-  </script>
+  <script src="{{ url_for('static', filename='js/base.js') }}"></script>
 
   {# ── JS extra por página (opcional) ── #}
   {% block extra_js %}{% endblock %}

@@ -9,7 +9,10 @@
       <h1 class="admin-title">Usuarios</h1>
       <p class="admin-subtitle">Gestioná los accesos al panel</p>
     </div>
-    <a href="{{ url_for('admin.usuario_nuevo') }}" class="admin-btn">+ Nuevo usuario</a>
+    <div style="display:flex;gap:0.5rem;align-items:center">
+      <a href="{{ url_for('panel.dashboard') }}" class="admin-btn admin-btn-secondary">← Panel</a>
+      <a href="{{ url_for('admin.usuario_nuevo') }}" class="admin-btn">+ Nuevo usuario</a>
+    </div>
   </div>
 
   {% with messages = get_flashed_messages(with_categories=true) %}

@@ -11,9 +11,10 @@
       <h1>Productos</h1>
       <p class="admin-subtitle">Administrá el catálogo completo</p>
     </div>
-    <a href="{{ url_for('admin.producto_nuevo') }}" class="btn btn-primary">
-      + Nuevo producto
-    </a>
+    <div style="display:flex;gap:0.5rem;align-items:center">
+      <a href="{{ url_for('panel.dashboard') }}" class="btn btn-secondary">← Panel</a>
+      <a href="{{ url_for('admin.producto_nuevo') }}" class="btn btn-primary">+ Nuevo producto</a>
+    </div>
   </div>
 
   <!-- ── Badges de estado ────────────────────────────────────────────── -->

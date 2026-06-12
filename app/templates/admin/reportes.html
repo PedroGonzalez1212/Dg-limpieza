@@ -4,8 +4,9 @@
 {% block content %}
 <div class="admin-section">
 
-  <div class="admin-section-header">
+  <div class="admin-section-header" style="display:flex;justify-content:space-between;align-items:center">
     <h2>Reportes de ventas</h2>
+    <a href="{{ url_for('panel.dashboard') }}" class="admin-btn admin-btn-secondary">← Panel</a>
   </div>
 
   <!-- Filtros -->
