@@ -42,7 +42,7 @@ def create_app(config_name='default'):
         'font-src': ["'self'", "https://fonts.gstatic.com"],
         'img-src': ["'self'", "https://res.cloudinary.com", "data:", "https://www.google.com"],
         'frame-src': ["https://www.google.com"],
-        'connect-src': ["'self'"],
+        'connect-src': ["'self'", "https://unpkg.com"],
     }
 
     Talisman(
