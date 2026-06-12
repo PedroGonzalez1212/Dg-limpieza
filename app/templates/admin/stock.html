@@ -242,7 +242,13 @@
     <div class="modal-body">
       <div id="hg-loading" class="historial-loading">Cargando...</div>
       <div id="hg-content" style="display:none">
-        <p id="hg-count" class="historial-stock-actual" style="margin-bottom:1rem"></p>
+        <div class="historial-filtros">
+          <button class="historial-filtro-btn historial-filtro-btn--active" data-filtro-hg="todos">Todos</button>
+          <button class="historial-filtro-btn" data-filtro-hg="entrada">Entradas</button>
+          <button class="historial-filtro-btn" data-filtro-hg="salida">Salidas</button>
+          <button class="historial-filtro-btn" data-filtro-hg="ajuste">Ajustes</button>
+        </div>
+        <p id="hg-count" class="historial-stock-actual" style="margin-bottom:0.75rem"></p>
         <div class="historial-table-scroll">
           <table class="admin-table admin-table--compact">
             <thead>
@@ -361,6 +367,12 @@
             Stock actual: <strong id="historial-stock"></strong> unidades
           </p>
           <span class="historial-orden-label">del primero al último</span>
+        </div>
+        <div class="historial-filtros">
+          <button class="historial-filtro-btn historial-filtro-btn--active" data-filtro-historial="todos">Todos</button>
+          <button class="historial-filtro-btn" data-filtro-historial="entrada">Entradas</button>
+          <button class="historial-filtro-btn" data-filtro-historial="salida">Salidas</button>
+          <button class="historial-filtro-btn" data-filtro-historial="ajuste">Ajustes</button>
         </div>
         <div class="historial-table-scroll">
           <table class="admin-table admin-table--compact">
@@ -547,6 +559,11 @@
   .historial-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.4rem; }
   .historial-stock-actual { color: #555; font-size: 0.9rem; margin: 0; }
   .historial-orden-label { font-size: 0.75rem; color: #9ca3af; background: #f3f4f6; padding: 0.2rem 0.6rem; border-radius: 99px; }
+  .historial-filtros { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.85rem; }
+  .historial-filtro-btn { padding: 0.3rem 0.85rem; border: 1.5px solid #d1d5db; border-radius: 99px; font-size: 0.8rem; font-weight: 600; background: white; color: #555; cursor: pointer; transition: all 0.15s; }
+  .historial-filtro-btn:hover { border-color: var(--color-sky); color: var(--color-navy); }
+  .historial-filtro-btn--active { background: var(--color-navy); border-color: var(--color-navy); color: white; }
+  .historial-filtro-btn--active:hover { background: var(--color-navy); color: white; }
   .historial-table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .tipo-entrada { color: #2d9e5a; font-weight: 700; }
   .tipo-ajuste  { color: #c77c00; font-weight: 700; }
