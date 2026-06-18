@@ -326,7 +326,7 @@ main { flex: 1; }
 
 .footer__grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
   gap: var(--space-8);
   margin-bottom: var(--space-8);
 }

@@ -36,16 +36,20 @@ def catalogo():
             Product.nombre.ilike(f'%{busqueda}%')
         )
 
-    productos = query.order_by(
+    page = request.args.get('page', 1, type=int)
+    paginacion = query.order_by(
         case((Product.stock <= 0, 1), else_=0),
         Product.nombre
-    ).all()
+    ).paginate(page=page, per_page=24, error_out=False)
     categorias = Category.query.filter_by(activa=True).all()
+    categoria_nombre = next((cat.nombre for cat in categorias if cat.slug == categoria_slug), None)
 
     return render_template('public/catalogo.html',
-        productos=productos,
+        productos=paginacion.items,
+        paginacion=paginacion,
         categorias=categorias,
         categoria_activa=categoria_slug,
+        categoria_nombre=categoria_nombre,
         busqueda=busqueda,
         combos=combos
     )
@@ -74,10 +78,14 @@ def detalle_producto(producto_id):
                         .limit(4)
                         .all())
 
+    from datetime import datetime, timedelta
+    price_valid_until = (datetime.utcnow() + timedelta(days=30)).strftime('%Y-%m-%d')
+
     return render_template('public/detalle.html',
                         producto=producto,
                         variantes_agrupadas=variantes_agrupadas,
-                        relacionados=relacionados)
+                        relacionados=relacionados,
+                        price_valid_until=price_valid_until)
 
 # ─────────────────────────────────────────────────────────────
 # CARRITO — Rutas a agregar en app/routes/public.py
@@ -290,7 +298,7 @@ def carrito_total():
 
 @public_bp.route('/contacto')
 def contacto():
-    return render_template('public/home.html')  # temporal
+    return redirect(url_for('public.home') + '#contacto', 301)
 
 # ── CONFIRMAR PEDIDO (guarda en DB como pendiente) ─────────────
 @public_bp.route('/carrito/confirmar', methods=['POST'])
@@ -396,16 +404,6 @@ def sitemap():
             'priority': priority
         })
 
-    # Páginas de categoría
-    categorias = Category.query.filter_by(activa=True).all()
-    for cat in categorias:
-        urls.append({
-            'loc': f'{base_url}/catalogo?categoria={cat.slug}',
-            'lastmod': today,
-            'changefreq': 'weekly',
-            'priority': '0.8'
-        })
-
     # Páginas de producto
     productos = Product.query.filter_by(activo=True).all()
     for producto in productos:
@@ -439,10 +437,12 @@ def robots():
 Allow: /
 Allow: /catalogo
 Allow: /producto/
+Allow: /sitemap.xml
+Allow: /robots.txt
 Disallow: /admin/
 Disallow: /panel/
 Disallow: /auth/
-Disallow: /carrito/
+Disallow: /carrito
 
 Sitemap: https://dglimpieza.com.ar/sitemap.xml
 """

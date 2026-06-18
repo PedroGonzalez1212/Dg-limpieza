@@ -1,16 +1,14 @@
 {% extends 'base.html' %}
 
-{% block seo_title %}{% if categoria_activa %}{% for cat in categorias %}{% if cat.slug == categoria_activa %}{{ cat.nombre }} en Córdoba | DG Limpieza{% endif %}{% endfor %}{% else %}Catálogo de productos de limpieza en Córdoba | DG Limpieza{% endif %}{% endblock %}
+{% block seo_title %}{% if categoria_nombre %}{{ categoria_nombre }} en Córdoba | DG Limpieza{% else %}Catálogo de productos de limpieza en Córdoba | DG Limpieza{% endif %}{% endblock %}
 
-{% block seo_description %}
-  {% if categoria_activa %}
-    {% for cat in categorias %}{% if cat.slug == categoria_activa %}Comprá {{ cat.nombre }} al mejor precio en Córdoba. Venta minorista y mayorista en DG Limpieza, Distribuidora Gauss.{% endif %}{% endfor %}
-  {% else %}
-    Catálogo completo de productos de limpieza, perfumería, descartables, piscinas y bolsas en Córdoba. Marcas reconocidas, precios de distribuidor.
-  {% endif %}
-{% endblock %}
+{% block seo_description %}{% if categoria_nombre %}Comprá {{ categoria_nombre }} al mejor precio en Córdoba. Venta minorista y mayorista en DG Limpieza, Distribuidora Gauss.{% else %}Catálogo completo de productos de limpieza, perfumería, descartables, piscinas y bolsas en Córdoba. Marcas reconocidas, precios de distribuidor.{% endif %}{% endblock %}
 
-{% block seo_canonical %}https://dglimpieza.com.ar{{ request.path }}{% endblock %}
+{% block seo_canonical %}https://dglimpieza.com.ar{{ url_for('public.catalogo', categoria=categoria_activa or None, page=paginacion.page if paginacion.page > 1 else None) }}{% endblock %}
+
+{% block og_title %}{% if categoria_nombre %}{{ categoria_nombre }} en Córdoba | DG Limpieza{% else %}Catálogo de productos | DG Limpieza{% endif %}{% endblock %}
+{% block og_description %}{% if categoria_nombre %}Comprá {{ categoria_nombre }} al mejor precio en Córdoba. Venta minorista y mayorista en DG Limpieza.{% else %}Catálogo completo de limpieza, perfumería, descartables, piscinas y bolsas en Córdoba. Precios de distribuidor.{% endif %}{% endblock %}
+{% block og_url %}https://dglimpieza.com.ar/catalogo{% if categoria_activa %}?categoria={{ categoria_activa }}{% endif %}{% endblock %}
 
 {% block styles %}
 <style>
@@ -395,6 +393,52 @@
     color: var(--teal-deep);
   }
 
+  /* ── Paginación ── */
+  .paginacion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 48px;
+    flex-wrap: wrap;
+  }
+  .pag-btn {
+    display: inline-flex; align-items: center;
+    padding: 10px 20px; border-radius: 999px;
+    font-size: 14px; font-weight: 700;
+    background: #fff; color: var(--navy);
+    border: 1.5px solid var(--line);
+    text-decoration: none;
+    transition: background .2s, border-color .2s, color .2s;
+  }
+  .pag-btn:hover { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .pag-btn--disabled {
+    background: #f3f4f6; color: var(--muted);
+    border-color: var(--line);
+    cursor: not-allowed; pointer-events: none;
+  }
+  .pag-pages { display: flex; align-items: center; gap: 4px; }
+  .pag-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 38px; height: 38px; border-radius: 10px;
+    font-size: 14px; font-weight: 600;
+    background: #fff; color: var(--ink);
+    border: 1.5px solid var(--line);
+    text-decoration: none;
+    transition: background .2s, border-color .2s, color .2s;
+  }
+  .pag-num:hover { background: var(--sky); border-color: var(--teal); color: var(--navy); }
+  .pag-num--active {
+    background: var(--navy); color: #fff;
+    border-color: var(--navy);
+    pointer-events: none;
+  }
+  .pag-ellipsis {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 38px; height: 38px;
+    font-size: 14px; color: var(--muted);
+  }
+
   /* ── Label de filtros de categoría ── */
   .cat-filter-label {
     display: inline-flex; align-items: center; gap: 5px;
@@ -430,7 +474,7 @@
 {# ── Hero claro ── #}
 <section class="catalogo-head">
   <div class="container catalogo-head__inner">
-    <h1>Todo nuestro <span>catálogo</span></h1>
+    {% if categoria_nombre %}<h1>{{ categoria_nombre }} <span>en Córdoba</span></h1>{% else %}<h1>Todo nuestro <span>catálogo</span></h1>{% endif %}
     <p class="cat-sub">Limpieza, descartables, perfumería, piscinas y bolsas. Precios por unidad, mayor y caja.</p>
     <div class="cat-filters">
       <span class="cat-filter-label">
@@ -473,7 +517,7 @@
 <div class="catalogo-body">
   <div class="container">
     <p class="resultados-count">
-      <strong>{{ productos|length }} producto{% if productos|length != 1 %}s{% endif %}</strong>
+      <strong>{{ paginacion.total }} producto{% if paginacion.total != 1 %}s{% endif %}</strong>
       {% if categoria_activa %} en esta categoría{% endif %}{% if busqueda %} para "{{ busqueda }}"{% endif %}
     </p>
 
@@ -604,6 +648,36 @@
           </div>
         {% endfor %}
       </div>
+
+    {% if paginacion.pages > 1 %}
+    <nav class="paginacion" aria-label="Paginación">
+      {% if paginacion.has_prev %}
+        <a href="{{ url_for('public.catalogo', categoria=categoria_activa or None, q=busqueda or None, page=paginacion.prev_num) }}" class="pag-btn">← Anterior</a>
+      {% else %}
+        <span class="pag-btn pag-btn--disabled">← Anterior</span>
+      {% endif %}
+
+      <div class="pag-pages">
+        {% for p in paginacion.iter_pages(left_edge=1, right_edge=1, left_current=2, right_current=2) %}
+          {% if p %}
+            {% if p == paginacion.page %}
+              <span class="pag-num pag-num--active">{{ p }}</span>
+            {% else %}
+              <a href="{{ url_for('public.catalogo', categoria=categoria_activa or None, q=busqueda or None, page=p) }}" class="pag-num">{{ p }}</a>
+            {% endif %}
+          {% else %}
+            <span class="pag-ellipsis">…</span>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      {% if paginacion.has_next %}
+        <a href="{{ url_for('public.catalogo', categoria=categoria_activa or None, q=busqueda or None, page=paginacion.next_num) }}" class="pag-btn">Siguiente →</a>
+      {% else %}
+        <span class="pag-btn pag-btn--disabled">Siguiente →</span>
+      {% endif %}
+    </nav>
+    {% endif %}
 
     {% else %}
       <div class="catalogo-vacio">

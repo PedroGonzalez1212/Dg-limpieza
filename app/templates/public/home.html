@@ -651,7 +651,7 @@
       <!-- LIMPIEZA -->
       <a href="{{ url_for('public.catalogo', categoria='limpieza') }}" class="cat">
         <div class="cat__media">
-          <img src="{{ url_for('static', filename='img/cards/limpieza-card.webp') }}" alt="Productos de limpieza">
+          <img src="{{ url_for('static', filename='img/cards/limpieza-card.webp') }}" alt="Productos de limpieza doméstica e industrial">
         </div>
         <div class="cat__info">
           <h3 class="cat__name">
@@ -665,7 +665,7 @@
       <!-- DESCARTABLES -->
       <a href="{{ url_for('public.catalogo', categoria='descartables') }}" class="cat">
         <div class="cat__media">
-          <img src="{{ url_for('static', filename='img/cards/descartables-card.webp') }}" alt="Descartables">
+          <img src="{{ url_for('static', filename='img/cards/descartables-card.webp') }}" alt="Artículos descartables al por mayor">
         </div>
         <div class="cat__info">
           <h3 class="cat__name">
@@ -679,7 +679,7 @@
       <!-- PERFUMERÍA -->
       <a href="{{ url_for('public.catalogo', categoria='perfumeria') }}" class="cat">
         <div class="cat__media">
-          <img src="{{ url_for('static', filename='img/cards/perfumeria-card.webp') }}" alt="Perfumeria">
+          <img src="{{ url_for('static', filename='img/cards/perfumeria-card.webp') }}" alt="Perfumería y cuidado personal">
         </div>
         <div class="cat__info">
           <h3 class="cat__name">
@@ -693,7 +693,7 @@
       <!-- PISCINAS -->
       <a href="{{ url_for('public.catalogo', categoria='piscinas') }}" class="cat">
         <div class="cat__media">
-          <img src="{{ url_for('static', filename='img/cards/piscina-card.webp') }}" alt="Piscinas">
+          <img src="{{ url_for('static', filename='img/cards/piscina-card.webp') }}" alt="Productos para piscinas">
         </div>
         <div class="cat__info">
           <h3 class="cat__name">
@@ -707,7 +707,7 @@
       <!-- BOLSAS -->
       <a href="{{ url_for('public.catalogo', categoria='bolsas') }}" class="cat">
         <div class="cat__media">
-          <img src="{{ url_for('static', filename='img/cards/bolsas-card.webp') }}" alt="Bolsas">
+          <img src="{{ url_for('static', filename='img/cards/bolsas-card.webp') }}" alt="Bolsas de residuos y consorcio">
         </div>
         <div class="cat__info">
           <h3 class="cat__name">
@@ -838,16 +838,21 @@
 {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "name": "DG Limpieza - Distribuidora Gauss",
+  "name": "Distribuidora Gauss",
   "description": "Distribuidora de productos de limpieza, perfumería, descartables, piscinas y bolsas en Córdoba. Venta minorista y mayorista.",
   "url": "https://dglimpieza.com.ar",
   "telephone": "+5493512515999",
+  "image": "https://dglimpieza.com.ar/static/img/og-image.jpg",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://dglimpieza.com.ar/static/img/logo/logo-dg.webp"
+  },
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "Córdoba",
+    "streetAddress": "Av. Carlos F. Gauss 5488, Local 11",
     "addressLocality": "Córdoba",
     "addressRegion": "Córdoba",
-    "postalCode": "5000",
+    "postalCode": "X5021FGV",
     "addressCountry": "AR"
   },
   "geo": {

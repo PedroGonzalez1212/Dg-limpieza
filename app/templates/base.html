@@ -173,11 +173,24 @@
           <div class="footer__title">Contacto</div>
           <ul class="footer__links">
             <li>
-              <a href="https://wa.me/5493512515999" target="_blank">
-                WhatsApp
+              <a href="https://wa.me/5493512515999" target="_blank" rel="noopener">
+                WhatsApp: +54 9 351 251-5999
               </a>
             </li>
+            <li>Av. Carlos F. Gauss 5488, Local 11</li>
             <li>Córdoba, Argentina</li>
+          </ul>
+        </div>
+
+        {# Columna 4: categorías #}
+        <div>
+          <div class="footer__title">Categorías</div>
+          <ul class="footer__links">
+            <li><a href="{{ url_for('public.catalogo', categoria='limpieza') }}">Limpieza</a></li>
+            <li><a href="{{ url_for('public.catalogo', categoria='descartables') }}">Descartables</a></li>
+            <li><a href="{{ url_for('public.catalogo', categoria='perfumeria') }}">Perfumería</a></li>
+            <li><a href="{{ url_for('public.catalogo', categoria='piscinas') }}">Piscinas</a></li>
+            <li><a href="{{ url_for('public.catalogo', categoria='bolsas') }}">Bolsas</a></li>
           </ul>
         </div>
 
