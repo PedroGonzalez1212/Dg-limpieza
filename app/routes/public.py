@@ -404,6 +404,16 @@ def sitemap():
             'priority': priority
         })
 
+    # Páginas de categoría
+    categorias = Category.query.filter_by(activa=True).order_by(Category.nombre).all()
+    for categoria in categorias:
+        urls.append({
+            'loc': f'{base_url}/catalogo?categoria={categoria.slug}',
+            'lastmod': today,
+            'changefreq': 'daily',
+            'priority': '0.8'
+        })
+
     # Páginas de producto
     productos = Product.query.filter_by(activo=True).all()
     for producto in productos:
@@ -434,11 +444,6 @@ def sitemap():
 def robots():
     """Archivo robots.txt: permite todo excepto rutas internas."""
     content = """User-agent: *
-Allow: /
-Allow: /catalogo
-Allow: /producto/
-Allow: /sitemap.xml
-Allow: /robots.txt
 Disallow: /admin/
 Disallow: /panel/
 Disallow: /auth/
