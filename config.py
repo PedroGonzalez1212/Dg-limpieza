@@ -39,6 +39,12 @@ class ProductionConfig(Config):
     if db_url.startswith('postgres://'):
         db_url = db_url.replace('postgres://', 'postgresql://', 1)
     SQLALCHEMY_DATABASE_URI = db_url
+    SQLALCHEMY_ENGINE_OPTIONS = {
+        'pool_size': 3,
+        'max_overflow': 2,
+        'pool_pre_ping': True,
+        'pool_recycle': 280,
+    }
 
 config = {
     'development': DevelopmentConfig,
