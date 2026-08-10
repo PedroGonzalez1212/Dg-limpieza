@@ -1,29 +1,29 @@
 /* ============================================================
   DG LIMPIEZA — Sistema de diseño base
-  Paleta: #39EBE1 (turquesa), #0C0C62 (marino), blanco
+  Paleta: #0E9C8F (verde agua), #0C3F39 (navy profundo), blanco
    ============================================================ */
 
 :root {
-  /* ── Paleta principal ─────────────────────────────────── */
-  --color-turquoise:      #3F97CE;   /* azul acero: color principal */
-  --color-turquoise-dark: #2C77AC;   /* azul acero oscuro para hovers */
-  --color-turquoise-light:#D4E6F3;   /* azul muy claro para fondos suaves */
+  /* ── Paleta principal · verde agua ────────────────────── */
+  --color-turquoise:      #0E9C8F;   /* verde agua: color principal */
+  --color-turquoise-dark: #0A766C;   /* verde agua oscuro para hovers */
+  --color-turquoise-light:#CFF6F1;   /* verde agua muy claro para fondos suaves */
 
-  --color-navy:           #0B2A45;   /* azul marino profundo: nav, fondos, botones */
-  --color-navy-mid:       #1B4D74;   /* marino medio para hovers */
-  --color-navy-light:     #E8F3FA;   /* marino muy claro para superficies */
+  --color-navy:           #0C3F39;   /* navy profundo (verde): nav, fondos, botones */
+  --color-navy-mid:       #15564E;   /* navy medio para hovers */
+  --color-navy-light:     #EDFBF8;   /* navy muy claro para superficies */
 
   --color-white:          #FFFFFF;
-  --color-bg:             #F2F8FC;   /* fondo general: azul casi blanco */
+  --color-bg:             #EDFBF8;   /* fondo general: verde-blanco casi blanco */
   --color-surface:        #FFFFFF;   /* fondo de cards */
-  --color-border:         #DCEAF3;   /* bordes suaves con tono azul */
-  --color-text:           #0C2A40;   /* texto principal = marino */
-  --color-text-muted:     #5C7589;   /* texto secundario: azul-gris */
+  --color-border:         #D3EFEA;   /* bordes suaves con tono verde agua */
+  --color-text:           #0A332F;   /* texto principal = navy */
+  --color-text-muted:     #5E817C;   /* texto secundario: gris-verdoso */
 
   /* Alias sky (mismo que turquoise, para compatibilidad con estilos legacy) */
-  --color-sky:            #3F97CE;
-  --color-sky-light:      #D4E6F3;
-  --color-sky-dark:       #2C77AC;
+  --color-sky:            #0E9C8F;
+  --color-sky-light:      #CFF6F1;
+  --color-sky-dark:       #0A766C;
 
   /* ── Semánticos ───────────────────────────────────────── */
   --color-success:        #22C55E;
@@ -56,9 +56,9 @@
   --radius-full: 9999px;
 
   /* ── Sombras ──────────────────────────────────────────── */
-  --shadow-sm: 0 1px 3px rgba(12, 12, 98, 0.07);
-  --shadow-md: 0 4px 16px rgba(12, 12, 98, 0.11);
-  --shadow-lg: 0 8px 32px rgba(12, 12, 98, 0.16);
+  --shadow-sm: 0 1px 3px rgba(9, 56, 51, 0.07);
+  --shadow-md: 0 4px 16px rgba(9, 56, 51, 0.11);
+  --shadow-lg: 0 8px 32px rgba(9, 56, 51, 0.16);
 
   --transition: 0.2s ease;
 }
@@ -179,6 +179,7 @@ main { flex: 1; }
   object-fit: cover;
   object-position: center;
   flex-shrink: 0;
+  box-shadow: 0 0 0 2px var(--color-turquoise);
 }
 
 .navbar__logo small {
@@ -421,7 +422,7 @@ main { flex: 1; }
   background: var(--color-turquoise-dark);
   border-color: var(--color-turquoise-dark);
   transform: translateY(-1px);
-  box-shadow: 0 4px 20px rgba(57, 235, 225, 0.35);
+  box-shadow: 0 4px 20px rgba(14, 156, 143, 0.35);
 }
 
 .btn--secondary {
@@ -541,7 +542,7 @@ main { flex: 1; }
 
 .form-input:focus {
   border-color: var(--color-turquoise);
-  box-shadow: 0 0 0 3px rgba(57, 235, 225, 0.18);
+  box-shadow: 0 0 0 3px rgba(14, 156, 143, 0.18);
 }
 
 .form-input::placeholder {

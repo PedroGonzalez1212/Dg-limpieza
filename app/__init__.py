@@ -47,13 +47,16 @@ def create_app(config_name='default'):
         'connect-src': ["'self'", "https://unpkg.com", "https://cdn.jsdelivr.net"],
     }
 
-    Talisman(
-        app,
-        force_https=is_production,
-        strict_transport_security=is_production,
-        content_security_policy=csp,
-        content_security_policy_report_only=not is_production,
-    )
+    talisman_kwargs = {
+        'force_https': is_production,
+        'strict_transport_security': is_production,
+        'content_security_policy': csp,
+        'session_cookie_secure': is_production,
+    }
+    if is_production:
+        talisman_kwargs['content_security_policy_report_only'] = False
+
+    Talisman(app, **talisman_kwargs)
 
     login_manager.login_view = 'auth.login'
     login_manager.login_message = 'Necesitás iniciar sesión para acceder.'
