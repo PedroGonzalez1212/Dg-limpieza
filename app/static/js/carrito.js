@@ -137,7 +137,7 @@ async function enviarPedido() {
 
     await fetch('/carrito/vaciar', { method: 'POST' });
 
-    const numeroWA = '5493512515999';
+    const numeroWA = '5493516464420';
     const textoEncoded = encodeURIComponent(mensaje);
     window.open(`https://wa.me/${numeroWA}?text=${textoEncoded}`, '_blank');
 
