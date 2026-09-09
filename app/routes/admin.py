@@ -231,6 +231,27 @@ def producto_editar(id):
         if cat:
             producto.categorias.append(cat)
 
+    # ── Variantes: limpiar y reasignar (igual que producto_nuevo) ──────────
+    for variante in list(producto.variantes):
+        db.session.delete(variante)
+
+    if producto.tiene_variantes:
+        nombres = request.form.getlist('variante_nombre')
+        valores = request.form.getlist('variante_valor')
+        stocks  = request.form.getlist('variante_stock')
+        extras  = request.form.getlist('variante_precio_extra')
+
+        for i, (n, v) in enumerate(zip(nombres, valores)):
+            if n.strip() and v.strip():
+                variante = ProductVariant(
+                    producto_id  = producto.id,
+                    nombre       = n.strip(),
+                    valor        = v.strip(),
+                    stock        = int(stocks[i]) if i < len(stocks) and stocks[i] else 0,
+                    precio_extra = _precio_float(extras[i]) if i < len(extras) else 0
+                )
+                db.session.add(variante)
+
     # Registrar movimiento si cambió el stock
     diferencia = producto.stock - stock_anterior
     if diferencia != 0:
@@ -1297,7 +1318,9 @@ def upload_imagen():
             archivo,
             folder='dg-limpieza/productos',   # carpeta dentro de tu cuenta
             transformation=[
-                {'width': 800, 'height': 800, 'crop': 'limit'},  # máximo 800x800
+                # Encuadra en un lienzo cuadrado con fondo blanco y el producto
+                # centrado, para que siempre entre sin bordes en las cards del catálogo.
+                {'width': 1000, 'height': 1000, 'crop': 'pad', 'background': 'white'},
                 {'quality': 'auto'},                               # optimiza el peso
                 {'fetch_format': 'auto'}                           # convierte a WebP si el browser lo soporta
             ]

@@ -173,6 +173,13 @@ def carrito_agregar():
     if producto.stock is not None and producto.stock <= 0:
         return jsonify({'error': 'Producto sin stock'}), 400
 
+    if producto.tiene_variantes and producto.variantes:
+        variante = None
+        if variante_id:
+            variante = next((v for v in producto.variantes if str(v.id) == str(variante_id)), None)
+        if not variante:
+            return jsonify({'error': 'Seleccioná una variante antes de continuar'}), 400
+
     key = str(producto_id)
     cantidad_existente = session['carrito'].get(key, {}).get('cantidad', 0)
     cantidad_total = cantidad_existente + cantidad

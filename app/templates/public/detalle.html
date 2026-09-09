@@ -272,7 +272,7 @@
     const PRECIO_CAJA     = {{ producto.precio_caja   | float if producto.precio_caja   else 0 }};
     const CANT_MAYOR      = {{ producto.cantidad_mayor    or 0 }};
     const UNIDADES_CAJA   = {{ producto.unidades_por_caja or 0 }};
-    const TIENE_VARIANTES = {{ 'true' if producto.tiene_variantes else 'false' }};
+    const TIENE_VARIANTES = {{ 'true' if (producto.tiene_variantes and variantes_agrupadas) else 'false' }};
 
     let precioExtra = 0;
     let varianteOk  = !TIENE_VARIANTES;
